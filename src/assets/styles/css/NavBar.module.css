@@ -26,6 +26,18 @@
 .user-nav div {
   cursor: pointer;
 }
+.user-nav__cart {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.user-nav__cart svg {
+  width: 2.4rem;
+  height: 2.4rem;
+  color: #676767;
+}
 .user-nav__avatar {
   width: 3rem;
   height: 3rem;
