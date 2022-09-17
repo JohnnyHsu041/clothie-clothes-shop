@@ -1,7 +1,13 @@
 import React from "react";
 
+import WarningBar from "./components/WarningBar";
+
 function App() {
-    return <p>Hello World</p>;
+  return (
+    <>
+      <WarningBar />
+    </>
+  );
 }
 
 export default App;
