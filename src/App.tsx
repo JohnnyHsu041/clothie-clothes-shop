@@ -1,5 +1,5 @@
 import React from 'react';
-import MainHeader from './components/MainHeader';
+import MainHeader from './components/header/MainHeader';
 
 import WarningBar from './components/WarningBar';
 

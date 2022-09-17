@@ -1,6 +1,6 @@
-import NavBar from './nav/NavBar';
+import NavBar from './NavBar';
 
-import s from '../assets/styles/css/MainHeader.module.css';
+import s from '../../assets/styles/css/MainHeader.module.css';
 
 const MainHeader: React.FC = () => {
     return (
