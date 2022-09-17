@@ -5,7 +5,7 @@ const NavBar: React.FC = () => {
     return (
         <div className={s['nav-bar']}>
             <div className={s.logo}>
-                <Link to="/">Clothie</Link>
+                <Link to="/">CLoThie</Link>
             </div>
             <nav className={s['main-nav']}>
                 <div>
