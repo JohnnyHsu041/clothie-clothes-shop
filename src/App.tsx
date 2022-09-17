@@ -1,13 +1,16 @@
-import React from "react";
+import React from 'react';
+import MainHeader from './components/MainHeader';
 
-import WarningBar from "./components/WarningBar";
+import WarningBar from './components/WarningBar';
 
 function App() {
-  return (
-    <>
-      <WarningBar />
-    </>
-  );
+    return (
+        <>
+            {/* <WarningBar /> */}
+            <MainHeader />
+            <main></main>
+        </>
+    );
 }
 
 export default App;
