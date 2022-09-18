@@ -9,7 +9,7 @@ import Cart from './pages/Cart';
 import User from './pages/User';
 import Auth from './pages/Auth';
 import MainHeader from './components/header/MainHeader';
-import WarningBar from './components/WarningBar';
+import WarningBar from './components/ui/WarningBar';
 
 function App() {
     return (

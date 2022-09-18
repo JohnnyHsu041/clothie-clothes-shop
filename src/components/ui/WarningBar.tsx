@@ -1,6 +1,6 @@
 import React from 'react';
 
-import s from '../assets/styles/css/WarningBar.module.css';
+import s from '../styles/css/WarningBar.module.css';
 
 const WarningBar: React.FC = () => {
     return (

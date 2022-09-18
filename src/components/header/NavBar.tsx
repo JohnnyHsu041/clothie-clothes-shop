@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import s from '../../assets/styles/css/NavBar.module.css';
+import s from '../../styles/css/NavBar.module.css';
 
 const NavBar: React.FC = () => {
     return (
         <div className={s['nav-bar']}>
             <div className={s.logo}>
-                <Link to="/">CLoThie</Link>
+                <Link to="/">CloThie</Link>
             </div>
             <nav className={s['main-nav']}>
                 <div>
