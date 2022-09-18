@@ -1,15 +1,15 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 
-import Home from './pages/Home';
-import NewIn from './pages/NewIn';
-import Clothing from './pages/Clothing';
-import Accessories from './pages/Accessories';
-import Cart from './pages/Cart';
-import User from './pages/User';
-import Auth from './pages/Auth';
-import MainHeader from './components/header/MainHeader';
-import WarningBar from './components/ui/WarningBar';
+import Home from "./pages/Home";
+import NewIn from "./pages/NewIn";
+import Clothing from "./pages/Clothing";
+import Accessories from "./pages/Accessories";
+import Cart from "./pages/Cart";
+import User from "./pages/User";
+import Auth from "./pages/Auth";
+import MainHeader from "./components/header/MainHeader";
+import WarningBar from "./components/ui/WarningBar";
 
 function App() {
     return (
@@ -25,6 +25,7 @@ function App() {
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/user" element={<User />} />
                     <Route path="/auth" element={<Auth />} />
+                    <Route path="/*" element={<Navigate to="/" />} />
                 </Routes>
             </main>
         </>

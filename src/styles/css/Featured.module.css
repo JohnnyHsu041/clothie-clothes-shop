@@ -1,0 +1,11 @@
+.featured-title {
+  font-size: 3.6rem;
+  text-align: center;
+}
+.featured-carousel {
+  display: flex;
+  font-size: 1.6rem;
+}
+.featured-carousel__products {
+  display: flex;
+}
