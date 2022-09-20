@@ -3,7 +3,10 @@ import Card from "../layout/Card";
 import s from "../../styles/css/ProductItem.module.css";
 
 interface ProductItemProps {
+    id: string;
+    name: string;
     image: string;
+    price: number;
 }
 
 const ProductItem: React.FC<ProductItemProps> = (props) => {
@@ -11,12 +14,12 @@ const ProductItem: React.FC<ProductItemProps> = (props) => {
         <li className={s.product}>
             <Card>
                 <div className={s["product-img"]}>
-                    <img src={props.image} alt="featured product" />
+                    <img src={props.image} alt="product" />
                 </div>
                 <div className={s["product-info"]}>
-                    <div className={s["product-info__text"]}>content</div>
+                    <div className={s["product-info__text"]}>{props.name}</div>
                     <div className={s["product-info__price"]}>
-                        <p>590</p>
+                        <p>{props.price}</p>
                     </div>
                 </div>
             </Card>

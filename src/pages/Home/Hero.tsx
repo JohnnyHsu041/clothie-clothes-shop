@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 
-import heroImage from "../../assets/images/hero.jpeg";
 import Button from "../../components/ui/Button";
 import s from "../../styles/css/Hero.module.css";
 
@@ -29,7 +28,10 @@ const Hero: React.FC = () => {
                 </div>
             </div>
             <div className={s["hero-img"]}>
-                <img src={heroImage} alt="2022 spring/summer clothing" />
+                <img
+                    src="/images/hero.jpeg"
+                    alt="2022 spring/summer clothing"
+                />
             </div>
         </section>
     );
