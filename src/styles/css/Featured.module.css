@@ -5,22 +5,28 @@
 .featured-carousel {
   display: flex;
   font-size: 1.6rem;
+  align-items: center;
 }
 .featured-carousel__left-arrow,
 .featured-carousel__right-arrow {
   width: 5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 5rem;
+  position: relative;
 }
 .featured-carousel__left-arrow svg,
 .featured-carousel__right-arrow svg {
   width: 2.4rem;
   height: 2.4rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .featured-carousel__products {
   display: flex;
   width: 110rem;
   list-style: none;
   padding: 0;
+  overflow: hidden;
+  gap: 2.4rem;
 }

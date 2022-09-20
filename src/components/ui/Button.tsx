@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+import s from "../../styles/css/Button.module.css";
+
 interface ButtonProps {
     children: React.ReactNode;
     type?: string;
