@@ -1,3 +1,6 @@
+.featured {
+  margin-top: 12.8rem;
+}
 .featured-title {
   font-size: 3.6rem;
   text-align: center;
@@ -28,5 +31,5 @@
   list-style: none;
   padding: 0;
   overflow: hidden;
-  gap: 2.4rem;
+  gap: 2.5rem;
 }
