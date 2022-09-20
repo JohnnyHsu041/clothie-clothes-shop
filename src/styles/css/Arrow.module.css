@@ -1,0 +1,13 @@
+.arrow {
+  width: 5rem;
+  height: 5rem;
+  position: relative;
+}
+.arrow svg {
+  width: 2.4rem;
+  height: 2.4rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
