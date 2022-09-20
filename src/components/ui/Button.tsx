@@ -1,3 +1,4 @@
+import { MouseEventHandler } from "react";
 import { Link } from "react-router-dom";
 
 import s from "../../styles/css/Button.module.css";
@@ -6,7 +7,7 @@ interface ButtonProps {
     children: React.ReactNode;
     type?: string;
     dest?: string;
-    onClick?: () => void;
+    onClick?: MouseEventHandler;
 }
 
 const Button: React.FC<ButtonProps> = (props) => {

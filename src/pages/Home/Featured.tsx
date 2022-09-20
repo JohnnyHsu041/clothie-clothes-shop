@@ -8,13 +8,37 @@ import featured5 from "../../assets/images/featured-5.jpeg";
 
 import s from "../../styles/css/Featured.module.css";
 import Button from "../../components/ui/Button";
+import { MouseEventHandler, useRef } from "react";
 
 const Featured: React.FC = () => {
+    const carouselRef = useRef<HTMLUListElement>(null);
+
+    let position = 0;
+    let widthOfImgPlusGap = 350 + 25;
+
+    const moveLeftHandler: MouseEventHandler = (event) => {
+        if (position === 0) {
+            return;
+        }
+
+        position -= widthOfImgPlusGap;
+        carouselRef.current!.style.transform = `translateX(-${position}px)`;
+    };
+
+    const moveRightHandler: MouseEventHandler = (event) => {
+        if (position === widthOfImgPlusGap * 2) {
+            return;
+        }
+
+        position += widthOfImgPlusGap;
+        carouselRef.current!.style.transform = `translateX(-${position}px)`;
+    };
+
     return (
         <section className={`container ${s.featured}`}>
             <h2 className={s["featured-title"]}>featured.</h2>
             <div className={s["featured-carousel"]}>
-                <Button>
+                <Button onClick={moveLeftHandler}>
                     <div className={s["featured-carousel__left-arrow"]}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -32,14 +56,16 @@ const Featured: React.FC = () => {
                         </svg>
                     </div>
                 </Button>
-                <ul className={s["featured-carousel__products"]}>
-                    <ProductItem image={featured1} />
-                    <ProductItem image={featured2} />
-                    <ProductItem image={featured3} />
-                    <ProductItem image={featured4} />
-                    <ProductItem image={featured5} />
-                </ul>
-                <Button>
+                <div className={s.carousel}>
+                    <ul ref={carouselRef} className={s["carousel__products"]}>
+                        <ProductItem image={featured1} />
+                        <ProductItem image={featured2} />
+                        <ProductItem image={featured3} />
+                        <ProductItem image={featured4} />
+                        <ProductItem image={featured5} />
+                    </ul>
+                </div>
+                <Button onClick={moveRightHandler}>
                     <div className={s["featured-carousel__right-arrow"]}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

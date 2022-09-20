@@ -1,13 +1,13 @@
-import { Link } from 'react-router-dom';
-import s from '../../styles/css/NavBar.module.css';
+import { Link } from "react-router-dom";
+import s from "../../styles/css/NavBar.module.css";
 
 const NavBar: React.FC = () => {
     return (
-        <div className={s['nav-bar']}>
+        <div className={s["nav-bar"]}>
             <div className={s.logo}>
-                <Link to="/">CloThie</Link>
+                <Link to="/">clothie</Link>
             </div>
-            <nav className={s['main-nav']}>
+            <nav className={s["main-nav"]}>
                 <div>
                     <Link to="/newin">New in</Link>
                 </div>
@@ -18,8 +18,8 @@ const NavBar: React.FC = () => {
                     <Link to="/accs">Accessories</Link>
                 </div>
             </nav>
-            <nav className={s['user-nav']}>
-                <div className={s['user-nav__cart']}>
+            <nav className={s["user-nav"]}>
+                <div className={s["user-nav__cart"]}>
                     <Link to="/cart">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +37,7 @@ const NavBar: React.FC = () => {
                         </svg>
                     </Link>
                 </div>
-                <div className={s['user-nav__avatar']}>
+                <div className={s["user-nav__avatar"]}>
                     <Link to="/user">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

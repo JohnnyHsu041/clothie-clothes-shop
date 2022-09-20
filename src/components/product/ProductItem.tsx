@@ -8,7 +8,7 @@ interface ProductItemProps {
 
 const ProductItem: React.FC<ProductItemProps> = (props) => {
     return (
-        <li>
+        <li className={s.product}>
             <Card>
                 <div className={s["product-img"]}>
                     <img src={props.image} alt="featured product" />
