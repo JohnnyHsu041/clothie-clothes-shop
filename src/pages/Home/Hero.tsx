@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+import heroImage from "../../assets/images/hero.jpeg";
+import Button from "../../components/ui/Button";
 import s from "../../styles/css/Hero.module.css";
 
 const Hero: React.FC = () => {
@@ -21,11 +23,14 @@ const Hero: React.FC = () => {
                     </p>
                 </div>
                 <div className={s["hero-intro__cta"]}>
-                    {/* should be Button Component later */}
-                    <Link to="/newin">立即購買&rarr;</Link>
+                    <Button type="link" dest="/newin">
+                        立即購買&rarr;
+                    </Button>
                 </div>
             </div>
-            <div className={s["hero-img"]}></div>
+            <div className={s["hero-img"]}>
+                <img src={heroImage} alt="2022 spring/summer clothing" />
+            </div>
         </section>
     );
 };
