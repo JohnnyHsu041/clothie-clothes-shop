@@ -43,8 +43,8 @@
   background-color: #ffe8cc;
   transition: background-color 0.3s;
 }
-.cta-input button:hover,
-.cta-input button:active {
+.cta-input button:not([disabled]):hover,
+.cta-input button:not([disabled]):active {
   background-color: #e6d1b8;
 }
 .cta__switch-to-login {

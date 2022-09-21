@@ -1,4 +1,4 @@
-import { useCallback, useReducer } from "react";
+import { FormEvent, useCallback, useReducer } from "react";
 import { Link } from "react-router-dom";
 
 import Button from "../../components/ui/Button";
@@ -89,6 +89,10 @@ const Cta: React.FC = () => {
         []
     );
 
+    const submitHandler = (event: FormEvent) => {
+        event.preventDefault();
+    };
+
     console.log(formInfo);
     const { formIsValid, inputInfoObject } = formInfo;
     const { value: enteredPassword } = inputInfoObject.password;
@@ -102,7 +106,7 @@ const Cta: React.FC = () => {
                 <div className={s["cta-client"]}>
                     <div className={s["cta-img"]} />
                     <div className={s["cta-input"]}>
-                        <form>
+                        <form onSubmit={submitHandler}>
                             <Input
                                 id="email"
                                 type="type"
@@ -117,13 +121,14 @@ const Cta: React.FC = () => {
                                 id="password"
                                 type="password"
                                 title="密碼"
+                                placeholder="密碼最少6碼，最多10碼"
                                 style={{ marginBottom: "0.8rem" }}
                                 validators={[
                                     VALIDATOR_MIN_LENGTH(6),
                                     VALIDATOR_MAX_LENGTH(10),
                                 ]}
                                 onChange={changeHandler}
-                                errorText="密碼最少6碼，最多不可超過10碼"
+                                errorText="密碼格式錯誤"
                             />
                             <Input
                                 id="passwordCheck"
