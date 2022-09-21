@@ -41,13 +41,13 @@ const DUMMY_PRODUCTS = [
 
 const Featured: React.FC = () => {
     const carouselRef = useRef<HTMLUListElement>(null);
-    const [moveLeft, moveRight] = useCarouselArrow(3, 0, carouselRef);
+    const [prev, next] = useCarouselArrow(3, 0, carouselRef);
 
     return (
         <section className={`container ${s.featured}`}>
             <h2 className={s["featured-title"]}>featured.</h2>
             <div className={s["featured-carousel"]}>
-                <Button onClick={moveLeft}>
+                <Button onClick={prev}>
                     <Arrow type="left" />
                 </Button>
                 <div className={s["carousel-container"]}>
@@ -57,7 +57,7 @@ const Featured: React.FC = () => {
                         className="carousel"
                     />
                 </div>
-                <Button onClick={moveRight}>
+                <Button onClick={next}>
                     <Arrow type="right" />
                 </Button>
             </div>

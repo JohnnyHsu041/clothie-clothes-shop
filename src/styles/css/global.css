@@ -27,6 +27,8 @@ button {
   border: none;
   padding: 0;
   cursor: pointer;
+  font-family: inherit;
+  display: inline-block;
 }
 .container {
   width: 120rem;

@@ -27,7 +27,7 @@ const useCarouselArrow: useArrowFunc = (showAtOnce, startAt, ref) => {
         amountOfProducts = childrenOfCarousel.length;
     }, []);
 
-    const moveLeft = useCallback(() => {
+    const prev = useCallback(() => {
         const style = ref.current!.style;
 
         if (amountOfProductsAlreadyDisplayed === showAtOnce) {
@@ -44,7 +44,7 @@ const useCarouselArrow: useArrowFunc = (showAtOnce, startAt, ref) => {
         style.transform = `translateX(-${position}px)`;
     }, []);
 
-    const moveRight = useCallback(() => {
+    const next = useCallback(() => {
         const style = ref.current!.style;
 
         if (amountOfProductsAlreadyDisplayed === amountOfProducts) {
@@ -60,7 +60,7 @@ const useCarouselArrow: useArrowFunc = (showAtOnce, startAt, ref) => {
         style.transform = `translateX(-${position}px)`;
     }, []);
 
-    return [moveLeft, moveRight];
+    return [prev, next];
 };
 
 export default useCarouselArrow;

@@ -15,6 +15,10 @@ const Button: React.FC<ButtonProps> = (props) => {
         return <Link to={props.dest!}>{props.children}</Link>;
     }
 
+    if (props.type === "submit") {
+        return <button type="submit">{props.children}</button>;
+    }
+
     return <button onClick={props.onClick}>{props.children}</button>;
 };
 

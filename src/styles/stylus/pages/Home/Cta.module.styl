@@ -1,0 +1,67 @@
+@import "../../colors"
+
+.cta
+    display flex
+    justify-content center
+    margin-bottom 9.6rem
+
+.cta-container
+    width 80rem
+    height 60rem
+
+.cta-title
+    font-size 3.6rem
+    text-align center
+
+.cta-client
+    display flex
+
+.cta-img
+    width 55%
+    height 45rem
+    background-color #676767
+    background-image url("../../../public/images/cta.jpeg")
+    background-size cover
+    background-position center
+    overflow hidden
+    
+.cta-input
+    width 45%
+    border 1px solid $ctaBorder
+
+    & form
+        margin 3.2rem
+        position relative
+
+    & label
+        display block
+        font-size 1.8rem
+        margin-bottom 0.4rem
+
+    & input
+        width 95%
+        height 3rem
+        padding 0 0.4rem
+    
+    & button
+        font-size 1.8rem
+        position absolute
+        left 50%
+        transform translateX(-50%)
+        padding 0.8rem 1.6rem
+        background-color $primary
+        transition background-color 0.3s
+        
+        &:hover, &:active
+            background-color #e6d1b8
+
+.email
+    margin-bottom 1.6rem
+
+.password
+    margin-bottom 0.4rem
+
+.password-again
+    margin-bottom 3.2rem
+
+

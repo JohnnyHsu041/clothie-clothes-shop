@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 import Button from "../../components/ui/Button";
 import s from "../../styles/css/Hero.module.css";
 
