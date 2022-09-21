@@ -1,5 +1,11 @@
 import React, { ChangeEventHandler, FormEventHandler, useReducer } from "react";
 import s from "../../styles/css/Input.module.css";
+import validate from "../../utils/validator";
+
+type validator = {
+    type: string;
+    value?: number;
+};
 
 interface InputProps {
     id: string;
@@ -9,6 +15,7 @@ interface InputProps {
     placeholder?: string;
     initValue?: string;
     initValidity?: boolean;
+    validators: validator[];
 }
 
 interface InputState {
@@ -17,7 +24,7 @@ interface InputState {
     isTouched: boolean;
 }
 
-type ChangeAction = { type: "CHANGE"; value: string };
+type ChangeAction = { type: "CHANGE"; value: string; validators: validator[] };
 type TouchAction = { type: "TOUCHED" };
 
 const inputReducer = (
@@ -29,8 +36,7 @@ const inputReducer = (
             return {
                 ...state,
                 value: action.value,
-                // should set validators later
-                isValid: action.value.length === 6,
+                isValid: validate(action.value, action.validators),
             };
 
         case "TOUCHED":
@@ -57,6 +63,7 @@ const Input: React.FC<InputProps> = (props) => {
         dispatch({
             type: "CHANGE",
             value: event.target.value,
+            validators: props.validators!,
         });
     };
 
