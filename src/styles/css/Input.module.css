@@ -1,0 +1,13 @@
+.input label {
+  display: block;
+  font-size: 1.8rem;
+  margin-bottom: 0.4rem;
+}
+.input input {
+  width: 95%;
+  height: 3rem;
+  padding: 0 0.4rem;
+}
+.input.invalid input {
+  border: 1px solid #f00;
+}

@@ -31,16 +31,6 @@
   margin: 3.2rem;
   position: relative;
 }
-.cta-input label {
-  display: block;
-  font-size: 1.8rem;
-  margin-bottom: 0.4rem;
-}
-.cta-input input {
-  width: 95%;
-  height: 3rem;
-  padding: 0 0.4rem;
-}
 .cta-input button {
   font-size: 1.8rem;
   position: absolute;
@@ -53,13 +43,4 @@
 .cta-input button:hover,
 .cta-input button:active {
   background-color: #e6d1b8;
-}
-.email {
-  margin-bottom: 1.6rem;
-}
-.password {
-  margin-bottom: 0.4rem;
-}
-.password-again {
-  margin-bottom: 3.2rem;
 }
