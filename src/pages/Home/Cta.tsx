@@ -2,7 +2,7 @@ import { useCallback, useReducer } from "react";
 import { Link } from "react-router-dom";
 
 import Button from "../../components/ui/Button";
-import Input from "../../components/ui/Input";
+import Input from "../../components/form/Input";
 import {
     VALIDATOR_EMAIL,
     VALIDATOR_MAX_LENGTH,
