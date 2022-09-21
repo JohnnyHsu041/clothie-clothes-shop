@@ -8,6 +8,7 @@ interface ButtonProps {
     type?: string;
     dest?: string;
     onClick?: MouseEventHandler;
+    disabled?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = (props) => {
@@ -16,7 +17,11 @@ const Button: React.FC<ButtonProps> = (props) => {
     }
 
     if (props.type === "submit") {
-        return <button type="submit">{props.children}</button>;
+        return (
+            <button type="submit" disabled={props.disabled}>
+                {props.children}
+            </button>
+        );
     }
 
     return <button onClick={props.onClick}>{props.children}</button>;

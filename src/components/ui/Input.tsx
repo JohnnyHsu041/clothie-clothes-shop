@@ -38,6 +38,7 @@ const inputReducer = (
                 ...state,
                 isTouched: true,
             };
+
         default:
             return state;
     }
@@ -70,7 +71,7 @@ const Input: React.FC<InputProps> = (props) => {
             style={props.style}
             className={`${s.input} ${isTouched && !isValid && s.invalid}`}
         >
-            <label htmlFor="email">{props.title}</label>
+            <label htmlFor={props.id}>{props.title}</label>
             <input
                 id={props.id}
                 type={props.type}

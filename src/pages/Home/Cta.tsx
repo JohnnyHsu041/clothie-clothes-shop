@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
 import s from "../../styles/css/Cta.module.css";
@@ -7,7 +8,7 @@ const Cta: React.FC = () => {
         <section className={`container ${s.cta}`}>
             <div className={s["cta-container"]}>
                 <h2 className={s["cta-title"]}>
-                    sign up, to start elegant life.
+                    sign up now for the latest info.
                 </h2>
                 <div className={s["cta-client"]}>
                     <div className={s["cta-img"]}></div>
@@ -31,8 +32,14 @@ const Cta: React.FC = () => {
                                 title="再次輸入密碼"
                                 style={{ marginBottom: "3.2rem" }}
                             />
-                            <Button type="submit">註冊</Button>
+                            <Button type="submit" disabled={true}>
+                                註冊
+                            </Button>
                         </form>
+                        <div className={s["cta__switch-to-login"]}>
+                            <span>已有帳號？</span>
+                            <Link to="/auth">登入</Link>
+                        </div>
                     </div>
                 </div>
             </div>
