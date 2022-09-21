@@ -101,7 +101,7 @@ const Cta: React.FC = () => {
         <section className={`container ${s.cta}`}>
             <div className={s["cta-container"]}>
                 <h2 className={s["cta-title"]}>
-                    sign up now for the latest info.
+                    sign up, to get the latest info.
                 </h2>
                 <div className={s["cta-client"]}>
                     <div className={s["cta-img"]} />
