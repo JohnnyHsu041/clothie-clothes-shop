@@ -1,13 +1,37 @@
 .input label {
   display: block;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   margin-bottom: 0.4rem;
 }
 .input input {
   width: 95%;
   height: 2.4rem;
   padding: 0 0.4rem;
+  border: none;
+  border-bottom: 1px solid #e1e1e1;
+}
+.input input:focus {
+  outline: none;
+}
+.input input::-webkit-input-placeholder {
+  font-style: italic;
+  color: #e1e1e1;
+}
+.input input:-moz-placeholder {
+  font-style: italic;
+  color: #e1e1e1;
+}
+.input input::-moz-placeholder {
+  font-style: italic;
+  color: #e1e1e1;
+}
+.input input:-ms-input-placeholder {
+  font-style: italic;
+  color: #e1e1e1;
 }
 .input.invalid input {
-  border: 1px solid #f00;
+  border-bottom: 1px solid #f00;
+}
+.input.invalid p {
+  color: #f00;
 }

@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, FormEventHandler, useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import s from "../../styles/css/Input.module.css";
 import validate from "../../utils/validator";
 
@@ -16,6 +16,8 @@ interface InputProps {
     initValue?: string;
     initValidity?: boolean;
     validators: validator[];
+    onChange: (id: string, value: string, isValid: boolean) => void;
+    errorText?: string;
 }
 
 interface InputState {
@@ -24,7 +26,11 @@ interface InputState {
     isTouched: boolean;
 }
 
-type ChangeAction = { type: "CHANGE"; value: string; validators: validator[] };
+type ChangeAction = {
+    type: "CHANGE";
+    value: string;
+    validators: validator[];
+};
 type TouchAction = { type: "TOUCHED" };
 
 const inputReducer = (
@@ -37,6 +43,7 @@ const inputReducer = (
                 ...state,
                 value: action.value,
                 isValid: validate(action.value, action.validators),
+                isTouched: false,
             };
 
         case "TOUCHED":
@@ -58,6 +65,7 @@ const Input: React.FC<InputProps> = (props) => {
     });
 
     const { value, isTouched, isValid } = enteredValue;
+    const { id, onChange } = props;
 
     const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch({
@@ -71,7 +79,11 @@ const Input: React.FC<InputProps> = (props) => {
         dispatch({ type: "TOUCHED" });
     };
 
-    console.log(enteredValue);
+    useEffect(() => {
+        onChange(id, value, isValid);
+    }, [id, value, isValid, onChange]);
+
+    console.log("from Input component: ", enteredValue);
 
     return (
         <div
@@ -88,6 +100,7 @@ const Input: React.FC<InputProps> = (props) => {
                 onBlur={touchHandler}
                 value={value}
             />
+            {isTouched && !isValid && <p>{props.errorText}</p>}
         </div>
     );
 };

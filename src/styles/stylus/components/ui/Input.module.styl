@@ -1,14 +1,39 @@
+@import "../../colors"
+
 .input
     & label
         display block
-        font-size 1.8rem
+        font-size 1.6rem
         margin-bottom 0.4rem
     & input
         width 95%
         height 2.4rem
         padding 0 0.4rem
+        border none
+        border-bottom 1px solid $ctaBorder
+
+        &:focus
+            outline none
+
+        &::-webkit-input-placeholder 
+            font-style: italic
+            color $ctaBorder
+        
+        &:-moz-placeholder 
+            font-style: italic
+            color $ctaBorder  
+        
+        &::-moz-placeholder 
+            font-style: italic
+            color $ctaBorder  
+        
+        &:-ms-input-placeholder 
+            font-style: italic
+            color $ctaBorder 
 
     &.invalid
         & input
-            border 1px solid red
+            border-bottom 1px solid red
+        & p
+            color red
     
