@@ -10,6 +10,7 @@ import User from "./pages/User";
 import Auth from "./pages/Auth";
 import MainHeader from "./components/header/MainHeader";
 import WarningBar from "./components/ui/WarningBar";
+import Footer from "./components/footer/Footer";
 
 function App() {
     return (
@@ -28,6 +29,7 @@ function App() {
                     <Route path="/*" element={<Navigate to="/" />} />
                 </Routes>
             </main>
+            <Footer />
         </>
     );
 }
