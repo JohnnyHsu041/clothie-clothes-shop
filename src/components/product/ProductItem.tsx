@@ -1,5 +1,3 @@
-import Card from "../layout/Card";
-
 import s from "../../styles/css/ProductItem.module.css";
 
 interface ProductItemProps {
@@ -12,7 +10,7 @@ interface ProductItemProps {
 const ProductItem: React.FC<ProductItemProps> = (props) => {
     return (
         <li className={s.product}>
-            <Card>
+            <div>
                 <div className={s["product-img"]}>
                     <img src={props.image} alt="product" />
                 </div>
@@ -22,7 +20,7 @@ const ProductItem: React.FC<ProductItemProps> = (props) => {
                         <p>{props.price}</p>
                     </div>
                 </div>
-            </Card>
+            </div>
         </li>
     );
 };
