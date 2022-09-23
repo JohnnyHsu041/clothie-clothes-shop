@@ -1,7 +1,9 @@
+@import "../../colors"
+
 .single-product
     display grid
     grid-template-columns 60fr 40fr
-    margin 3.2rem 0 6.4rem 0
+    margin 3.2rem 0 8rem 0
 
 .img-carousel
     display flex
@@ -20,3 +22,45 @@
     & img
         width 60rem
         height 100%
+
+.product-info
+    display flex
+    flex-direction column
+    padding 0 3.2rem
+
+.info
+    margin-bottom 4.8rem
+
+.product-info__tag
+    font-size 1.4rem
+    margin-bottom 0.8rem
+
+    & span
+        background-color $primary
+
+.product-info__name
+    font-size 4.4rem
+
+.product-info__price
+    font-size 3rem
+    letter-spacing 1.1px
+
+    &::before
+        content "NT. "
+        font-size 1.6rem
+
+.product-info__size
+    display flex
+    gap 1.2rem
+
+    & button
+        display flex
+        justify-content center
+        align-items center
+        width 3rem
+        height 3rem
+        border 1px solid black
+
+.btn-container
+    display flex
+    justify-content center

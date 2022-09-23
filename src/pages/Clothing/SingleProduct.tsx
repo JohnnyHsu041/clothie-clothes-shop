@@ -73,7 +73,43 @@ const SingleProduct: React.FC = () => {
                         </Button>
                     </div>
                 </div>
-                <div className={s["single-product__desc"]}>desc</div>
+                <div className={s["single-product__desc"]}>
+                    <div className={s["product-info"]}>
+                        <div className={s.info}>
+                            <div className={s["product-info__tag"]}>
+                                <span>新品</span>
+                            </div>
+                            <div className={s["product-info__name"]}>
+                                <span>香奈兒外套</span>
+                            </div>
+                            <div className={s["product-info__price"]}>
+                                <span>1690</span>
+                            </div>
+                        </div>
+                        <div className={s["client-input"]}>
+                            <div className={s["product-info__size"]}>
+                                <Button>
+                                    <span>S</span>
+                                </Button>
+                                <Button>
+                                    <span>M</span>
+                                </Button>
+                            </div>
+                            <div className={s["product-info__amount"]}>
+                                amount
+                            </div>
+                        </div>
+                        <div className={s["btn-container"]}>
+                            <div className={s["product-info__fav"]}>fav</div>
+                            <Button>
+                                <span>加入購物車</span>
+                            </Button>
+                            <Button>
+                                <span>立即購買</span>
+                            </Button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     );
