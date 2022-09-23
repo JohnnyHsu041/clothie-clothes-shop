@@ -20,7 +20,7 @@ const Hero: React.FC = () => {
                     </p>
                 </div>
                 <div className={s["hero-intro__cta"]}>
-                    <Button type="link" dest="/newin">
+                    <Button type="link" dest="/clothing/new-in">
                         立即購買&rarr;
                     </Button>
                 </div>
