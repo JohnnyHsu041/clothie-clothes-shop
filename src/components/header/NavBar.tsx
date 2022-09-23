@@ -9,13 +9,13 @@ const NavBar: React.FC = () => {
             </div>
             <nav className={s["main-nav"]}>
                 <div>
-                    <Link to="/newin">New in</Link>
+                    <Link to="/clothing/new-in">New in</Link>
                 </div>
                 <div>
                     <Link to="/clothing">Clothing</Link>
                 </div>
                 <div>
-                    <Link to="/accs">Accessories</Link>
+                    <Link to="/clothing/accs">Accessories</Link>
                 </div>
             </nav>
             <nav className={s["user-nav"]}>

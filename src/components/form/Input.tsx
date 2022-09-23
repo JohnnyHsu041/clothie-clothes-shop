@@ -83,8 +83,6 @@ const Input: React.FC<InputProps> = (props) => {
         onChange(id, value, isValid);
     }, [id, value, isValid, onChange]);
 
-    console.log("from Input component: ", enteredValue);
-
     return (
         <div
             style={props.style}

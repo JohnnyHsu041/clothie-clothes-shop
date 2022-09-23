@@ -93,7 +93,6 @@ const Cta: React.FC = () => {
         event.preventDefault();
     };
 
-    console.log(formInfo);
     const { formIsValid, inputInfoObject } = formInfo;
     const { value: enteredPassword } = inputInfoObject.password;
 

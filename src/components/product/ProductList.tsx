@@ -8,6 +8,8 @@ interface Product {
     name: string;
     image: string;
     price: number;
+    "new-in": boolean;
+    accs: boolean;
 }
 
 interface ProductListProps {

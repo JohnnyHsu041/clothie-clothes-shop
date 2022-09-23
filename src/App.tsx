@@ -2,9 +2,9 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import Home from "./pages/Home";
-import NewIn from "./pages/NewIn";
+import NewIn from "./pages/Clothing/NewIn";
 import Clothing from "./pages/Clothing";
-import Accessories from "./pages/Accessories";
+import Accessories from "./pages/Clothing/Accessories";
 import Cart from "./pages/Cart";
 import User from "./pages/User";
 import Auth from "./pages/Auth";
@@ -20,9 +20,9 @@ function App() {
             <main>
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/newin" element={<NewIn />} />
-                    <Route path="/clothing" element={<Clothing />} />
-                    <Route path="/accs" element={<Accessories />} />
+                    <Route path="/clothing/" element={<Clothing />} />
+                    <Route path="/clothing/new-in" element={<NewIn />} />
+                    <Route path="/clothing/accs" element={<Accessories />} />
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/user" element={<User />} />
                     <Route path="/auth" element={<Auth />} />
