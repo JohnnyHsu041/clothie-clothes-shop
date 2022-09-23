@@ -64,7 +64,7 @@ const Featured: React.FC = () => {
                     <ProductList
                         ref={carouselRef}
                         products={DUMMY_PRODUCTS}
-                        className="carousel"
+                        className="featured-carousel"
                     />
                 </div>
                 <Button onClick={next}>

@@ -1,11 +1,11 @@
-.carousel {
+.featured-carousel {
   display: flex;
   list-style: none;
   padding: 0;
   gap: 2.5rem;
   transition: all 0.3s;
 }
-.carousel li {
+.featured-carousel li {
   flex: 0 0 35rem;
 }
 .product-list {

@@ -11,6 +11,7 @@ import Auth from "./pages/Auth";
 import MainHeader from "./components/header/MainHeader";
 import WarningBar from "./components/ui/WarningBar";
 import Footer from "./components/footer/Footer";
+import SingleProduct from "./pages/Clothing/SingleProduct";
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/clothing/" element={<Clothing />} />
+                    <Route path="/clothing/:pid" element={<SingleProduct />} />
                     <Route path="/clothing/new-in" element={<NewIn />} />
                     <Route path="/clothing/accs" element={<Accessories />} />
                     <Route path="/cart" element={<Cart />} />
