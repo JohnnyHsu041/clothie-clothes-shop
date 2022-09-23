@@ -1,7 +1,5 @@
-import ProductList from "../../../components/product/ProductList";
-
 import "../../../styles/css/global.css";
-import s from "../../../styles/css/index.module.css";
+import ClothingPage from "../ClothingPage";
 
 const DUMMY_PRODUCTS = [
     {
@@ -49,12 +47,7 @@ const DUMMY_PRODUCTS = [
 const NewIn: React.FC = () => {
     return (
         <section className="clothing-page-container">
-            <div className="page">
-                <ProductList
-                    products={DUMMY_PRODUCTS}
-                    className="product-list"
-                />
-            </div>
+            <ClothingPage products={DUMMY_PRODUCTS} />
         </section>
     );
 };

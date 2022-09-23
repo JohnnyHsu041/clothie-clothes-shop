@@ -3,7 +3,7 @@ import ProductItem from "./ProductItem";
 
 import s from "../../styles/css/ProductList.module.css";
 
-interface Product {
+export interface Product {
     id: string;
     name: string;
     image: string;
