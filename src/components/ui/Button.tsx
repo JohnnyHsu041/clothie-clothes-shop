@@ -5,6 +5,7 @@ import s from "../../styles/css/Button.module.css";
 
 interface ButtonProps {
     children: React.ReactNode;
+    className?: string;
     type?: string;
     dest?: string;
     onClick?: MouseEventHandler;
@@ -13,7 +14,11 @@ interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = (props) => {
     if (props.type === "link") {
-        return <Link to={props.dest!}>{props.children}</Link>;
+        return (
+            <Link className={props.className} to={props.dest!}>
+                {props.children}
+            </Link>
+        );
     }
 
     if (props.type === "submit") {
@@ -24,7 +29,11 @@ const Button: React.FC<ButtonProps> = (props) => {
         );
     }
 
-    return <button onClick={props.onClick}>{props.children}</button>;
+    return (
+        <button className={props.className} onClick={props.onClick}>
+            {props.children}
+        </button>
+    );
 };
 
 export default Button;

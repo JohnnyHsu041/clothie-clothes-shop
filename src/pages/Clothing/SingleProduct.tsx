@@ -85,6 +85,10 @@ const SingleProduct: React.FC = () => {
                             <div className={s["product-info__price"]}>
                                 <span>1690</span>
                             </div>
+                            <div className={s["product-info__detail"]}>
+                                <p>韓國製造</p>
+                                <p>*實際顏色依單品照為主</p>
+                            </div>
                         </div>
                         <div className={s["client-input"]}>
                             <div className={s["product-info__size"]}>
@@ -96,15 +100,24 @@ const SingleProduct: React.FC = () => {
                                 </Button>
                             </div>
                             <div className={s["product-info__amount"]}>
-                                amount
+                                <Button>
+                                    <span>&minus;</span>
+                                </Button>
+                                <input type="text" readOnly value="1" />
+                                <Button>
+                                    <span>&#43;</span>
+                                </Button>
                             </div>
                         </div>
                         <div className={s["btn-container"]}>
-                            <div className={s["product-info__fav"]}>fav</div>
-                            <Button>
+                            <Button className={s["cart-btn"]}>
                                 <span>加入購物車</span>
                             </Button>
-                            <Button>
+                            <Button
+                                className={s["purchase-btn"]}
+                                type="link"
+                                dest="/cart"
+                            >
                                 <span>立即購買</span>
                             </Button>
                         </div>
