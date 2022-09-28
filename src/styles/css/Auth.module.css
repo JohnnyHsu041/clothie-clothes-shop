@@ -1,0 +1,30 @@
+.auth {
+  height: 70vh;
+}
+.auth-container {
+  width: 40rem;
+  margin: 8rem auto 0 auto;
+  border: 1px solid #e1e1e1;
+  display: flex;
+  flex-direction: column;
+}
+.auth-container h2 {
+  text-align: center;
+  font-size: 2.4rem;
+}
+.auth-container form {
+  display: flex;
+  flex-direction: column;
+  padding: 0 2.4rem;
+}
+.auth-container form button {
+  margin: 2.4rem 0 6.4rem 0;
+  font-size: 1.6rem;
+}
+.switch-to-registry {
+  align-self: center;
+  margin-bottom: 1.2rem;
+}
+.switch-to-registry span {
+  font-size: 1.4rem;
+}

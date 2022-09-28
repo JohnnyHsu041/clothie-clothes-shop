@@ -1,4 +1,4 @@
-import { FormEvent, useCallback, useReducer } from "react";
+import { FormEvent } from "react";
 import { Link } from "react-router-dom";
 
 import Button from "../../components/ui/Button";
@@ -11,61 +11,11 @@ import {
 } from "../../utils/validator";
 
 import s from "../../styles/css/Cta.module.css";
-
-interface InputInfo {
-    [props: string]: {
-        value: string;
-        isValid: boolean;
-    };
-}
-
-interface formInfo {
-    inputInfoObject: InputInfo;
-    formIsValid: boolean;
-}
-
-interface formInfoAction {
-    type: string;
-    id: string;
-    value: string;
-    isValid: boolean;
-}
-
-const formInfoHandler = (state: formInfo, action: formInfoAction) => {
-    switch (action.type) {
-        case "INPUT_CHANGE":
-            let formIsValid = true;
-
-            for (let inputId in state.inputInfoObject) {
-                if (!state.inputInfoObject[inputId]) continue;
-
-                if (inputId === action.id) {
-                    formIsValid = formIsValid && action.isValid;
-                } else {
-                    formIsValid =
-                        formIsValid && state.inputInfoObject[inputId].isValid;
-                }
-            }
-
-            return {
-                ...state,
-                inputInfoObject: {
-                    ...state.inputInfoObject,
-                    [action.id]: {
-                        value: action.value,
-                        isValid: action.isValid,
-                    },
-                },
-                formIsValid,
-            };
-        default:
-            return state;
-    }
-};
+import useFormValidity from "../../hooks/useFormValidity";
 
 const Cta: React.FC = () => {
-    const [formInfo, dispatch] = useReducer(formInfoHandler, {
-        inputInfoObject: {
+    const [inputInfoObject, formIsValid, changeHandler] = useFormValidity(
+        {
             email: {
                 value: "",
                 isValid: false,
@@ -79,22 +29,14 @@ const Cta: React.FC = () => {
                 isValid: false,
             },
         },
-        formIsValid: false,
-    });
-
-    const changeHandler = useCallback(
-        (id: string, value: string, isValid: boolean) => {
-            dispatch({ type: "INPUT_CHANGE", id, value, isValid });
-        },
-        []
+        false
     );
 
     const submitHandler = (event: FormEvent) => {
         event.preventDefault();
     };
 
-    const { formIsValid, inputInfoObject } = formInfo;
-    const { value: enteredPassword } = inputInfoObject.password;
+    const { value: enteredPassword } = inputInfoObject.password!;
 
     return (
         <section className={`container ${s.cta}`}>

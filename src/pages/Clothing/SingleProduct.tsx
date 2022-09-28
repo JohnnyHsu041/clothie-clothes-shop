@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import ProductList from "../../components/product/ProductList";
 import Arrow from "../../components/ui/Arrow";
 import Button from "../../components/ui/Button";
 import useCarouselArrow from "../../hooks/useCarouselArrow";
