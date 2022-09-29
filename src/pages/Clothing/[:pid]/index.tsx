@@ -1,10 +1,10 @@
 import { useRef } from "react";
-import Arrow from "../../components/ui/Arrow";
-import Button from "../../components/ui/Button";
-import useCarouselArrow from "../../hooks/useCarouselArrow";
+import Arrow from "../../../components/ui/Arrow";
+import Button from "../../../components/ui/Button";
+import useCarouselArrow from "../../../hooks/useCarouselArrow";
 
-import s from "../../styles/css/SingleProduct.module.css";
-import ImageCarousel from "./ImageCarousel";
+import s from "../../../styles/css/SingleProduct.module.css";
+import ImageCarousel from "../ImageCarousel";
 
 const DUMMY_PRODUCTS = [
     {

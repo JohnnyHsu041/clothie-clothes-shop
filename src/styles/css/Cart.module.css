@@ -1,0 +1,74 @@
+.cart-container {
+  width: 110rem;
+  margin: 3.2rem auto 8rem auto;
+  border: 1px solid #343a40;
+  padding: 2.4rem 1.2rem 2.4rem 1.2rem;
+}
+.type-bar {
+  display: flex;
+  font-size: 1.8rem;
+  margin: 0 0.8rem;
+  padding-bottom: 1.2rem;
+}
+.type-bar div {
+  flex: 1 0;
+}
+.type-bar div:not(:first-child) {
+  text-align: end;
+}
+.division {
+  border-bottom: 1px solid #343a40;
+}
+.product {
+  display: flex;
+  font-size: 1.6rem;
+  margin: 2.4rem 0.8rem 0 0.8rem;
+  color: #343a40;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid #e1e1e1;
+}
+.product div {
+  flex: 1 0;
+}
+.product div:not(:first-child) {
+  text-align: end;
+}
+.product div:last-child::before {
+  content: "NT. ";
+}
+.amount-container {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 1.8rem;
+  padding: 0 0.8rem;
+  margin: 8rem 0 0 0;
+}
+.amount {
+  display: grid;
+  grid-template-columns: 30fr 70fr;
+  row-gap: 0.8rem;
+  align-items: center;
+  justify-items: end;
+  width: 25rem;
+}
+.amount a:link,
+.amount a:visited {
+  grid-column: -3/-1;
+  background-color: #343a40;
+  color: #e1e1e1;
+  text-align: center;
+  width: 100%;
+  height: 4rem;
+}
+.amount a:hover,
+.amount a:active {
+  background-color: #191919;
+  color: #e1e1e1;
+}
+.total-amount {
+  font-size: 3rem;
+}
+.total-amount::before {
+  content: "NT. ";
+  font-size: 1.8rem;
+}
