@@ -59,13 +59,18 @@
   gap: 1.2rem;
   margin-bottom: 2.4rem;
 }
-.product-info__size button {
+.product-info__size div {
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 3rem;
   height: 3rem;
   border: 1px solid #000;
+}
+.triggered {
+  background-color: #000;
+  color: #fff;
 }
 .product-info__amount {
   display: flex;

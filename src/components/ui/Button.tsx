@@ -15,7 +15,11 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = (props) => {
     if (props.type === "link") {
         return (
-            <Link className={props.className} to={props.dest!}>
+            <Link
+                className={props.className}
+                to={props.dest!}
+                onClick={props.onClick}
+            >
                 {props.children}
             </Link>
         );

@@ -1,7 +1,11 @@
+import { useSelector } from "react-redux";
 import Button from "../../components/ui/Button";
+import { RootState } from "../../redux/store";
 import s from "../../styles/css/Cart.module.css";
 
 const Cart: React.FC = () => {
+    const cart = useSelector((state: RootState) => state.cart);
+
     return (
         <section className={s.cart}>
             <div className={s["cart-container"]}>
