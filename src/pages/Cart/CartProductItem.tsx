@@ -15,14 +15,6 @@ interface CartProductItemProps {
     remove: (id: string, size: string) => void;
 }
 
-function countTheAmountOfOptions(amount: number, left: number) {
-    const amountOfOption = [];
-    for (let i = 1; i <= amount + left; i++) {
-        amountOfOption.push(i);
-    }
-    return amountOfOption;
-}
-
 const CartProductItem: React.FC<CartProductItemProps> = (props) => {
     const selectRef = useRef<HTMLSelectElement>(null);
 

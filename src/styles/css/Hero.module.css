@@ -3,7 +3,6 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 3.2rem;
-  margin-bottom: 9.6rem;
 }
 .hero-intro {
   display: flex;
@@ -33,7 +32,6 @@
   background: #808080;
   width: 40%;
   height: 65rem;
-  margin-right: 3.2rem;
 }
 .hero-img img {
   width: 100%;
