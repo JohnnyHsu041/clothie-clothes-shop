@@ -75,7 +75,15 @@ export const cartSlice = createSlice({
                     product.id === action.payload.id &&
                     product.size === action.payload.size
             );
+
             productWithSpecificSize!.amount = action.payload.amount;
+            productWithSpecificSize!.total =
+                productWithSpecificSize!.price * action.payload.amount;
+
+            state.totalAmount = state.products.reduce(
+                (accu, curr) => accu + curr.total,
+                0
+            );
         },
         remove(state, action) {
             const productRemoved = state.products.find(

@@ -4,6 +4,7 @@ import { RootState } from "../../redux/store";
 import CartActions from "../../redux/cart-slice";
 import s from "../../styles/css/CartProductItem.module.css";
 import Button from "../../components/ui/Button";
+import useAmountCount from "../../hooks/useAmountCount";
 
 interface CartProductItemProps {
     id: string;
@@ -28,18 +29,11 @@ const CartProductItem: React.FC<CartProductItemProps> = (props) => {
     const dispatch = useDispatch();
     const cart = useSelector((state: RootState) => state.cart);
     const { products } = cart;
-
-    const amount = products.find(
+    const theProduct = products.find(
         (product) => product.id === props.id && product.size === props.size
-    )!.amount;
-    const amountWithAllSizes = products
-        .filter((product) => product.id === props.id)
-        .reduce((accu, curr) => accu + curr.amount, 0);
+    );
 
-    const maximumAmountForSingleProduct = 3;
-    const left = maximumAmountForSingleProduct - amountWithAllSizes;
-
-    const options = countTheAmountOfOptions(amount, left);
+    const [amount, options] = useAmountCount(products, props.id, props.size);
 
     const changeAmountHandler = () => {
         const amount = +selectRef.current!.value;
@@ -72,7 +66,7 @@ const CartProductItem: React.FC<CartProductItemProps> = (props) => {
                     <span>刪除</span>
                 </Button>
             </div>
-            <div className={s["product-price"]}>{props.total}</div>
+            <div className={s["product-price"]}>{theProduct?.total}</div>
         </li>
     );
 };
