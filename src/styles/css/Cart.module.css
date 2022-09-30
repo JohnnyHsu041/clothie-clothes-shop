@@ -19,23 +19,6 @@
 .division {
   border-bottom: 1px solid #343a40;
 }
-.product {
-  display: flex;
-  font-size: 1.6rem;
-  margin: 2.4rem 0.8rem 0 0.8rem;
-  color: #343a40;
-  padding-bottom: 1.2rem;
-  border-bottom: 1px solid #e1e1e1;
-}
-.product div {
-  flex: 1 0;
-}
-.product div:not(:first-child) {
-  text-align: end;
-}
-.product div:last-child::before {
-  content: "NT. ";
-}
 .amount-container {
   display: flex;
   justify-content: flex-end;

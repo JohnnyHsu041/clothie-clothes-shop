@@ -1,14 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+export interface Product {
+    id: string;
+    name: string;
+    price: number;
+    size: string;
+    amount: number;
+    total: number;
+}
+
 interface CartProducts {
-    products: {
-        id: string;
-        name: string;
-        price: number;
-        size: string;
-        amount: number;
-        total: number;
-    }[];
+    products: Product[];
     totalAmount: number;
 }
 
@@ -24,21 +26,29 @@ export const cartSlice = createSlice({
         add(state, action) {
             if (
                 state.products.find(
-                    (product) => product.id === action.payload.id
+                    (product) =>
+                        product.id === action.payload.id &&
+                        product.size === action.payload.size
                 )
             ) {
-                const existedProduct = state.products.find(
-                    (product) => product.id === action.payload.id
+                const existedProductWithSameSize = state.products.find(
+                    (product) =>
+                        product.id === action.payload.id &&
+                        product.size === action.payload.size
                 )!;
 
-                if (existedProduct.amount + action.payload.amount > 3) {
-                    existedProduct.amount = 3;
+                if (
+                    existedProductWithSameSize.amount + action.payload.amount >
+                    3
+                ) {
+                    existedProductWithSameSize.amount = 3;
                 } else {
-                    existedProduct.amount += action.payload.amount;
+                    existedProductWithSameSize.amount += action.payload.amount;
                 }
 
-                existedProduct.total =
-                    existedProduct.price * existedProduct.amount;
+                existedProductWithSameSize.total =
+                    existedProductWithSameSize.price *
+                    existedProductWithSameSize.amount;
 
                 state.totalAmount = state.products.reduce(
                     (accu, curr) => accu + curr.total,
@@ -59,15 +69,28 @@ export const cartSlice = createSlice({
 
             state.totalAmount += action.payload.price * action.payload.amount;
         },
-        remove(state, action) {
-            const existedProduct = state.products.find(
-                (product) => product.id === action.payload.id
-            )!;
-
-            state.totalAmount -= existedProduct.total;
-            state.products.filter(
-                (product) => product.id !== action.payload.id
+        changeAmount(state, action) {
+            const productWithSpecificSize = state.products.find(
+                (product) =>
+                    product.id === action.payload.id &&
+                    product.size === action.payload.size
             );
+            productWithSpecificSize!.amount = action.payload.amount;
+        },
+        remove(state, action) {
+            const productRemoved = state.products.find(
+                (product) =>
+                    product.id === action.payload.id &&
+                    product.size === action.payload.size
+            )!;
+            const index = state.products.findIndex(
+                (product) =>
+                    product.id === action.payload.id &&
+                    product.size === action.payload.size
+            );
+
+            state.totalAmount -= productRemoved.total;
+            state.products.splice(index, 1);
         },
     },
 });

@@ -2,9 +2,11 @@ import { useSelector } from "react-redux";
 import Button from "../../components/ui/Button";
 import { RootState } from "../../redux/store";
 import s from "../../styles/css/Cart.module.css";
+import CartProductList from "./CartProductList";
 
 const Cart: React.FC = () => {
     const cart = useSelector((state: RootState) => state.cart);
+    const { totalAmount } = cart;
 
     return (
         <section className={s.cart}>
@@ -19,26 +21,13 @@ const Cart: React.FC = () => {
                         </div>
                     </div>
                     <div className={s.division} />
-                    <ul className={s.products}>
-                        <li className={s.product}>
-                            <div className={s["product-name"]}>香奈兒外套</div>
-                            <div className={s["product-size"]}>M</div>
-                            <div className={s["product-amount"]}>3</div>
-                            <div className={s["product-price"]}>{1690 * 3}</div>
-                        </li>
-                        <li className={s.product}>
-                            <div className={s["product-name"]}>香奈兒外套</div>
-                            <div className={s["product-size"]}>M</div>
-                            <div className={s["product-amount"]}>3</div>
-                            <div className={s["product-price"]}>{1690 * 3}</div>
-                        </li>
-                    </ul>
+                    <CartProductList />
                 </div>
                 <div className={s["amount-container"]}>
                     <div className={s.amount}>
                         <span>小結</span>
                         <div className={s["total-amount"]}>
-                            <span>{1690 * 3}</span>
+                            <span>{totalAmount}</span>
                         </div>
                         <Button type="link">結帳</Button>
                     </div>

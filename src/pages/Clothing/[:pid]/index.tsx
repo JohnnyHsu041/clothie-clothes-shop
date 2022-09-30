@@ -65,20 +65,17 @@ const InitialProductInfo = {
     name: DUMMY_PRODUCTS[0].name,
     price: DUMMY_PRODUCTS[0].price,
     amount: 1,
-    size: "",
+    size: "S",
 };
 
 const SingleProduct: React.FC = () => {
     const [productInfo, setProductInfo] =
         useState<ProductInfo>(InitialProductInfo);
+    const [sizeSIsTriggered, setSizeSIsTriggered] = useState(true);
+    const [sizeMIsTriggered, setSizeMIsTriggered] = useState(false);
 
     const cart = useSelector((state: RootState) => state.cart);
     const dispatch = useDispatch();
-
-    const [sizeSIsTriggered, setSizeSIsTriggered] = useState(false);
-    const [sizeMIsTriggered, setSizeMIsTriggered] = useState(false);
-    const sizeSBtn = useRef<HTMLDivElement>(null);
-    const sizeMBtn = useRef<HTMLDivElement>(null);
 
     const carouselRef = useRef<HTMLUListElement>(null);
     const [prev, next] = useCarouselArrow(1, 0, carouselRef);
@@ -122,8 +119,9 @@ const SingleProduct: React.FC = () => {
 
     const addtoCart = () => {
         if (
-            cart.products.find((product) => product.id === DUMMY_PRODUCTS[0].id)
-                ?.amount! +
+            cart.products
+                .filter((product) => product.id === DUMMY_PRODUCTS[0].id)
+                .reduce((accu, curr) => accu + curr.amount, 0) +
                 productInfo.amount >
             3
         ) {
@@ -131,19 +129,21 @@ const SingleProduct: React.FC = () => {
             return;
         }
         dispatch(CartActions.add(productInfo));
-        console.log(cart);
     };
 
     const directToCart: MouseEventHandler<HTMLLinkElement> = (event) => {
         if (
-            cart.products.find((product) => product.id === DUMMY_PRODUCTS[0].id)
-                ?.amount! +
+            cart.products
+                .filter((product) => product.id === DUMMY_PRODUCTS[0].id)
+                .reduce((accu, curr) => accu + curr.amount, 0) +
                 productInfo.amount >
             3
         ) {
-            alert("已超過下單件數3件，將自動以3件作為購買數量");
+            alert("已超過下單件數3件");
+            event.preventDefault();
             return;
         }
+
         dispatch(CartActions.add(productInfo));
     };
 
@@ -183,13 +183,12 @@ const SingleProduct: React.FC = () => {
                             <div className={s["product-info__detail"]}>
                                 <p>韓國製造</p>
                                 <p>*實際顏色依單品照為主</p>
-                                <p>*最多下單件數為3件</p>
+                                <p>*單一產品不分尺寸，最多下單件數為3件</p>
                             </div>
                         </div>
                         <div className={s["client-input"]}>
                             <div className={s["product-info__size"]}>
                                 <div
-                                    ref={sizeSBtn}
                                     className={
                                         sizeSIsTriggered ? s.triggered : ""
                                     }
@@ -198,7 +197,6 @@ const SingleProduct: React.FC = () => {
                                     S
                                 </div>
                                 <div
-                                    ref={sizeMBtn}
                                     className={
                                         sizeMIsTriggered ? s.triggered : ""
                                     }
