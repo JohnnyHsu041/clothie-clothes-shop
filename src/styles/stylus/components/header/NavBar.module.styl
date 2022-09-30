@@ -1,8 +1,10 @@
 @import '../../colors'
 
 .logo
-    font-size 4.4rem
     cursor pointer
+
+    a
+        font-size 4.4rem
 
 .nav-bar
     display flex
@@ -11,12 +13,14 @@
 .main-nav
     display flex
     gap 3.2rem
-    font-size 1.6rem
     align-items center
     color $nav
     
-    & div
+    div
         cursor pointer
+    a
+        font-size 1.6rem
+
 
 .user-nav
     display flex
@@ -25,7 +29,7 @@
     margin-left auto
     color $nav
 
-    & div
+    div
         cursor pointer
 
 .user-nav__cart
@@ -34,11 +38,31 @@
     display flex
     justify-content center
     align-items center
+    position relative
 
     & svg
         width 2.4rem
         height 2.4rem
         color #676767
+
+.product-amount-in-cart
+    display flex
+    justify-content center
+    align-items center
+    position absolute
+    top 100%
+    left 100%
+    width 2rem
+    height 2rem
+    font-size 1.6rem
+    border-radius 50%
+    background-color $primary
+    transform translate(-75%, -75%)
+    
+    p 
+        position relative
+        top -2px
+
 
 .user-nav__avatar
     width 3rem

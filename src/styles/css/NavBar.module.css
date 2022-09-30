@@ -1,6 +1,8 @@
 .logo {
-  font-size: 4.4rem;
   cursor: pointer;
+}
+.logo a {
+  font-size: 4.4rem;
 }
 .nav-bar {
   display: flex;
@@ -9,12 +11,14 @@
 .main-nav {
   display: flex;
   gap: 3.2rem;
-  font-size: 1.6rem;
   align-items: center;
   color: #343a40;
 }
 .main-nav div {
   cursor: pointer;
+}
+.main-nav a {
+  font-size: 1.6rem;
 }
 .user-nav {
   display: flex;
@@ -32,11 +36,30 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 .user-nav__cart svg {
   width: 2.4rem;
   height: 2.4rem;
   color: #676767;
+}
+.product-amount-in-cart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 100%;
+  left: 100%;
+  width: 2rem;
+  height: 2rem;
+  font-size: 1.6rem;
+  border-radius: 50%;
+  background-color: #ffe8cc;
+  transform: translate(-75%, -75%);
+}
+.product-amount-in-cart p {
+  position: relative;
+  top: -2px;
 }
 .user-nav__avatar {
   width: 3rem;

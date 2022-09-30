@@ -125,7 +125,7 @@ const SingleProduct: React.FC = () => {
                 productInfo.amount >
             3
         ) {
-            alert("已超過最多下單件數3件");
+            alert("超過下單件數3件，請至購物車確認數量");
             return;
         }
         dispatch(CartActions.add(productInfo));
@@ -139,7 +139,7 @@ const SingleProduct: React.FC = () => {
                 productInfo.amount >
             3
         ) {
-            alert("已超過下單件數3件");
+            alert("超過下單件數3件，請至購物車確認數量");
             event.preventDefault();
             return;
         }
