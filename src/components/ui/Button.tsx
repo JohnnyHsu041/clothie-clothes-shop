@@ -9,6 +9,8 @@ interface ButtonProps {
     type?: string;
     dest?: string;
     onClick?: MouseEventHandler;
+    onMouseEnter?: MouseEventHandler;
+    onMouseLeave?: MouseEventHandler;
     disabled?: boolean;
 }
 
@@ -19,6 +21,8 @@ const Button: React.FC<ButtonProps> = (props) => {
                 className={props.className}
                 to={props.dest!}
                 onClick={props.onClick}
+                onMouseEnter={props.onMouseEnter}
+                onMouseLeave={props.onMouseLeave}
             >
                 {props.children}
             </Link>
@@ -34,7 +38,12 @@ const Button: React.FC<ButtonProps> = (props) => {
     }
 
     return (
-        <button className={props.className} onClick={props.onClick}>
+        <button
+            className={props.className}
+            onClick={props.onClick}
+            onMouseEnter={props.onMouseEnter}
+            onMouseLeave={props.onMouseLeave}
+        >
             {props.children}
         </button>
     );

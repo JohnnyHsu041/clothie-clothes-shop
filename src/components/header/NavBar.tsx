@@ -1,14 +1,23 @@
-import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import AuthActions from "../../redux/auth-slice";
 import { RootState } from "../../redux/store";
 import s from "../../styles/css/NavBar.module.css";
 import Button from "../ui/Button";
 
 const NavBar: React.FC = () => {
+    const auth = useSelector((state: RootState) => state.auth);
     const cart = useSelector((state: RootState) => state.cart);
+    const dispatch = useDispatch();
     const productAmountInCart = cart.products.reduce(
         (accu, curr) => accu + curr.amount,
         0
     );
+    const [barIsShowed, setBarIsShowed] = useState(false);
+
+    const logoutHandler = () => {
+        dispatch(AuthActions.logout());
+    };
 
     return (
         <div className={s["nav-bar"]}>
@@ -58,7 +67,16 @@ const NavBar: React.FC = () => {
                         )}
                     </div>
                 </Button>
-                <Button type="link" dest="/user">
+                <Button
+                    type="link"
+                    dest="/user"
+                    onMouseEnter={() => {
+                        setBarIsShowed(true);
+                    }}
+                    onClick={() => {
+                        setBarIsShowed(false);
+                    }}
+                >
                     <div className={s["user-nav__avatar"]}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -77,6 +95,24 @@ const NavBar: React.FC = () => {
                     </div>
                 </Button>
             </nav>
+            {barIsShowed && auth.isLoggedIn && (
+                <div
+                    className={s["user__options"]}
+                    onMouseLeave={() => {
+                        setBarIsShowed(false);
+                    }}
+                >
+                    <div className={s.option}>
+                        <Button onClick={logoutHandler}>登出</Button>
+                    </div>
+                    <div className={s.option}>
+                        <Button onClick={logoutHandler}>登出</Button>
+                    </div>
+                    <div className={s.option}>
+                        <Button onClick={logoutHandler}>登出</Button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

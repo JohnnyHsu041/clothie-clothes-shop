@@ -12,25 +12,41 @@ import MainHeader from "./components/header/MainHeader";
 import WarningBar from "./components/ui/WarningBar";
 import Footer from "./components/footer/Footer";
 import SingleProduct from "./pages/Clothing/[:pid]";
+import { useSelector } from "react-redux";
+import { RootState } from "./redux/store";
 
 function App() {
+    const auth = useSelector((state: RootState) => state.auth);
+
+    let routes: JSX.Element = auth.isLoggedIn ? (
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/clothing/" element={<Clothing />} />
+            <Route path="/clothing/:pid" element={<SingleProduct />} />
+            <Route path="/clothing/new-in" element={<NewIn />} />
+            <Route path="/clothing/accs" element={<Accessories />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/user" element={<User />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/*" element={<Navigate to="/" />} />
+        </Routes>
+    ) : (
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/clothing/" element={<Clothing />} />
+            <Route path="/clothing/:pid" element={<SingleProduct />} />
+            <Route path="/clothing/new-in" element={<NewIn />} />
+            <Route path="/clothing/accs" element={<Accessories />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/*" element={<Navigate to="/auth" />} />
+        </Routes>
+    );
+
     return (
         <>
             {/* <WarningBar /> */}
             <MainHeader />
-            <main>
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/clothing/" element={<Clothing />} />
-                    <Route path="/clothing/:pid" element={<SingleProduct />} />
-                    <Route path="/clothing/new-in" element={<NewIn />} />
-                    <Route path="/clothing/accs" element={<Accessories />} />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path="/user" element={<User />} />
-                    <Route path="/auth" element={<Auth />} />
-                    <Route path="/*" element={<Navigate to="/" />} />
-                </Routes>
-            </main>
+            <main>{routes}</main>
             <Footer />
         </>
     );

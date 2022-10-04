@@ -9,8 +9,14 @@ import s from "../../styles/css/Auth.module.css";
 import useFormValidity from "../../hooks/useFormValidity";
 import { FormEvent, useState } from "react";
 import Button from "../../components/ui/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate as routerNavigate } from "react-router-dom";
+import AuthActions from "../../redux/auth-slice";
+import { RootState } from "../../redux/store";
 
 const Auth: React.FC = () => {
+    const navigate = routerNavigate();
+    const auth = useSelector((state: RootState) => state.auth);
     const [isLogin, setIsLogin] = useState(true);
     const [inputInfoObject, formIsValid, changeHandler, setForm] =
         useFormValidity(
@@ -29,6 +35,8 @@ const Auth: React.FC = () => {
 
     const { email, password } = inputInfoObject;
     const { value: enteredPassword } = password!;
+
+    const dispatch = useDispatch();
 
     const switchHandler = () => {
         if (isLogin) {
@@ -57,6 +65,40 @@ const Auth: React.FC = () => {
 
     const submitHandler = (event: FormEvent) => {
         event.preventDefault();
+
+        if (isLogin) {
+            if (
+                !auth.accounts.find((account) => account.email === email?.value)
+            ) {
+                alert("please register an account");
+                return;
+            }
+
+            dispatch(
+                AuthActions.login({
+                    email: email!.value,
+                    password: password!.value,
+                })
+            );
+
+            navigate("/");
+        } else {
+            if (
+                auth.accounts.find((account) => account.email === email?.value)
+            ) {
+                alert("Account already existed, please do login instead");
+                return;
+            }
+
+            dispatch(
+                AuthActions.createAccount({
+                    email: email!.value,
+                    password: password!.value,
+                })
+            );
+
+            navigate("/");
+        }
     };
 
     return (

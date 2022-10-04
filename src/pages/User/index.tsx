@@ -9,16 +9,17 @@ import {
 
 import useFormValidity from "../../hooks/useFormValidity";
 import s from "../../styles/css/User.module.css";
-
-const DUMMY_EMAIL = {
-    value: "clothy@clothie.com",
-    isValid: true,
-};
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 const User: React.FC = () => {
+    const auth = useSelector((state: RootState) => state.auth);
     const [inputInfoObject, formIsValid, changeHandler] = useFormValidity(
         {
-            email: DUMMY_EMAIL,
+            email: {
+                value: auth.accounts[0].email,
+                isValid: true,
+            },
             oldPassword: {
                 value: "",
                 isValid: false,
@@ -39,8 +40,6 @@ const User: React.FC = () => {
 
     const modifyHandler = () => {};
 
-    console.log(inputInfoObject, formIsValid);
-
     return (
         <section className={`container ${s["user-container"]}`}>
             <div className={s.user}>
@@ -60,7 +59,7 @@ const User: React.FC = () => {
                                 id="email"
                                 type="email"
                                 title="電子郵件"
-                                initValue={DUMMY_EMAIL.value}
+                                initValue={auth.accounts[0].email}
                                 validators={[VALIDATOR_EMAIL()]}
                                 onChange={() => {}}
                                 style={{ marginBottom: "0.8rem" }}
