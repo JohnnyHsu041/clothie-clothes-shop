@@ -18,6 +18,7 @@ interface InputProps {
     validators: validator[];
     onChange: (id: string, value: string, isValid: boolean) => void;
     errorText?: string;
+    readonly?: boolean;
 }
 
 interface InputState {
@@ -86,7 +87,9 @@ const Input: React.FC<InputProps> = (props) => {
     return (
         <div
             style={props.style}
-            className={`${s.input} ${isTouched && !isValid && s.invalid}`}
+            className={`${s.input} ${
+                isTouched && !isValid && !props.readonly && s.invalid
+            }`}
         >
             <label htmlFor={props.id}>{props.title}</label>
             <input
@@ -97,8 +100,12 @@ const Input: React.FC<InputProps> = (props) => {
                 onChange={changeHandler}
                 onBlur={touchHandler}
                 value={value}
+                readOnly={props.readonly}
+                className={`${props.readonly && s.disabled}`}
             />
-            {isTouched && !isValid && <p>{props.errorText}</p>}
+            {isTouched && !isValid && !props.readonly && (
+                <p>{props.errorText}</p>
+            )}
         </div>
     );
 };

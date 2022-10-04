@@ -35,3 +35,6 @@
 .input.invalid p {
   color: #f00;
 }
+.disabled {
+  background-color: #e1e1e1;
+}

@@ -1,0 +1,36 @@
+@import "../../colors"
+
+.user-container
+    margin-top 4.8rem
+    border 1px solid black
+
+.user
+    display grid
+    grid-template-columns 20fr 80fr
+    height 60vh
+
+.catalog
+    text-align center
+    display flex
+    flex-direction column
+    gap 1.2rem
+    border-right 1px solid $ctaBorder
+    
+    button
+        font-size 1.6rem
+
+        &:hover, &:active
+            text-decoration-line underline
+
+.catalog__user
+    margin-top 2.4rem
+
+.user-info
+    width 40rem
+    margin 4.8rem auto
+
+    button
+        position relative
+        margin-top 2.4rem
+        left 50%
+        transform translateX(-50%)
