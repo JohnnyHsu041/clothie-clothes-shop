@@ -1,3 +1,4 @@
 .header {
-  padding: 1.6rem 3.2rem;
+  padding: 1.6rem 3.2rem 1.2rem 3.2rem;
+  border-bottom: 1px solid #f6f6f6;
 }

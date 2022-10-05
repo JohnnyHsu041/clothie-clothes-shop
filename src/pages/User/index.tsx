@@ -9,11 +9,16 @@ import {
 
 import useFormValidity from "../../hooks/useFormValidity";
 import s from "../../styles/css/User.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import AuthActions from "../../redux/auth-slice";
+import { useNavigate as routerNavigate } from "react-router-dom";
 
 const User: React.FC = () => {
     const auth = useSelector((state: RootState) => state.auth);
+    const dispatch = useDispatch();
+    const navigate = routerNavigate();
+
     const [inputInfoObject, formIsValid, changeHandler] = useFormValidity(
         {
             email: {
@@ -38,6 +43,11 @@ const User: React.FC = () => {
 
     const { value: enteredNewPassword } = inputInfoObject.newPassword!;
 
+    const logoutHandler = () => {
+        dispatch(AuthActions.logout());
+        navigate("/");
+    };
+
     const modifyHandler = () => {};
 
     return (
@@ -49,6 +59,12 @@ const User: React.FC = () => {
                     </div>
                     <div className={s["catalog__order"]}>
                         <Button>訂單記錄</Button>
+                    </div>
+                    <div
+                        className={s["catalog__logout"]}
+                        onClick={logoutHandler}
+                    >
+                        <Button>登出</Button>
                     </div>
                 </nav>
                 <div className={s["info-section"]}>
