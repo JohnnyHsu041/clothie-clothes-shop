@@ -1,0 +1,36 @@
+.buyer h3 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 6.4rem;
+}
+.name {
+  display: grid;
+  grid-template-columns: 80fr 20fr;
+  column-gap: 2.4rem;
+  margin-bottom: 3.2rem;
+}
+.title,
+.county {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.title label,
+.county label {
+  font-size: 1.6rem;
+  margin-bottom: 0.4rem;
+}
+#title,
+#county {
+  padding-left: 0.8rem;
+}
+.contact {
+  display: grid;
+  grid-template-columns: 60fr 40fr;
+  column-gap: 2.4rem;
+  margin-bottom: 3.2rem;
+}
+.address {
+  display: grid;
+  grid-template-columns: 20fr 80fr;
+  column-gap: 2.4rem;
+}

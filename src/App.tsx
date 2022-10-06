@@ -14,6 +14,7 @@ import Footer from "./components/footer/Footer";
 import SingleProduct from "./pages/Clothing/[:pid]";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
+import Order from "./pages/Order";
 
 function App() {
     const auth = useSelector((state: RootState) => state.auth);
@@ -26,6 +27,7 @@ function App() {
             <Route path="/clothing/new-in" element={<NewIn />} />
             <Route path="/clothing/accs" element={<Accessories />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/order/:oid" element={<Order />} />
             <Route path="/user" element={<User />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/*" element={<Navigate to="/" />} />
@@ -38,6 +40,7 @@ function App() {
             <Route path="/clothing/new-in" element={<NewIn />} />
             <Route path="/clothing/accs" element={<Accessories />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/order/:oid" element={<Order />} />
             <Route path="/*" element={<Navigate to="/auth" />} />
         </Routes>
     );

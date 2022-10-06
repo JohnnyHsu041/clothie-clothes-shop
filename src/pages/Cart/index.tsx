@@ -29,7 +29,9 @@ const Cart: React.FC = () => {
                         <div className={s["total-amount"]}>
                             <span>{totalAmount}</span>
                         </div>
-                        <Button type="link">結帳</Button>
+                        <Button type="link" dest="/order/o1">
+                            結帳
+                        </Button>
                     </div>
                 </div>
             </div>
