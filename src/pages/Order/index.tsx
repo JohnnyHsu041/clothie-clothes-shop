@@ -35,15 +35,21 @@ const Order: React.FC = () => {
                     <div className={s.infos}>
                         <AddressSection />
                     </div>
-                    <Button>
-                        <span>上一步</span>
-                    </Button>
-                    <Button>
-                        <span>下一步</span>
-                    </Button>
-                    <Button type="submit">
-                        <span>結帳</span>
-                    </Button>
+                    <div className={s["step-buttons"]}>
+                        <div className={s.prev}>
+                            <Button>
+                                <span>上一步</span>
+                            </Button>
+                        </div>
+                        <div className={s.next}>
+                            <Button>
+                                <span>下一步 &rarr;</span>
+                            </Button>
+                            {/* <Button type="submit">
+                                <span>結帳</span>
+                            </Button> */}
+                        </div>
+                    </div>
                 </div>
                 <div className={s["overview-container"]}>
                     <Overview />

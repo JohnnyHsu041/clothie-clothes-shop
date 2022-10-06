@@ -44,7 +44,7 @@ const AddressSection: React.FC = () => {
                     />
                     <Input
                         id="tel"
-                        type="text"
+                        type="tel"
                         title="手機號碼"
                         validators={[VALIDATOR_MIN_LENGTH(10)]}
                         onChange={() => {}}
