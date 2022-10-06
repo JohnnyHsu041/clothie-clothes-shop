@@ -1,0 +1,33 @@
+.product {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid #e1e1e1;
+}
+.product__img {
+  width: 6rem;
+  height: 8rem;
+  background-color: #808080;
+}
+.product__img img {
+  width: 100%;
+  object-fit: cover;
+}
+.product__detail {
+  width: 20rem;
+}
+.name {
+  font-size: 1.6rem;
+  margin-bottom: 0.8rem;
+}
+.size,
+.amount {
+  font-size: 1.2rem;
+}
+.product__total-amount {
+  font-size: 1.6rem;
+}
+.product__total-amount::before {
+  content: "NT. ";
+  font-size: 1rem;
+}

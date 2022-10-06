@@ -1,0 +1,38 @@
+.summary,
+.delivery,
+.total {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 3.2rem;
+}
+.summary,
+.delivery {
+  margin-bottom: 0.8rem;
+}
+.delivery {
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid #e1e1e1;
+}
+.title {
+  font-size: 1.4rem;
+}
+.summary-amount::before,
+.delivery-amount::before {
+  content: "NT. ";
+  font-size: 1.2rem;
+}
+.summary-amount span,
+.delivery-amount span {
+  font-size: 2rem;
+}
+.total-title {
+  font-size: 2rem;
+  font-weight: 600;
+}
+.total-amount::before {
+  content: "NT. ";
+  font-size: 1.8rem;
+}
+.total-amount span {
+  font-size: 3.6rem;
+}
