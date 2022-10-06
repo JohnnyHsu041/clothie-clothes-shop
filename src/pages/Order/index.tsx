@@ -1,53 +1,71 @@
-import { useState } from "react";
+import { FormEvent } from "react";
 import Button from "../../components/ui/Button";
+import useMultiSteps from "../../hooks/useMultiSteps";
 import s from "../../styles/css/Order.module.css";
 import AddressSection from "./AddressSection";
 import Overview from "./Overview";
 
 const Order: React.FC = () => {
-    const [deliveryIsFocused, setDeliveryIsFocused] = useState(false);
-    const [paymentIsFocused, setPaymentIsFocused] = useState(false);
+    const [currentStep, isFirstStep, isLastStep, nextStep, prevStep] =
+        useMultiSteps(1, 3);
+
+    const submitHandler = (event: FormEvent) => {
+        event.preventDefault();
+    };
 
     return (
         <section className={s.order}>
-            <h2>結帳</h2>
+            <h2>訂單建立</h2>
             <div className={s.steps}>
-                <div className={`${s.address} ${s.focused}`}>寄送資訊</div>
-                <div className={s["step-line"]} />
+                <div className={`${s.address} ${s.focused}`}>個人資料</div>
+                <div
+                    className={`${s["step-line"]} ${
+                        currentStep >= 2 ? s.passed : ""
+                    }`}
+                />
                 <div
                     className={`${s.delivery} ${
-                        deliveryIsFocused ? s.focused : ""
+                        currentStep >= 2 ? s.focused : ""
                     }`}
                 >
                     寄送方式
                 </div>
-                <div className={s["step-line"]} />
                 <div
-                    className={`${s.payment} ${
-                        paymentIsFocused ? s.focused : ""
+                    className={`${s["step-line"]} ${
+                        isLastStep ? s.passed : ""
                     }`}
-                >
+                />
+                <div className={`${s.payment} ${isLastStep ? s.focused : ""}`}>
                     付款資訊
                 </div>
             </div>
-            <form className={s["order-info"]}>
+            <form className={s["order-info"]} onSubmit={submitHandler}>
                 <div className={s["buyer-info-container"]}>
                     <div className={s.infos}>
-                        <AddressSection />
+                        {isFirstStep && <AddressSection />}
                     </div>
                     <div className={s["step-buttons"]}>
                         <div className={s.prev}>
-                            <Button>
-                                <span>上一步</span>
-                            </Button>
+                            {!isFirstStep && (
+                                <Button onClick={prevStep}>
+                                    <span>上一步</span>
+                                </Button>
+                            )}
                         </div>
                         <div className={s.next}>
-                            <Button>
-                                <span>下一步 &rarr;</span>
-                            </Button>
-                            {/* <Button type="submit">
-                                <span>結帳</span>
-                            </Button> */}
+                            {!isLastStep ? (
+                                <div>
+                                    <Button onClick={nextStep}>
+                                        <span>下一步 &rarr;</span>
+                                    </Button>
+                                </div>
+                            ) : (
+                                <div>
+                                    <Button type="submit">
+                                        <span>結帳</span>
+                                    </Button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

@@ -13,7 +13,7 @@ const AddressSection: React.FC = () => {
 
     return (
         <div className={s["buyer"]}>
-            <h3>寄送資訊</h3>
+            <h3>個人資料</h3>
             <div className={s.info}>
                 <div className={s.name}>
                     <Input
