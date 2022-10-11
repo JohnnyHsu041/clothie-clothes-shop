@@ -1,6 +1,10 @@
 import s from "../../styles/css/TotalAmount.module.css";
 
-const TotalAmount: React.FC = () => {
+interface TotalAmountProps {
+    deliveryAmount: string;
+}
+
+const TotalAmount: React.FC<TotalAmountProps> = (props) => {
     return (
         <>
             <div className={s.summary}>
@@ -12,7 +16,7 @@ const TotalAmount: React.FC = () => {
             <div className={s.delivery}>
                 <div className={s.title}>運費</div>
                 <div className={s["delivery-amount"]}>
-                    <span>200</span>
+                    <span>{+props.deliveryAmount}</span>
                 </div>
             </div>
             <div className={s.total}>

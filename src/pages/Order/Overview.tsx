@@ -2,7 +2,11 @@ import s from "../../styles/css/Overview.module.css";
 import OverviewProducts from "./OverviewProducts";
 import TotalAmount from "./TotalAmount";
 
-const Overview: React.FC = () => {
+interface OverviewProps {
+    deliveryAmount: string;
+}
+
+const Overview: React.FC<OverviewProps> = (props) => {
     return (
         <div className={s.overview}>
             <h3>總覽</h3>
@@ -10,7 +14,7 @@ const Overview: React.FC = () => {
                 <OverviewProducts />
             </div>
             <div className={s["total-amount-container"]}>
-                <TotalAmount />
+                <TotalAmount deliveryAmount={props.deliveryAmount} />
             </div>
         </div>
     );

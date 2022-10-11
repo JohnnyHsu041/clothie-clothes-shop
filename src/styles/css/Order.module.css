@@ -26,33 +26,46 @@
   display: flex;
   justify-content: space-between;
 }
-.prev button {
+.prev div {
   width: 12rem;
+  text-align: center;
+  cursor: pointer;
   padding: 0.8rem 0;
 }
-.prev button span {
-  font-size: 1.4rem;
-}
-.prev button:hover {
+.prev div:hover {
   background-color: #161616;
   color: #e1e1e1;
 }
-.next button {
+.prev span {
+  font-size: 1.4rem;
+}
+.next div {
+  width: 15rem;
+  text-align: center;
+  cursor: pointer;
+  padding: 0.8rem 0;
+  background-color: #ffe8cc;
+  color: #161616;
+}
+.next div:hover {
+  background-color: #e6d1b8;
+  color: #000;
+}
+.next span {
+  font-size: 1.4rem;
+}
+.check button {
+  transform: scale(1.1);
   width: 15rem;
   padding: 0.8rem 0;
   background-color: #ffe8cc;
   color: #161616;
 }
-.next button span {
-  font-size: 1.4rem;
-}
-.next button:hover {
+.check button:hover {
   background-color: #e6d1b8;
   color: #000;
 }
-.check button {
-  transform: scale(1.1);
-}
 .check span {
+  font-size: 1.4rem;
   font-weight: 600;
 }

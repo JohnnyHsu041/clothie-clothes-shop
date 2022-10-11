@@ -1,5 +1,6 @@
 import { FormEvent } from "react";
 import Button from "../../components/ui/Button";
+import useFormValidity from "../../hooks/useFormValidity";
 import useMultiSteps from "../../hooks/useMultiSteps";
 import s from "../../styles/css/Order.module.css";
 import AddressSection from "./AddressSection";
@@ -9,53 +10,128 @@ import PaymentSection from "./PaymentSection";
 import StepsBar from "./StepsBar";
 
 const Order: React.FC = () => {
+    const [inputInfoObject, formIsValid, changeHandler] = useFormValidity(
+        {
+            name: {
+                value: "",
+                isValid: false,
+            },
+            cellphone: {
+                value: "",
+                isValid: false,
+            },
+            address: {
+                value: "",
+                isValid: false,
+            },
+            delivery: {
+                value: "",
+                isValid: false,
+            },
+            creditCardNumber: {
+                value: "",
+                isValid: false,
+            },
+            cardHolder: {
+                value: "",
+                isValid: false,
+            },
+            cardExpiration: {
+                value: "",
+                isValid: false,
+            },
+            cvc: {
+                value: "",
+                isValid: false,
+            },
+        },
+        false
+    );
+
+    const {
+        name,
+        cellphone,
+        address,
+        delivery,
+        creditCardNumber,
+        cardHolder,
+        cardExpiration,
+        cvc,
+    } = inputInfoObject;
+
     const [currentStep, isFirstStep, isLastStep, nextStep, prevStep] =
         useMultiSteps(1, 3);
 
     const submitHandler = (event: FormEvent) => {
         event.preventDefault();
+        console.log("works");
     };
 
     return (
         <section className={s.order}>
             <h2>訂單建立</h2>
             <StepsBar step={currentStep} isLastStep={isLastStep} />
-            <form className={s["order-info"]} onSubmit={submitHandler}>
-                <div className={s["buyer-info-container"]}>
+            <div className={s["order-info"]}>
+                <form
+                    className={s["buyer-info-container"]}
+                    onSubmit={submitHandler}
+                >
                     <div className={s.infos}>
-                        {isFirstStep && <AddressSection />}
-                        {currentStep === 2 && <DeliverySection />}
-                        {isLastStep && <PaymentSection />}
+                        {isFirstStep && (
+                            <AddressSection
+                                onChange={changeHandler}
+                                value={{
+                                    name: name!.value,
+                                    cellphone: cellphone!.value,
+                                    address: address!.value,
+                                }}
+                            />
+                        )}
+                        {currentStep === 2 && (
+                            <DeliverySection
+                                onChange={changeHandler}
+                                checked={delivery!.value}
+                            />
+                        )}
+                        {isLastStep && (
+                            <PaymentSection
+                                onChange={changeHandler}
+                                value={{
+                                    creditCardNumber: creditCardNumber!.value,
+                                    cardHolder: cardHolder!.value,
+                                    cardExpiration: cardExpiration!.value,
+                                    cvc: cvc!.value,
+                                }}
+                            />
+                        )}
                     </div>
                     <div className={s["step-buttons"]}>
                         <div className={s.prev}>
                             {!isFirstStep && (
-                                <Button onClick={prevStep}>
+                                <div onClick={prevStep}>
                                     <span>上一步</span>
+                                </div>
+                            )}
+                        </div>
+                        {!isLastStep ? (
+                            <div className={s.next}>
+                                <div onClick={nextStep}>
+                                    <span>下一步 &rarr;</span>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className={s.check}>
+                                <Button type="submit" disabled={!formIsValid}>
+                                    <span>確認下單</span>
                                 </Button>
-                            )}
-                        </div>
-                        <div className={s.next}>
-                            {!isLastStep ? (
-                                <div>
-                                    <Button onClick={nextStep}>
-                                        <span>下一步 &rarr;</span>
-                                    </Button>
-                                </div>
-                            ) : (
-                                <div className={s.check}>
-                                    <Button type="submit">
-                                        <span>確認下單</span>
-                                    </Button>
-                                </div>
-                            )}
-                        </div>
+                            </div>
+                        )}
                     </div>
-                </div>
+                </form>
                 <div className={s["overview-container"]}>
-                    <Overview />
+                    <Overview deliveryAmount={delivery!.value} />
                 </div>
-            </form>
+            </div>
         </section>
     );
 };

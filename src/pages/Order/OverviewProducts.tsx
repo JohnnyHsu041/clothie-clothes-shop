@@ -12,7 +12,7 @@ const DUMMY_PRODUCTS_LIST = [
         img: "/images/featured-1.jpeg",
     },
     {
-        id: "p1",
+        id: "p2",
         name: "channel",
         size: "M",
         amount: 1,
@@ -20,7 +20,7 @@ const DUMMY_PRODUCTS_LIST = [
         img: "/images/featured-2.jpeg",
     },
     {
-        id: "p1",
+        id: "p3",
         name: "channel",
         size: "S",
         amount: 2,
@@ -28,7 +28,7 @@ const DUMMY_PRODUCTS_LIST = [
         img: "/images/featured-1.jpeg",
     },
     {
-        id: "p1",
+        id: "p4",
         name: "channel",
         size: "M",
         amount: 1,
@@ -36,7 +36,7 @@ const DUMMY_PRODUCTS_LIST = [
         img: "/images/featured-2.jpeg",
     },
     {
-        id: "p1",
+        id: "p5",
         name: "channel",
         size: "S",
         amount: 2,
@@ -44,7 +44,7 @@ const DUMMY_PRODUCTS_LIST = [
         img: "/images/featured-1.jpeg",
     },
     {
-        id: "p1",
+        id: "p6",
         name: "channel",
         size: "M",
         amount: 1,
@@ -58,6 +58,7 @@ const OverviewProducts: React.FC = () => {
         <ul className={s.products}>
             {DUMMY_PRODUCTS_LIST.map((product) => (
                 <OverviewProductItem
+                    id={product.id}
                     key={product.id}
                     img={product.img}
                     name={product.name}

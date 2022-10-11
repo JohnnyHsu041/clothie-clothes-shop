@@ -29,30 +29,42 @@
     justify-content space-between
 
 .prev
-    button
+    div
         width 12rem
+        text-align center
+        cursor pointer
         padding 0.8rem 0
-        span 
-            font-size 1.4rem
         &:hover
             background-color #161616
             color $ctaBorder
+    span 
+        font-size 1.4rem
 
 .next
-    button
+    div
         width 15rem
+        text-align center
+        cursor pointer
         padding 0.8rem 0
         background-color $primary
         color #161616
-        span
-            font-size 1.4rem
         &:hover
             background-color $shade
             color black
+    span
+        font-size 1.4rem
 
 .check
     button
         transform scale(1.1)
+        width 15rem
+        padding 0.8rem 0
+        background-color $primary
+        color #161616
+        &:hover
+            background-color $shade
+            color black
     span
+        font-size 1.4rem
         font-weight 600
 

@@ -1,7 +1,7 @@
 import s from "../../styles/css/OverviewProductItem.module.css";
 
 interface ProductItemProps {
-    key: string;
+    id: string;
     img: string;
     name: string;
     size: string;
@@ -11,7 +11,7 @@ interface ProductItemProps {
 
 const OverviewProductItem: React.FC<ProductItemProps> = (props) => {
     return (
-        <li key={props.key} className={s.product}>
+        <li className={s.product}>
             <div className={s["product__img"]}>
                 <img src={props.img} alt="product in cart" />
             </div>
