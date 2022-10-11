@@ -1,0 +1,23 @@
+.steps {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 1.4rem;
+  margin-top: 6.4rem;
+  margin-bottom: 8rem;
+}
+.step-line {
+  border-top: 1px solid #e1e1e1;
+  width: 25rem;
+  margin-top: 1.2rem;
+}
+.step-line.passed {
+  border-top: 1px solid #000;
+}
+.address,
+.delivery,
+.payment {
+  color: #e1e1e1;
+}
+.focused {
+  color: #000;
+}

@@ -6,6 +6,7 @@ import AddressSection from "./AddressSection";
 import DeliverySection from "./DeliverySection";
 import Overview from "./Overview";
 import PaymentSection from "./PaymentSection";
+import StepsBar from "./StepsBar";
 
 const Order: React.FC = () => {
     const [currentStep, isFirstStep, isLastStep, nextStep, prevStep] =
@@ -18,29 +19,7 @@ const Order: React.FC = () => {
     return (
         <section className={s.order}>
             <h2>訂單建立</h2>
-            <div className={s.steps}>
-                <div className={`${s.address} ${s.focused}`}>個人資料</div>
-                <div
-                    className={`${s["step-line"]} ${
-                        currentStep >= 2 ? s.passed : ""
-                    }`}
-                />
-                <div
-                    className={`${s.delivery} ${
-                        currentStep >= 2 ? s.focused : ""
-                    }`}
-                >
-                    運送方式
-                </div>
-                <div
-                    className={`${s["step-line"]} ${
-                        isLastStep ? s.passed : ""
-                    }`}
-                />
-                <div className={`${s.payment} ${isLastStep ? s.focused : ""}`}>
-                    付款資訊
-                </div>
-            </div>
+            <StepsBar step={currentStep} isLastStep={isLastStep} />
             <form className={s["order-info"]} onSubmit={submitHandler}>
                 <div className={s["buyer-info-container"]}>
                     <div className={s.infos}>

@@ -5,4 +5,6 @@
 }
 .products-container {
   margin-bottom: 25.6rem;
+  height: 50rem;
+  overflow: auto;
 }
