@@ -3,6 +3,7 @@ import Button from "../../components/ui/Button";
 import useMultiSteps from "../../hooks/useMultiSteps";
 import s from "../../styles/css/Order.module.css";
 import AddressSection from "./AddressSection";
+import DeliverySection from "./DeliverySection";
 import Overview from "./Overview";
 
 const Order: React.FC = () => {
@@ -28,7 +29,7 @@ const Order: React.FC = () => {
                         currentStep >= 2 ? s.focused : ""
                     }`}
                 >
-                    寄送方式
+                    運送方式
                 </div>
                 <div
                     className={`${s["step-line"]} ${
@@ -43,6 +44,7 @@ const Order: React.FC = () => {
                 <div className={s["buyer-info-container"]}>
                     <div className={s.infos}>
                         {isFirstStep && <AddressSection />}
+                        {currentStep === 2 && <DeliverySection />}
                     </div>
                     <div className={s["step-buttons"]}>
                         <div className={s.prev}>
@@ -60,9 +62,9 @@ const Order: React.FC = () => {
                                     </Button>
                                 </div>
                             ) : (
-                                <div>
+                                <div className={s.check}>
                                     <Button type="submit">
-                                        <span>結帳</span>
+                                        <span>確認下單</span>
                                     </Button>
                                 </div>
                             )}

@@ -12,7 +12,7 @@ const AddressSection: React.FC = () => {
     const auth = useSelector((state: RootState) => state.auth);
 
     return (
-        <div className={s["buyer"]}>
+        <div className={s.buyer}>
             <h3>個人資料</h3>
             <div className={s.info}>
                 <div className={s.name}>
