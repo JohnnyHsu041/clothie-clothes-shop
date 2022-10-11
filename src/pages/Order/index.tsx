@@ -5,6 +5,7 @@ import s from "../../styles/css/Order.module.css";
 import AddressSection from "./AddressSection";
 import DeliverySection from "./DeliverySection";
 import Overview from "./Overview";
+import PaymentSection from "./PaymentSection";
 
 const Order: React.FC = () => {
     const [currentStep, isFirstStep, isLastStep, nextStep, prevStep] =
@@ -45,6 +46,7 @@ const Order: React.FC = () => {
                     <div className={s.infos}>
                         {isFirstStep && <AddressSection />}
                         {currentStep === 2 && <DeliverySection />}
+                        {isLastStep && <PaymentSection />}
                     </div>
                     <div className={s["step-buttons"]}>
                         <div className={s.prev}>
