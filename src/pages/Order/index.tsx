@@ -1,15 +1,17 @@
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import Button from "../../components/ui/Button";
 import useFormValidity from "../../hooks/useFormValidity";
 import useMultiSteps from "../../hooks/useMultiSteps";
 import s from "../../styles/css/Order.module.css";
 import AddressSection from "./AddressSection";
 import DeliverySection from "./DeliverySection";
+import OrderComplete from "./OrderComplete";
 import Overview from "./Overview";
 import PaymentSection from "./PaymentSection";
 import StepsBar from "./StepsBar";
 
 const Order: React.FC = () => {
+    const [orderCompleted, setOrderCompleted] = useState(false);
     const [inputInfoObject, formIsValid, changeHandler] = useFormValidity(
         {
             name: {
@@ -65,9 +67,12 @@ const Order: React.FC = () => {
     const submitHandler = (event: FormEvent) => {
         event.preventDefault();
         console.log("works");
+        setOrderCompleted(true);
     };
 
-    return (
+    let content: JSX.Element = orderCompleted ? (
+        <OrderComplete />
+    ) : (
         <section className={s.order}>
             <h2>訂單建立</h2>
             <StepsBar step={currentStep} isLastStep={isLastStep} />
@@ -134,6 +139,8 @@ const Order: React.FC = () => {
             </div>
         </section>
     );
+
+    return content;
 };
 
 export default Order;
