@@ -34,7 +34,7 @@ const useHttpClient = () => {
 
                 return responseData;
             } catch (err: any) {
-                console.log(err.message);
+                throw err;
             }
         },
         []

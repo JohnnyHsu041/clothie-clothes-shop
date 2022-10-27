@@ -3,6 +3,7 @@ import s from "../../styles/css/ProductItem.module.css";
 
 interface ProductItemProps {
     id: string;
+    key: string;
     name: string;
     image: string;
     price: number;
@@ -14,7 +15,10 @@ const ProductItem: React.FC<ProductItemProps> = (props) => {
             <Link to={`/clothing/${props.id}`}>
                 <div className={s["product-container"]}>
                     <div className={s["product-img"]}>
-                        <img src={props.image} alt="product" />
+                        <img
+                            src={`http://localhost:8080/${props.image}`}
+                            alt="product"
+                        />
                     </div>
                     <div className={s["product-info"]}>
                         <div className={s["product-info__text"]}>

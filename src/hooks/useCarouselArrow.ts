@@ -1,31 +1,22 @@
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 
 type useArrowFunc = (
     showAtOnce: number,
     startAt: number,
+    amountOfProducts: number,
+    trans: number,
     ref: React.RefObject<HTMLUListElement>
 ) => (() => void)[];
 
-const useCarouselArrow: useArrowFunc = (showAtOnce, startAt, ref) => {
+const useCarouselArrow: useArrowFunc = (
+    showAtOnce,
+    startAt,
+    amountOfProducts,
+    trans,
+    ref
+) => {
     let amountOfProductsAlreadyDisplayed = showAtOnce;
-    let amountOfProducts: number;
     let position = startAt;
-    let trans: number;
-
-    useEffect(() => {
-        ref.current!.style.transform = `translateX(-${position}px)`;
-
-        const childrenOfCarousel = ref.current!.children;
-        const coordsOfFirstChild =
-            childrenOfCarousel[0]!.getBoundingClientRect();
-        const coordsOfSecondChild =
-            childrenOfCarousel[1]!.getBoundingClientRect();
-        const widthOfProductItem = coordsOfFirstChild.width;
-        const gap = coordsOfSecondChild.left - coordsOfFirstChild.right;
-
-        trans = widthOfProductItem + gap;
-        amountOfProducts = childrenOfCarousel.length;
-    }, []);
 
     const prev = useCallback(() => {
         const style = ref.current!.style;

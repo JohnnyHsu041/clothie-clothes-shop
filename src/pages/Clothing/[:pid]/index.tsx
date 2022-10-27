@@ -13,42 +13,22 @@ const DUMMY_PRODUCTS = [
     {
         id: "p1",
         name: "channel",
-        image: "/images/featured-1.jpeg",
+        images: ["/images/featured-1.jpeg"],
         price: 1690,
-        "new-in": true,
-        accs: false,
+        size: "S",
+        type: "clothe",
+        newIn: true,
+        featured: true,
     },
     {
         id: "p2",
         name: "shirt",
-        image: "/images/featured-2.jpeg",
+        images: ["/images/featured-2.jpeg"],
         price: 790,
-        "new-in": true,
-        accs: false,
-    },
-    {
-        id: "p3",
-        name: "skirt",
-        image: "/images/featured-3.jpeg",
-        price: 990,
-        "new-in": true,
-        accs: false,
-    },
-    {
-        id: "p4",
-        name: "pink-channel",
-        image: "/images/featured-4.jpeg",
-        price: 1290,
-        "new-in": true,
-        accs: false,
-    },
-    {
-        id: "p5",
-        name: "milk tea",
-        image: "/images/featured-5.jpeg",
-        price: 890,
-        "new-in": true,
-        accs: false,
+        size: "S",
+        type: "clothe",
+        newIn: true,
+        featured: true,
     },
 ];
 
@@ -78,7 +58,7 @@ const SingleProduct: React.FC = () => {
     const dispatch = useDispatch();
 
     const carouselRef = useRef<HTMLUListElement>(null);
-    const [prev, next] = useCarouselArrow(1, 0, carouselRef);
+    const [prev, next] = useCarouselArrow(1, 0, 2, 600, carouselRef);
 
     const triggerSizeS: MouseEventHandler<HTMLDivElement> = (event) => {
         setSizeMIsTriggered(false);
@@ -169,7 +149,7 @@ const SingleProduct: React.FC = () => {
                 <div className={s["single-product__desc"]}>
                     <div className={s["product-info"]}>
                         <div className={s.info}>
-                            {DUMMY_PRODUCTS[0]["new-in"] && (
+                            {DUMMY_PRODUCTS[0].newIn && (
                                 <div className={s["product-info__tag"]}>
                                     <span>新品</span>
                                 </div>

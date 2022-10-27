@@ -5,11 +5,14 @@ import s from "../../styles/css/ProductList.module.css";
 
 export interface Product {
     id: string;
+    _id?: string;
     name: string;
-    image: string;
     price: number;
-    "new-in": boolean;
-    accs: boolean;
+    images: string[];
+    size: string;
+    type: string;
+    newIn: boolean;
+    featured: boolean;
 }
 
 interface ProductListProps {
@@ -24,10 +27,10 @@ const ProductList = React.forwardRef<Ref, ProductListProps>((props, ref) => {
         <ul ref={ref} className={s[props.className]}>
             {props.products.map((product) => (
                 <ProductItem
-                    id={product.id}
+                    id={product._id!}
                     key={product.id}
                     name={product.name}
-                    image={product.image}
+                    image={product.images[0]}
                     price={product.price}
                 />
             ))}

@@ -1,53 +1,32 @@
+import { useEffect, useState } from "react";
+import useHttpClient from "../../../hooks/useHttpClient";
 import "../../../styles/css/global.css";
 import ClothingPage from "../ClothingPage";
-
-const DUMMY_PRODUCTS = [
-    {
-        id: "p1",
-        name: "channel",
-        image: "/images/featured-1.jpeg",
-        price: 1690,
-        "new-in": true,
-        accs: false,
-    },
-    {
-        id: "p2",
-        name: "shirt",
-        image: "/images/featured-2.jpeg",
-        price: 790,
-        "new-in": true,
-        accs: false,
-    },
-    {
-        id: "p3",
-        name: "skirt",
-        image: "/images/featured-3.jpeg",
-        price: 990,
-        "new-in": true,
-        accs: false,
-    },
-    {
-        id: "p4",
-        name: "pink-channel",
-        image: "/images/featured-4.jpeg",
-        price: 1290,
-        "new-in": true,
-        accs: false,
-    },
-    {
-        id: "p5",
-        name: "milk tea",
-        image: "/images/featured-5.jpeg",
-        price: 890,
-        "new-in": true,
-        accs: false,
-    },
-];
+import { Product } from "../../../components/product/ProductList";
 
 const NewIn: React.FC = () => {
+    const [loadedProducts, setLoadedProducts] = useState<Product[]>([]);
+    const [sendRequest] = useHttpClient();
+
+    useEffect(() => {
+        const getAllProducts = async () => {
+            try {
+                const responseData = await sendRequest(
+                    `${process.env.REACT_APP_BACKEND_URL}products/newIn`
+                );
+
+                setLoadedProducts(responseData.products);
+            } catch (err: any) {
+                console.log(err.message);
+            }
+        };
+
+        getAllProducts();
+    }, [sendRequest]);
+
     return (
         <section className="clothing-page-container">
-            <ClothingPage products={DUMMY_PRODUCTS} />
+            <ClothingPage products={loadedProducts} />
         </section>
     );
 };
