@@ -1,4 +1,4 @@
-import { MouseEventHandler, useRef, useState } from "react";
+import { MouseEventHandler, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Arrow from "../../../components/ui/Arrow";
 import Button from "../../../components/ui/Button";
@@ -6,101 +6,42 @@ import useCarouselArrow from "../../../hooks/useCarouselArrow";
 import ImageCarousel from "../ImageCarousel";
 import { RootState } from "../../../redux/store";
 import CartActions from "../../../redux/cart-slice";
+import useProductInfo from "../../../hooks/useProductInfo";
+import useHttpClient from "../../../hooks/useHttpClient";
 
 import s from "../../../styles/css/SingleProduct.module.css";
 
-const DUMMY_PRODUCTS = [
-    {
-        id: "p1",
-        name: "channel",
-        images: ["/images/featured-1.jpeg"],
-        price: 1690,
-        size: "S",
-        type: "clothe",
-        newIn: true,
-        featured: true,
-    },
-    {
-        id: "p2",
-        name: "shirt",
-        images: ["/images/featured-2.jpeg"],
-        price: 790,
-        size: "S",
-        type: "clothe",
-        newIn: true,
-        featured: true,
-    },
-];
-
-interface ProductInfo {
-    id: string;
-    name: string;
-    price: number;
-    amount: number;
-    size: string;
-}
-
-const InitialProductInfo = {
-    id: DUMMY_PRODUCTS[0].id,
-    name: DUMMY_PRODUCTS[0].name,
-    price: DUMMY_PRODUCTS[0].price,
-    amount: 1,
-    size: "S",
-};
-
 const SingleProduct: React.FC = () => {
-    const [productInfo, setProductInfo] =
-        useState<ProductInfo>(InitialProductInfo);
-    const [sizeSIsTriggered, setSizeSIsTriggered] = useState(true);
-    const [sizeMIsTriggered, setSizeMIsTriggered] = useState(false);
+    const productId = window.location.pathname.split("/clothing/")[1];
+    const [sendRequest] = useHttpClient();
+
+    const {
+        triggerSizeM,
+        triggerSizeS,
+        sizeSIsTriggered,
+        sizeMIsTriggered,
+        plusHandler,
+        minusHandler,
+        productInfo,
+        setProductInfo,
+    } = useProductInfo();
 
     const cart = useSelector((state: RootState) => state.cart);
     const dispatch = useDispatch();
 
     const carouselRef = useRef<HTMLUListElement>(null);
-    const [prev, next] = useCarouselArrow(1, 0, 2, 600, carouselRef);
-
-    const triggerSizeS: MouseEventHandler<HTMLDivElement> = (event) => {
-        setSizeMIsTriggered(false);
-        setSizeSIsTriggered(true);
-
-        setProductInfo((prev) => {
-            return { ...prev, size: "S" };
-        });
-    };
-    const triggerSizeM: MouseEventHandler<HTMLDivElement> = (event) => {
-        setSizeSIsTriggered(false);
-        setSizeMIsTriggered(true);
-
-        setProductInfo((prev) => {
-            return { ...prev, size: "M" };
-        });
-    };
-
-    const minusHandler = () => {
-        if (productInfo.amount <= 1) {
-            return;
-        }
-
-        setProductInfo((prev) => {
-            return { ...prev, amount: prev.amount - 1 };
-        });
-    };
-
-    const plusHandler = () => {
-        if (productInfo.amount >= 3) {
-            return;
-        }
-
-        setProductInfo((prev) => {
-            return { ...prev, amount: prev.amount + 1 };
-        });
-    };
+    const [prev, next] = useCarouselArrow(
+        1,
+        0,
+        productInfo.images.length,
+        600,
+        carouselRef
+    );
 
     const addtoCart = () => {
         if (
             cart.products
-                .filter((product) => product.id === DUMMY_PRODUCTS[0].id)
+                .filter((product) => product.id === productInfo._id)
                 .reduce((accu, curr) => accu + curr.amount, 0) +
                 productInfo.amount >
             3
@@ -108,13 +49,14 @@ const SingleProduct: React.FC = () => {
             alert("超過下單件數3件，請至購物車確認數量");
             return;
         }
-        dispatch(CartActions.add(productInfo));
+
+        dispatch(CartActions.add({ ...productInfo, id: productInfo._id }));
     };
 
     const directToCart: MouseEventHandler<HTMLLinkElement> = (event) => {
         if (
             cart.products
-                .filter((product) => product.id === DUMMY_PRODUCTS[0].id)
+                .filter((product) => product.id === productInfo._id)
                 .reduce((accu, curr) => accu + curr.amount, 0) +
                 productInfo.amount >
             3
@@ -124,8 +66,24 @@ const SingleProduct: React.FC = () => {
             return;
         }
 
-        dispatch(CartActions.add(productInfo));
+        dispatch(CartActions.add({ ...productInfo, id: productInfo._id }));
     };
+
+    useEffect(() => {
+        const getProductById = async () => {
+            try {
+                const responseData = await sendRequest(
+                    `${process.env.REACT_APP_BACKEND_URL}products/${productId}`
+                );
+
+                setProductInfo({ ...responseData.product[0], amount: 1 });
+            } catch (err: any) {
+                console.log(err.message);
+            }
+        };
+
+        getProductById();
+    }, [sendRequest, setProductInfo, productId]);
 
     return (
         <section className="page">
@@ -138,7 +96,7 @@ const SingleProduct: React.FC = () => {
                         <div className={s["carousel-container"]}>
                             <ImageCarousel
                                 ref={carouselRef}
-                                products={DUMMY_PRODUCTS}
+                                images={productInfo.images}
                             />
                         </div>
                         <Button onClick={next}>
@@ -149,16 +107,16 @@ const SingleProduct: React.FC = () => {
                 <div className={s["single-product__desc"]}>
                     <div className={s["product-info"]}>
                         <div className={s.info}>
-                            {DUMMY_PRODUCTS[0].newIn && (
+                            {productInfo.newIn && (
                                 <div className={s["product-info__tag"]}>
                                     <span>新品</span>
                                 </div>
                             )}
                             <div className={s["product-info__name"]}>
-                                <span>{DUMMY_PRODUCTS[0].name}</span>
+                                <span>{productInfo.name}</span>
                             </div>
                             <div className={s["product-info__price"]}>
-                                <span>{DUMMY_PRODUCTS[0].price}</span>
+                                <span>{productInfo.price}</span>
                             </div>
                             <div className={s["product-info__detail"]}>
                                 <p>韓國製造</p>

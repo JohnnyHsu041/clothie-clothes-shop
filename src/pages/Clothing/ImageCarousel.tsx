@@ -2,7 +2,7 @@ import React from "react";
 import { Product } from "../../components/product/ProductList";
 
 interface ImageCarouselProps {
-    products: Product[]; // should be changed to images array later
+    images: string[];
 }
 
 type Ref = HTMLUListElement;
@@ -11,9 +11,12 @@ const ImageCarousel = React.forwardRef<Ref, ImageCarouselProps>(
     (props, ref) => {
         return (
             <ul ref={ref}>
-                {props.products.map((product) => (
-                    <li key={product.id}>
-                        <img src={product.images[0]} alt="product" />
+                {props.images.map((image) => (
+                    <li>
+                        <img
+                            src={`http://localhost:8080/${image}`}
+                            alt="product"
+                        />
                     </li>
                 ))}
             </ul>

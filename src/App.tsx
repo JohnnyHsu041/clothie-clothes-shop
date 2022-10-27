@@ -11,7 +11,7 @@ import Auth from "./pages/Auth";
 import MainHeader from "./components/header/MainHeader";
 import WarningBar from "./components/ui/WarningBar";
 import Footer from "./components/footer/Footer";
-import SingleProduct from "./pages/Clothing/[:pid]";
+import SingleProduct from "./pages/Clothing/SingleProduct";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
 import Order from "./pages/Order";
