@@ -33,7 +33,7 @@ const useCarouselArrow: useArrowFunc = (
         position -= trans;
         amountOfProductsAlreadyDisplayed--;
         style.transform = `translateX(-${position}px)`;
-    }, []);
+    }, [amountOfProducts]);
 
     const next = useCallback(() => {
         const style = ref.current!.style;
@@ -49,7 +49,7 @@ const useCarouselArrow: useArrowFunc = (
         position += trans;
         amountOfProductsAlreadyDisplayed++;
         style.transform = `translateX(-${position}px)`;
-    }, []);
+    }, [amountOfProducts]);
 
     return [prev, next];
 };

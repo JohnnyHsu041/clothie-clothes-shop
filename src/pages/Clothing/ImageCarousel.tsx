@@ -1,5 +1,6 @@
 import React from "react";
-import { Product } from "../../components/product/ProductList";
+
+import { v4 as uuidv4 } from "uuid";
 
 interface ImageCarouselProps {
     images: string[];
@@ -11,14 +12,18 @@ const ImageCarousel = React.forwardRef<Ref, ImageCarouselProps>(
     (props, ref) => {
         return (
             <ul ref={ref}>
-                {props.images.map((image) => (
-                    <li>
-                        <img
-                            src={`http://localhost:8080/${image}`}
-                            alt="product"
-                        />
-                    </li>
-                ))}
+                {props.images.map((image) => {
+                    const key = uuidv4();
+
+                    return (
+                        <li key={key}>
+                            <img
+                                src={`http://localhost:8080/${image}`}
+                                alt="one of the product images"
+                            />
+                        </li>
+                    );
+                })}
             </ul>
         );
     }

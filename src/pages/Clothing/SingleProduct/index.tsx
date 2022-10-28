@@ -41,7 +41,7 @@ const SingleProduct: React.FC = () => {
     const addtoCart = () => {
         if (
             cart.products
-                .filter((product) => product.id === productInfo._id)
+                .filter((product) => product.id === productInfo.id)
                 .reduce((accu, curr) => accu + curr.amount, 0) +
                 productInfo.amount >
             3
@@ -50,13 +50,13 @@ const SingleProduct: React.FC = () => {
             return;
         }
 
-        dispatch(CartActions.add({ ...productInfo, id: productInfo._id }));
+        dispatch(CartActions.add({ ...productInfo, id: productInfo.id }));
     };
 
     const directToCart: MouseEventHandler<HTMLLinkElement> = (event) => {
         if (
             cart.products
-                .filter((product) => product.id === productInfo._id)
+                .filter((product) => product.id === productInfo.id)
                 .reduce((accu, curr) => accu + curr.amount, 0) +
                 productInfo.amount >
             3
@@ -66,7 +66,7 @@ const SingleProduct: React.FC = () => {
             return;
         }
 
-        dispatch(CartActions.add({ ...productInfo, id: productInfo._id }));
+        dispatch(CartActions.add({ ...productInfo, id: productInfo.id }));
     };
 
     useEffect(() => {

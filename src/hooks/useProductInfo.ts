@@ -1,7 +1,7 @@
 import { useState, MouseEventHandler, useCallback } from "react";
 
 interface ProductInfo {
-    _id: string;
+    id: string;
     name: string;
     price: number;
     amount: number;
@@ -11,7 +11,7 @@ interface ProductInfo {
 }
 
 const InitialProductInfo = {
-    _id: "id",
+    id: "id",
     name: "name",
     price: 0,
     amount: 1,
