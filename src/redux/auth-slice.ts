@@ -1,60 +1,59 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface Account {
-    id: string;
-    email: string;
-    password: string;
-}
-
 interface Auth {
     isLoggedIn: boolean;
-    accounts: Account[];
+    userId: string | null;
+    email: string | null;
 }
 
 const initialState: Auth = {
     isLoggedIn: false,
-    accounts: [],
+    userId: null,
+    email: null,
 };
 
 export const authSlice = createSlice({
-    name: "cart",
+    name: "auth",
     initialState,
     reducers: {
-        createAccount(state, action) {
-            const existedUser = state.accounts.find(
-                (account) => account.email === action.payload.email
-            );
+        // createAccount(state, action) {
+        //     const existedUser = state.accounts.find(
+        //         (account) => account.email === action.payload.email
+        //     );
 
-            if (existedUser) {
-                alert("existed");
-                return;
-            }
+        //     if (existedUser) {
+        //         alert("existed");
+        //         return;
+        //     }
 
-            const newUser = {
-                id: "p1",
-                email: action.payload.email,
-                password: action.payload.password,
-            };
+        //     const newUser = {
+        //         id: "p1",
+        //         email: action.payload.email,
+        //         password: action.payload.password,
+        //     };
 
-            state.accounts.push(newUser);
-            state.isLoggedIn = true;
-        },
+        //     state.accounts.push(newUser);
+        //     state.isLoggedIn = true;
+        // },
         login(state, action) {
-            const existedUser = state.accounts.find(
-                (account) => account.email === action.payload.email
+            state.isLoggedIn = true;
+            state.userId = action.payload.userId;
+            state.email = action.payload.email;
+
+            localStorage.setItem(
+                "userData",
+                JSON.stringify({
+                    userId: action.payload.userId,
+                    email: action.payload.email,
+                })
             );
-
-            if (!existedUser) {
-                alert("please register an account");
-                return;
-            }
-
-            if (existedUser.password === action.payload.password) {
-                state.isLoggedIn = true;
-            }
         },
         logout(state) {
             state.isLoggedIn = false;
+            state.email = null;
+            state.userId = null;
+
+            localStorage.removeItem("userData");
         },
     },
 });

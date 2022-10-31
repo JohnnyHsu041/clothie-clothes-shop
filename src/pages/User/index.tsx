@@ -13,16 +13,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import AuthActions from "../../redux/auth-slice";
 import { useNavigate as routerNavigate } from "react-router-dom";
+import useHttpClient from "../../hooks/useHttpClient";
+import { FormEvent } from "react";
 
 const User: React.FC = () => {
+    const [sendRequest] = useHttpClient();
+    const navigate = routerNavigate();
+
     const auth = useSelector((state: RootState) => state.auth);
     const dispatch = useDispatch();
-    const navigate = routerNavigate();
 
     const [inputInfoObject, formIsValid, changeHandler] = useFormValidity(
         {
             email: {
-                value: auth.accounts[0].email,
+                value: auth.email as string,
                 isValid: true,
             },
             oldPassword: {
@@ -41,6 +45,7 @@ const User: React.FC = () => {
         false
     );
 
+    const { value: enteredOldPassword } = inputInfoObject.oldPassword!;
     const { value: enteredNewPassword } = inputInfoObject.newPassword!;
 
     const logoutHandler = () => {
@@ -48,7 +53,27 @@ const User: React.FC = () => {
         navigate("/");
     };
 
-    const modifyHandler = () => {};
+    const modifyHandler = async (event: FormEvent) => {
+        try {
+            const responseData = await sendRequest(
+                `${process.env.REACT_APP_BACKEND_URL}users`,
+                "PATCH",
+                JSON.stringify({
+                    email: inputInfoObject.email!.value,
+                    password: enteredOldPassword,
+                    updatedPassword: enteredNewPassword,
+                }),
+                { "Content-Type": "application/json" }
+            );
+
+            dispatch(AuthActions.logout());
+        } catch (err: any) {
+            console.log(err.message);
+            return;
+        }
+
+        navigate("/");
+    };
 
     return (
         <section className={`container ${s["user-container"]}`}>
@@ -75,7 +100,7 @@ const User: React.FC = () => {
                                 id="email"
                                 type="email"
                                 title="電子郵件"
-                                initValue={auth.accounts[0].email}
+                                initValue={auth.email as string}
                                 validators={[VALIDATOR_EMAIL()]}
                                 onChange={() => {}}
                                 style={{ marginBottom: "0.8rem" }}

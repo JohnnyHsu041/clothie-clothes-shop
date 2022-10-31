@@ -13,8 +13,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate as routerNavigate } from "react-router-dom";
 import AuthActions from "../../redux/auth-slice";
 import { RootState } from "../../redux/store";
+import useHttpClient from "../../hooks/useHttpClient";
 
 const Auth: React.FC = () => {
+    const [sendRequest] = useHttpClient();
+
     const navigate = routerNavigate();
     const auth = useSelector((state: RootState) => state.auth);
     const [isLogin, setIsLogin] = useState(true);
@@ -34,6 +37,7 @@ const Auth: React.FC = () => {
         );
 
     const { email, password } = inputInfoObject;
+    const { value: enteredEmail } = email!;
     const { value: enteredPassword } = password!;
 
     const dispatch = useDispatch();
@@ -63,39 +67,57 @@ const Auth: React.FC = () => {
         setIsLogin((prev: boolean) => !prev);
     };
 
-    const submitHandler = (event: FormEvent) => {
+    const submitHandler = async (event: FormEvent) => {
         event.preventDefault();
 
         if (isLogin) {
-            if (
-                !auth.accounts.find((account) => account.email === email?.value)
-            ) {
-                alert("please register an account");
+            try {
+                const responseData = await sendRequest(
+                    `${process.env.REACT_APP_BACKEND_URL}users/login`,
+                    "POST",
+                    JSON.stringify({
+                        email: enteredEmail,
+                        password: enteredPassword,
+                    }),
+                    { "Content-Type": "application/json" }
+                );
+
+                dispatch(
+                    AuthActions.login({
+                        userId: responseData.userId,
+                        email: responseData.email,
+                    })
+                );
+            } catch (err: any) {
+                console.log(err.message);
                 return;
             }
-
-            dispatch(
-                AuthActions.login({
-                    email: email!.value,
-                    password: password!.value,
-                })
-            );
 
             navigate("/");
         } else {
-            if (
-                auth.accounts.find((account) => account.email === email?.value)
-            ) {
-                alert("Account already existed, please do login instead");
+            try {
+                const responseData = await sendRequest(
+                    `${process.env.REACT_APP_BACKEND_URL}users/signup`,
+                    "POST",
+                    JSON.stringify({
+                        email: enteredEmail,
+                        password: enteredPassword,
+                    }),
+                    {
+                        "Content-Type": "application/json",
+                    }
+                );
+
+                dispatch(
+                    AuthActions.login({
+                        userId: responseData.userId,
+                        email: responseData.email,
+                    })
+                );
+            } catch (err: any) {
+                console.log(err.message);
                 return;
             }
-
-            dispatch(
-                AuthActions.createAccount({
-                    email: email!.value,
-                    password: password!.value,
-                })
-            );
 
             navigate("/");
         }
