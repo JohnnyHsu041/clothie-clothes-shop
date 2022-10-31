@@ -6,7 +6,7 @@ import { Product } from "../../../components/product/ProductList";
 
 const NewIn: React.FC = () => {
     const [loadedProducts, setLoadedProducts] = useState<Product[]>([]);
-    const [sendRequest] = useHttpClient();
+    const { sendRequest } = useHttpClient();
 
     useEffect(() => {
         const getAllProducts = async () => {

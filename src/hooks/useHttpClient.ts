@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type sendReqFunc = (
     url: string,
@@ -8,10 +8,15 @@ type sendReqFunc = (
 ) => any;
 
 const useHttpClient = () => {
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+
     const activeHttpReqs = useRef<AbortController[]>([]);
 
     const sendRequest: sendReqFunc = useCallback(
         async (url, method = "GET", body = null, headers = {}) => {
+            setIsLoading(true);
+
             const httpAbortCtrl = new AbortController();
             activeHttpReqs.current.push(httpAbortCtrl);
 
@@ -32,13 +37,21 @@ const useHttpClient = () => {
                     throw new Error(responseData.message);
                 }
 
+                setIsLoading(false);
+
                 return responseData;
             } catch (err: any) {
+                setIsLoading(false);
+                setError(err.message);
                 throw err;
             }
         },
         []
     );
+
+    const clearError = () => {
+        setError(null);
+    };
 
     useEffect(() => {
         return () => {
@@ -46,7 +59,7 @@ const useHttpClient = () => {
         };
     }, []);
 
-    return [sendRequest];
+    return { sendRequest, isLoading, error, clearError };
 };
 
 export default useHttpClient;

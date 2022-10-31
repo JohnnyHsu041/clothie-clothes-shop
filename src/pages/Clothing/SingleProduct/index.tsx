@@ -13,7 +13,7 @@ import s from "../../../styles/css/SingleProduct.module.css";
 
 const SingleProduct: React.FC = () => {
     const productId = window.location.pathname.split("/clothing/")[1];
-    const [sendRequest] = useHttpClient();
+    const {sendRequest} = useHttpClient();
 
     const {
         triggerSizeM,

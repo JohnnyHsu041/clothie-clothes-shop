@@ -16,7 +16,7 @@ import { RootState } from "../../redux/store";
 import useHttpClient from "../../hooks/useHttpClient";
 
 const Auth: React.FC = () => {
-    const [sendRequest] = useHttpClient();
+    const { sendRequest } = useHttpClient();
 
     const navigate = routerNavigate();
     const auth = useSelector((state: RootState) => state.auth);

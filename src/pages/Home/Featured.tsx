@@ -10,7 +10,7 @@ import s from "../../styles/css/Featured.module.css";
 
 const Featured: React.FC = () => {
     const carouselRef = useRef<HTMLUListElement>(null);
-    const [sendRequest] = useHttpClient();
+    const {sendRequest} = useHttpClient();
 
     const [loadedProducts, setLoadedProducts] = useState<Product[]>([]);
     const [prev, next] = useCarouselArrow(3, 0, 5, 352.5, carouselRef);

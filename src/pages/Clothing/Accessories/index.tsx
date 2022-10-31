@@ -7,7 +7,7 @@ import ClothingPage from "../ClothingPage";
 
 const Accessories: React.FC = () => {
     const [loadedAccessories, setLoadedAccessories] = useState<Product[]>([]);
-    const [sendRequest] = useHttpClient();
+    const { sendRequest } = useHttpClient();
 
     useEffect(() => {
         const getAllProducts = async () => {

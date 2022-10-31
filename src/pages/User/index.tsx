@@ -17,7 +17,7 @@ import useHttpClient from "../../hooks/useHttpClient";
 import { FormEvent } from "react";
 
 const User: React.FC = () => {
-    const [sendRequest] = useHttpClient();
+    const { sendRequest } = useHttpClient();
     const navigate = routerNavigate();
 
     const auth = useSelector((state: RootState) => state.auth);

@@ -19,7 +19,7 @@ import useHttpClient from "../../hooks/useHttpClient";
 
 const Clothing: React.FC = () => {
     const [loadedProducts, setLoadedProduct] = useState<Product[]>([]);
-    const [sendRequest] = useHttpClient();
+    const {sendRequest} = useHttpClient();
 
     useEffect(() => {
         const getAllProducts = async () => {
