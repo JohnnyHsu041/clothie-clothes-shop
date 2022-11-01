@@ -1,0 +1,33 @@
+@import '../../colors'
+
+.loading-spinner
+    height 100%
+    width 100%
+    position absolute
+    top 0
+    left 0
+    background white
+    display flex
+    justify-content center
+    align-items center
+
+.spinning-ring
+    &::after
+        content " "
+        display block
+        width 3.2rem
+        height 3.2rem
+        border-radius 50%
+        border-width 1px
+        border-style solid
+        border-color $nav $nav transparent $nav
+        animation rotating 1.2s linear infinite
+
+@keyframes rotating {
+    0% {
+        transform rotate(0deg)    
+    }
+    100% {
+        transform rotate(360deg)    
+    }
+}

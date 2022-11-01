@@ -16,6 +16,7 @@ import { useNavigate as routerNavigate } from "react-router-dom";
 import useHttpClient from "../../hooks/useHttpClient";
 import { FormEvent } from "react";
 import ErrorModal from "../../components/ui/ErrorModal";
+import LoadingSpinner from "../../components/ui/LoadingSpinner";
 
 const User: React.FC = () => {
     const { sendRequest, isLoading, error, clearError } = useHttpClient();
@@ -86,78 +87,86 @@ const User: React.FC = () => {
     return (
         <section className={`container ${s["user-container"]}`}>
             {error && <ErrorModal error={error} onClear={clearError} />}
-            <div className={s.user}>
-                <nav className={s.catalog}>
-                    <div className={s["catalog__user"]}>
-                        <Button>會員資料</Button>
-                    </div>
-                    <div className={s["catalog__order"]}>
-                        <Button>訂單記錄</Button>
-                    </div>
-                    <div
-                        className={s["catalog__logout"]}
-                        onClick={logoutHandler}
-                    >
-                        <Button>登出</Button>
-                    </div>
-                </nav>
-                <div className={s["info-section"]}>
-                    <div className={s["user-info"]}>
-                        <form onSubmit={modifyHandler}>
-                            <Input
-                                readonly
-                                id="email"
-                                type="email"
-                                title="電子郵件"
-                                initValue={auth.email as string}
-                                validators={[VALIDATOR_EMAIL()]}
-                                onChange={() => {}}
-                                style={{ marginBottom: "0.8rem" }}
-                            />
-                            <Input
-                                id="oldPassword"
-                                type="password"
-                                title="舊密碼"
-                                errorText="舊密碼長度錯誤"
-                                validators={[
-                                    VALIDATOR_MIN_LENGTH(6),
-                                    VALIDATOR_MAX_LENGTH(10),
-                                ]}
-                                onChange={changeHandler}
-                                style={{ marginBottom: "0.8rem" }}
-                            />
-                            <Input
-                                id="newPassword"
-                                type="password"
-                                title="新密碼"
-                                errorText="密碼至少需6碼，最多10碼"
-                                validators={[
-                                    VALIDATOR_MIN_LENGTH(6),
-                                    VALIDATOR_MAX_LENGTH(10),
-                                ]}
-                                onChange={changeHandler}
-                                style={{ marginBottom: "0.8rem" }}
-                            />
-                            <Input
-                                id="newPasswordCheck"
-                                type="password"
-                                title="再次輸入新密碼"
-                                validators={[
-                                    VALIDATOR_PASSWORD_CHECK(
-                                        enteredNewPassword
-                                    ),
-                                ]}
-                                onChange={changeHandler}
-                                errorText="與輸入的密碼不同，請重新輸入"
-                            />
+            {isLoading && <LoadingSpinner />}
+            {!isLoading && (
+                <>
+                    <div className={s.user}>
+                        <nav className={s.catalog}>
+                            <div className={s["catalog__user"]}>
+                                <Button>會員資料</Button>
+                            </div>
+                            <div className={s["catalog__order"]}>
+                                <Button>訂單記錄</Button>
+                            </div>
+                            <div
+                                className={s["catalog__logout"]}
+                                onClick={logoutHandler}
+                            >
+                                <Button>登出</Button>
+                            </div>
+                        </nav>
+                        <div className={s["info-section"]}>
+                            <div className={s["user-info"]}>
+                                <form onSubmit={modifyHandler}>
+                                    <Input
+                                        readonly
+                                        id="email"
+                                        type="email"
+                                        title="電子郵件"
+                                        initValue={auth.email as string}
+                                        validators={[VALIDATOR_EMAIL()]}
+                                        onChange={() => {}}
+                                        style={{ marginBottom: "0.8rem" }}
+                                    />
+                                    <Input
+                                        id="oldPassword"
+                                        type="password"
+                                        title="舊密碼"
+                                        errorText="舊密碼長度錯誤"
+                                        validators={[
+                                            VALIDATOR_MIN_LENGTH(6),
+                                            VALIDATOR_MAX_LENGTH(10),
+                                        ]}
+                                        onChange={changeHandler}
+                                        style={{ marginBottom: "0.8rem" }}
+                                    />
+                                    <Input
+                                        id="newPassword"
+                                        type="password"
+                                        title="新密碼"
+                                        errorText="密碼至少需6碼，最多10碼"
+                                        validators={[
+                                            VALIDATOR_MIN_LENGTH(6),
+                                            VALIDATOR_MAX_LENGTH(10),
+                                        ]}
+                                        onChange={changeHandler}
+                                        style={{ marginBottom: "0.8rem" }}
+                                    />
+                                    <Input
+                                        id="newPasswordCheck"
+                                        type="password"
+                                        title="再次輸入新密碼"
+                                        validators={[
+                                            VALIDATOR_PASSWORD_CHECK(
+                                                enteredNewPassword
+                                            ),
+                                        ]}
+                                        onChange={changeHandler}
+                                        errorText="與輸入的密碼不同，請重新輸入"
+                                    />
 
-                            <Button type="submit" disabled={!formIsValid}>
-                                <span>修改</span>
-                            </Button>
-                        </form>
+                                    <Button
+                                        type="submit"
+                                        disabled={!formIsValid}
+                                    >
+                                        <span>修改</span>
+                                    </Button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </>
+            )}
         </section>
     );
 };

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Product } from "../../components/product/ProductList";
 import useHttpClient from "../../hooks/useHttpClient";
 import ErrorModal from "../../components/ui/ErrorModal";
+import LoadingSpinner from "../../components/ui/LoadingSpinner";
 
 // const DUMMY_PRODUCTS = [
 //     {
@@ -41,7 +42,10 @@ const Clothing: React.FC = () => {
     return (
         <section className="clothing-page-container">
             {error && <ErrorModal error={error} onClear={clearError} />}
-            <ClothingPage products={loadedProducts} />
+            {isLoading && <LoadingSpinner />}
+            {!isLoading && loadedProducts && (
+                <ClothingPage products={loadedProducts} />
+            )}
         </section>
     );
 };

@@ -11,6 +11,7 @@ import useHttpClient from "../../../hooks/useHttpClient";
 
 import s from "../../../styles/css/SingleProduct.module.css";
 import ErrorModal from "../../../components/ui/ErrorModal";
+import LoadingSpinner from "../../../components/ui/LoadingSpinner";
 
 const SingleProduct: React.FC = () => {
     const productId = window.location.pathname.split("/clothing/")[1];
@@ -89,97 +90,108 @@ const SingleProduct: React.FC = () => {
     return (
         <section className="page">
             {error && <ErrorModal error={error} onClear={clearError} />}
-            <div className={s["single-product"]}>
-                <div className={s["single-product__img"]}>
-                    <div className={s["img-carousel"]}>
-                        <Button onClick={prev}>
-                            <Arrow type="left" />
-                        </Button>
-                        <div className={s["carousel-container"]}>
-                            <ImageCarousel
-                                ref={carouselRef}
-                                images={productInfo.images}
-                            />
-                        </div>
-                        <Button onClick={next}>
-                            <Arrow type="right" />
-                        </Button>
-                    </div>
-                </div>
-                <div className={s["single-product__desc"]}>
-                    <div className={s["product-info"]}>
-                        <div className={s.info}>
-                            {productInfo.newIn && (
-                                <div className={s["product-info__tag"]}>
-                                    <span>新品</span>
-                                </div>
-                            )}
-                            <div className={s["product-info__name"]}>
-                                <span>{productInfo.name}</span>
-                            </div>
-                            <div className={s["product-info__price"]}>
-                                <span>{productInfo.price}</span>
-                            </div>
-                            <div className={s["product-info__detail"]}>
-                                <p>韓國製造</p>
-                                <p>*實際顏色依單品照為主</p>
-                                <p>*單一產品不分尺寸，最多下單件數為3件</p>
-                            </div>
-                        </div>
-                        <div className={s["client-input"]}>
-                            <div className={s["product-info__size"]}>
-                                <div
-                                    className={
-                                        sizeSIsTriggered ? s.triggered : ""
-                                    }
-                                    onClick={triggerSizeS}
-                                >
-                                    S
-                                </div>
-                                <div
-                                    className={
-                                        sizeMIsTriggered ? s.triggered : ""
-                                    }
-                                    onClick={triggerSizeM}
-                                >
-                                    M
-                                </div>
-                            </div>
-                            <div className={s["product-info__amount"]}>
-                                <Button onClick={minusHandler}>
-                                    <span>&minus;</span>
+            {isLoading && <LoadingSpinner />}
+            {!isLoading && productInfo && (
+                <>
+                    <div className={s["single-product"]}>
+                        <div className={s["single-product__img"]}>
+                            <div className={s["img-carousel"]}>
+                                <Button onClick={prev}>
+                                    <Arrow type="left" />
                                 </Button>
-                                <input
-                                    type="text"
-                                    readOnly
-                                    value={productInfo.amount}
-                                    min="1"
-                                    max="3"
-                                />
-                                <Button onClick={plusHandler}>
-                                    <span>&#43;</span>
+                                <div className={s["carousel-container"]}>
+                                    <ImageCarousel
+                                        ref={carouselRef}
+                                        images={productInfo.images}
+                                    />
+                                </div>
+                                <Button onClick={next}>
+                                    <Arrow type="right" />
                                 </Button>
                             </div>
                         </div>
-                        <div className={s["btn-container"]}>
-                            <Button
-                                className={s["cart-btn"]}
-                                onClick={addtoCart}
-                            >
-                                <span>加入購物車</span>
-                            </Button>
-                            <Button
-                                className={s["purchase-btn"]}
-                                type="link"
-                                dest="/cart"
-                                onClick={directToCart}
-                            >
-                                <span>立即購買</span>
-                            </Button>
+                        <div className={s["single-product__desc"]}>
+                            <div className={s["product-info"]}>
+                                <div className={s.info}>
+                                    {productInfo.newIn && (
+                                        <div className={s["product-info__tag"]}>
+                                            <span>新品</span>
+                                        </div>
+                                    )}
+                                    <div className={s["product-info__name"]}>
+                                        <span>{productInfo.name}</span>
+                                    </div>
+                                    <div className={s["product-info__price"]}>
+                                        <span>{productInfo.price}</span>
+                                    </div>
+                                    <div className={s["product-info__detail"]}>
+                                        <p>韓國製造</p>
+                                        <p>*實際顏色依單品照為主</p>
+                                        <p>
+                                            *單一產品不分尺寸，最多下單件數為3件
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className={s["client-input"]}>
+                                    <div className={s["product-info__size"]}>
+                                        <div
+                                            className={
+                                                sizeSIsTriggered
+                                                    ? s.triggered
+                                                    : ""
+                                            }
+                                            onClick={triggerSizeS}
+                                        >
+                                            S
+                                        </div>
+                                        <div
+                                            className={
+                                                sizeMIsTriggered
+                                                    ? s.triggered
+                                                    : ""
+                                            }
+                                            onClick={triggerSizeM}
+                                        >
+                                            M
+                                        </div>
+                                    </div>
+                                    <div className={s["product-info__amount"]}>
+                                        <Button onClick={minusHandler}>
+                                            <span>&minus;</span>
+                                        </Button>
+                                        <input
+                                            type="text"
+                                            readOnly
+                                            value={productInfo.amount}
+                                            min="1"
+                                            max="3"
+                                        />
+                                        <Button onClick={plusHandler}>
+                                            <span>&#43;</span>
+                                        </Button>
+                                    </div>
+                                </div>
+                                <div className={s["btn-container"]}>
+                                    <Button
+                                        className={s["cart-btn"]}
+                                        onClick={addtoCart}
+                                    >
+                                        <span>加入購物車</span>
+                                    </Button>
+                                    <Button
+                                        className={s["purchase-btn"]}
+                                        type="link"
+                                        dest="/cart"
+                                        onClick={directToCart}
+                                    >
+                                        <span>立即購買</span>
+                                    </Button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </>
+            )}
         </section>
     );
 };

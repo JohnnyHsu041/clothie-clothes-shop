@@ -8,6 +8,7 @@ import useHttpClient from "../../hooks/useHttpClient";
 
 import s from "../../styles/css/Featured.module.css";
 import ErrorModal from "../../components/ui/ErrorModal";
+import LoadingSpinner from "../../components/ui/LoadingSpinner";
 
 const Featured: React.FC = () => {
     const carouselRef = useRef<HTMLUListElement>(null);
@@ -35,22 +36,27 @@ const Featured: React.FC = () => {
     return (
         <section className={`container ${s.featured}`}>
             {error && <ErrorModal error={error} onClear={clearError} />}
-            <h2 className={s["featured-title"]}>featured.</h2>
-            <div className={s["featured-carousel"]}>
-                <Button onClick={prev}>
-                    <Arrow type="left" />
-                </Button>
-                <div className={s["carousel-container"]}>
-                    <ProductList
-                        ref={carouselRef}
-                        products={loadedProducts}
-                        className="featured-carousel"
-                    />
-                </div>
-                <Button onClick={next}>
-                    <Arrow type="right" />
-                </Button>
-            </div>
+            {isLoading && <LoadingSpinner />}
+            {!isLoading && loadedProducts && (
+                <>
+                    <h2 className={s["featured-title"]}>featured.</h2>
+                    <div className={s["featured-carousel"]}>
+                        <Button onClick={prev}>
+                            <Arrow type="left" />
+                        </Button>
+                        <div className={s["carousel-container"]}>
+                            <ProductList
+                                ref={carouselRef}
+                                products={loadedProducts}
+                                className="featured-carousel"
+                            />
+                        </div>
+                        <Button onClick={next}>
+                            <Arrow type="right" />
+                        </Button>
+                    </div>
+                </>
+            )}
         </section>
     );
 };

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 import { Product } from "../../../components/product/ProductList";
 import ErrorModal from "../../../components/ui/ErrorModal";
+import LoadingSpinner from "../../../components/ui/LoadingSpinner";
 import useHttpClient from "../../../hooks/useHttpClient";
 
 import ClothingPage from "../ClothingPage";
@@ -29,7 +30,10 @@ const Accessories: React.FC = () => {
     return (
         <section className="clothing-page-container">
             {error && <ErrorModal error={error} onClear={clearError} />}
-            <ClothingPage products={loadedAccessories} />
+            {isLoading && <LoadingSpinner />}
+            {!isLoading && loadedAccessories && (
+                <ClothingPage products={loadedAccessories} />
+            )}
         </section>
     );
 };

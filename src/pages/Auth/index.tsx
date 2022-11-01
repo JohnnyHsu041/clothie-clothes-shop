@@ -14,9 +14,10 @@ import { useNavigate as routerNavigate } from "react-router-dom";
 import AuthActions from "../../redux/auth-slice";
 import useHttpClient from "../../hooks/useHttpClient";
 import ErrorModal from "../../components/ui/ErrorModal";
+import LoadingSpinner from "../../components/ui/LoadingSpinner";
 
 const Auth: React.FC = () => {
-    const { sendRequest, error, clearError } = useHttpClient();
+    const { sendRequest, isLoading, error, clearError } = useHttpClient();
     const navigate = routerNavigate();
     const dispatch = useDispatch();
 
@@ -124,55 +125,68 @@ const Auth: React.FC = () => {
     return (
         <section className={s.auth}>
             {error && <ErrorModal error={error} onClear={clearError} />}
-            <div className={s["auth-container"]}>
-                <h2 className={s.title}>{isLogin ? "Sign In" : "Sign Up"}</h2>
-                <form onSubmit={submitHandler}>
-                    <Input
-                        id="email"
-                        type="email"
-                        title="電子郵件"
-                        placeholder={isLogin ? "" : "clothy@clothie.com"}
-                        errorText="請輸入正確電子郵件格式"
-                        validators={[VALIDATOR_EMAIL()]}
-                        onChange={changeHandler}
-                        style={{ marginBottom: "0.8rem" }}
-                    />
-                    <Input
-                        id="password"
-                        type="password"
-                        title="密碼"
-                        placeholder={isLogin ? "" : "密碼最少6碼，最多10碼"}
-                        errorText="密碼至少需6碼，最多10碼"
-                        validators={[
-                            VALIDATOR_MIN_LENGTH(6),
-                            VALIDATOR_MAX_LENGTH(10),
-                        ]}
-                        onChange={changeHandler}
-                        style={{ marginBottom: "0.8rem" }}
-                    />
-                    {!isLogin && (
-                        <Input
-                            id="passwordCheck"
-                            type="password"
-                            title="再次輸入密碼"
-                            validators={[
-                                VALIDATOR_PASSWORD_CHECK(enteredPassword),
-                            ]}
-                            onChange={changeHandler}
-                            errorText="與輸入的密碼不同，請重新輸入"
-                        />
-                    )}
-                    <Button type="submit" disabled={!formIsValid}>
-                        <span>{isLogin ? "登入" : "註冊"}</span>
-                    </Button>
-                </form>
-                <div className={s["switch-to-registry"]}>
-                    <span>{isLogin ? "沒有帳號？" : "已有帳號？"}</span>
-                    <Button onClick={switchHandler}>
-                        <span>{isLogin ? "註冊" : "登入"}</span>
-                    </Button>
-                </div>
-            </div>
+            {isLoading && <LoadingSpinner />}
+            {!isLoading && (
+                <>
+                    <div className={s["auth-container"]}>
+                        <h2 className={s.title}>
+                            {isLogin ? "Sign In" : "Sign Up"}
+                        </h2>
+                        <form onSubmit={submitHandler}>
+                            <Input
+                                id="email"
+                                type="email"
+                                title="電子郵件"
+                                placeholder={
+                                    isLogin ? "" : "clothy@clothie.com"
+                                }
+                                errorText="請輸入正確電子郵件格式"
+                                validators={[VALIDATOR_EMAIL()]}
+                                onChange={changeHandler}
+                                style={{ marginBottom: "0.8rem" }}
+                            />
+                            <Input
+                                id="password"
+                                type="password"
+                                title="密碼"
+                                placeholder={
+                                    isLogin ? "" : "密碼最少6碼，最多10碼"
+                                }
+                                errorText="密碼至少需6碼，最多10碼"
+                                validators={[
+                                    VALIDATOR_MIN_LENGTH(6),
+                                    VALIDATOR_MAX_LENGTH(10),
+                                ]}
+                                onChange={changeHandler}
+                                style={{ marginBottom: "0.8rem" }}
+                            />
+                            {!isLogin && (
+                                <Input
+                                    id="passwordCheck"
+                                    type="password"
+                                    title="再次輸入密碼"
+                                    validators={[
+                                        VALIDATOR_PASSWORD_CHECK(
+                                            enteredPassword
+                                        ),
+                                    ]}
+                                    onChange={changeHandler}
+                                    errorText="與輸入的密碼不同，請重新輸入"
+                                />
+                            )}
+                            <Button type="submit" disabled={!formIsValid}>
+                                <span>{isLogin ? "登入" : "註冊"}</span>
+                            </Button>
+                        </form>
+                        <div className={s["switch-to-registry"]}>
+                            <span>{isLogin ? "沒有帳號？" : "已有帳號？"}</span>
+                            <Button onClick={switchHandler}>
+                                <span>{isLogin ? "註冊" : "登入"}</span>
+                            </Button>
+                        </div>
+                    </div>
+                </>
+            )}
         </section>
     );
 };
