@@ -16,25 +16,6 @@ export const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-        // createAccount(state, action) {
-        //     const existedUser = state.accounts.find(
-        //         (account) => account.email === action.payload.email
-        //     );
-
-        //     if (existedUser) {
-        //         alert("existed");
-        //         return;
-        //     }
-
-        //     const newUser = {
-        //         id: "p1",
-        //         email: action.payload.email,
-        //         password: action.payload.password,
-        //     };
-
-        //     state.accounts.push(newUser);
-        //     state.isLoggedIn = true;
-        // },
         login(state, action) {
             state.isLoggedIn = true;
             state.userId = action.payload.userId;

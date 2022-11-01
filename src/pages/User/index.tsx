@@ -15,9 +15,10 @@ import AuthActions from "../../redux/auth-slice";
 import { useNavigate as routerNavigate } from "react-router-dom";
 import useHttpClient from "../../hooks/useHttpClient";
 import { FormEvent } from "react";
+import ErrorModal from "../../components/ui/ErrorModal";
 
 const User: React.FC = () => {
-    const { sendRequest } = useHttpClient();
+    const { sendRequest, isLoading, error, clearError } = useHttpClient();
     const navigate = routerNavigate();
 
     const auth = useSelector((state: RootState) => state.auth);
@@ -45,38 +46,46 @@ const User: React.FC = () => {
         false
     );
 
+    const { value: email } = inputInfoObject.email!;
     const { value: enteredOldPassword } = inputInfoObject.oldPassword!;
     const { value: enteredNewPassword } = inputInfoObject.newPassword!;
 
     const logoutHandler = () => {
-        dispatch(AuthActions.logout());
-        navigate("/");
+        const logoutConfirm = window.confirm("確定登出?");
+
+        if (logoutConfirm) {
+            dispatch(AuthActions.logout());
+            navigate("/");
+        }
     };
 
     const modifyHandler = async (event: FormEvent) => {
+        event.preventDefault();
+
         try {
-            const responseData = await sendRequest(
+            await sendRequest(
                 `${process.env.REACT_APP_BACKEND_URL}users`,
                 "PATCH",
                 JSON.stringify({
-                    email: inputInfoObject.email!.value,
-                    password: enteredOldPassword,
+                    email,
+                    oldPassword: enteredOldPassword,
                     updatedPassword: enteredNewPassword,
                 }),
                 { "Content-Type": "application/json" }
             );
 
+            alert("密碼更新成功，請重新登入");
+
             dispatch(AuthActions.logout());
+            navigate("/");
         } catch (err: any) {
             console.log(err.message);
-            return;
         }
-
-        navigate("/");
     };
 
     return (
         <section className={`container ${s["user-container"]}`}>
+            {error && <ErrorModal error={error} onClear={clearError} />}
             <div className={s.user}>
                 <nav className={s.catalog}>
                     <div className={s["catalog__user"]}>
@@ -109,7 +118,7 @@ const User: React.FC = () => {
                                 id="oldPassword"
                                 type="password"
                                 title="舊密碼"
-                                errorText="與舊密碼不符"
+                                errorText="舊密碼長度錯誤"
                                 validators={[
                                     VALIDATOR_MIN_LENGTH(6),
                                     VALIDATOR_MAX_LENGTH(10),
