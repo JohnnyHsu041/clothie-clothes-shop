@@ -51,6 +51,7 @@ const useHttpClient = () => {
 
     const clearError = () => {
         setError(null);
+        document.body.style.overflow = "unset";
     };
 
     useEffect(() => {

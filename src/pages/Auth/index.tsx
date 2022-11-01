@@ -9,17 +9,17 @@ import s from "../../styles/css/Auth.module.css";
 import useFormValidity from "../../hooks/useFormValidity";
 import { FormEvent, useState } from "react";
 import Button from "../../components/ui/Button";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate as routerNavigate } from "react-router-dom";
 import AuthActions from "../../redux/auth-slice";
-import { RootState } from "../../redux/store";
 import useHttpClient from "../../hooks/useHttpClient";
+import ErrorModal from "../../components/ui/ErrorModal";
 
 const Auth: React.FC = () => {
-    const { sendRequest } = useHttpClient();
-
+    const { sendRequest, error, clearError } = useHttpClient();
     const navigate = routerNavigate();
-    const auth = useSelector((state: RootState) => state.auth);
+    const dispatch = useDispatch();
+
     const [isLogin, setIsLogin] = useState(true);
     const [inputInfoObject, formIsValid, changeHandler, setForm] =
         useFormValidity(
@@ -39,8 +39,6 @@ const Auth: React.FC = () => {
     const { email, password } = inputInfoObject;
     const { value: enteredEmail } = email!;
     const { value: enteredPassword } = password!;
-
-    const dispatch = useDispatch();
 
     const switchHandler = () => {
         if (isLogin) {
@@ -125,6 +123,7 @@ const Auth: React.FC = () => {
 
     return (
         <section className={s.auth}>
+            {error && <ErrorModal error={error} onClear={clearError} />}
             <div className={s["auth-container"]}>
                 <h2 className={s.title}>{isLogin ? "Sign In" : "Sign Up"}</h2>
                 <form onSubmit={submitHandler}>
