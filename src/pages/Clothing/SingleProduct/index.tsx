@@ -10,10 +10,11 @@ import useProductInfo from "../../../hooks/useProductInfo";
 import useHttpClient from "../../../hooks/useHttpClient";
 
 import s from "../../../styles/css/SingleProduct.module.css";
+import ErrorModal from "../../../components/ui/ErrorModal";
 
 const SingleProduct: React.FC = () => {
     const productId = window.location.pathname.split("/clothing/")[1];
-    const {sendRequest} = useHttpClient();
+    const { sendRequest, isLoading, error, clearError } = useHttpClient();
 
     const {
         triggerSizeM,
@@ -87,6 +88,7 @@ const SingleProduct: React.FC = () => {
 
     return (
         <section className="page">
+            {error && <ErrorModal error={error} onClear={clearError} />}
             <div className={s["single-product"]}>
                 <div className={s["single-product__img"]}>
                     <div className={s["img-carousel"]}>

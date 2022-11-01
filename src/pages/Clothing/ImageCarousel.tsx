@@ -18,7 +18,11 @@ const ImageCarousel = React.forwardRef<Ref, ImageCarouselProps>(
                     return (
                         <li key={key}>
                             <img
-                                src={`http://localhost:8080/${image}`}
+                                src={
+                                    image
+                                        ? `http://localhost:8080/${image}`
+                                        : ""
+                                }
                                 alt="one of the product images"
                             />
                         </li>

@@ -3,6 +3,7 @@ import "../../styles/css/global.css";
 import { useEffect, useState } from "react";
 import { Product } from "../../components/product/ProductList";
 import useHttpClient from "../../hooks/useHttpClient";
+import ErrorModal from "../../components/ui/ErrorModal";
 
 // const DUMMY_PRODUCTS = [
 //     {
@@ -19,7 +20,7 @@ import useHttpClient from "../../hooks/useHttpClient";
 
 const Clothing: React.FC = () => {
     const [loadedProducts, setLoadedProduct] = useState<Product[]>([]);
-    const {sendRequest} = useHttpClient();
+    const { sendRequest, isLoading, error, clearError } = useHttpClient();
 
     useEffect(() => {
         const getAllProducts = async () => {
@@ -39,6 +40,7 @@ const Clothing: React.FC = () => {
 
     return (
         <section className="clothing-page-container">
+            {error && <ErrorModal error={error} onClear={clearError} />}
             <ClothingPage products={loadedProducts} />
         </section>
     );

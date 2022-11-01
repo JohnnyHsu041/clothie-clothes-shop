@@ -3,10 +3,11 @@ import useHttpClient from "../../../hooks/useHttpClient";
 import "../../../styles/css/global.css";
 import ClothingPage from "../ClothingPage";
 import { Product } from "../../../components/product/ProductList";
+import ErrorModal from "../../../components/ui/ErrorModal";
 
 const NewIn: React.FC = () => {
     const [loadedProducts, setLoadedProducts] = useState<Product[]>([]);
-    const { sendRequest } = useHttpClient();
+    const { sendRequest, isLoading, error, clearError } = useHttpClient();
 
     useEffect(() => {
         const getAllProducts = async () => {
@@ -26,6 +27,7 @@ const NewIn: React.FC = () => {
 
     return (
         <section className="clothing-page-container">
+            {error && <ErrorModal error={error} onClear={clearError} />}
             <ClothingPage products={loadedProducts} />
         </section>
     );

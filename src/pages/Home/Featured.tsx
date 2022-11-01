@@ -7,10 +7,11 @@ import { Product } from "../../components/product/ProductList";
 import useHttpClient from "../../hooks/useHttpClient";
 
 import s from "../../styles/css/Featured.module.css";
+import ErrorModal from "../../components/ui/ErrorModal";
 
 const Featured: React.FC = () => {
     const carouselRef = useRef<HTMLUListElement>(null);
-    const {sendRequest} = useHttpClient();
+    const { sendRequest, isLoading, error, clearError } = useHttpClient();
 
     const [loadedProducts, setLoadedProducts] = useState<Product[]>([]);
     const [prev, next] = useCarouselArrow(3, 0, 5, 352.5, carouselRef);
@@ -33,6 +34,7 @@ const Featured: React.FC = () => {
 
     return (
         <section className={`container ${s.featured}`}>
+            {error && <ErrorModal error={error} onClear={clearError} />}
             <h2 className={s["featured-title"]}>featured.</h2>
             <div className={s["featured-carousel"]}>
                 <Button onClick={prev}>
