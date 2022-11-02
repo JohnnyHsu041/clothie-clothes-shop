@@ -3,13 +3,15 @@ import { createSlice } from "@reduxjs/toolkit";
 interface Auth {
     isLoggedIn: boolean;
     userId: string | null;
-    email: string | null;
+    token: string | null;
+    tokenExpirationDate: string | null;
 }
 
 const initialState: Auth = {
     isLoggedIn: false,
     userId: null,
-    email: null,
+    token: null,
+    tokenExpirationDate: null,
 };
 
 export const authSlice = createSlice({
@@ -17,22 +19,29 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
         login(state, action) {
-            state.isLoggedIn = true;
+            state.token = action.payload.token;
+            state.isLoggedIn = !!action.payload.token;
             state.userId = action.payload.userId;
-            state.email = action.payload.email;
+
+            const tokenExpiration =
+                action.payload.expiration ||
+                new Date(new Date().getTime() + 1000 * 60 * 60 * 2); // 2h validity from now on
+
+            state.tokenExpirationDate = tokenExpiration;
 
             localStorage.setItem(
                 "userData",
                 JSON.stringify({
                     userId: action.payload.userId,
-                    email: action.payload.email,
+                    expiration: tokenExpiration.toISOString(),
                 })
             );
         },
         logout(state) {
             state.isLoggedIn = false;
-            state.email = null;
             state.userId = null;
+            state.token = null;
+            state.tokenExpirationDate = null;
 
             localStorage.removeItem("userData");
         },

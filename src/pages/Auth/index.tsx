@@ -1,3 +1,6 @@
+import { FormEvent, useState } from "react";
+import { useDispatch } from "react-redux";
+
 import Input from "../../components/form/Input";
 import {
     VALIDATOR_EMAIL,
@@ -5,16 +8,15 @@ import {
     VALIDATOR_MAX_LENGTH,
     VALIDATOR_PASSWORD_CHECK,
 } from "../../utils/validator";
-import s from "../../styles/css/Auth.module.css";
 import useFormValidity from "../../hooks/useFormValidity";
-import { FormEvent, useState } from "react";
 import Button from "../../components/ui/Button";
-import { useDispatch } from "react-redux";
 import { useNavigate as routerNavigate } from "react-router-dom";
 import AuthActions from "../../redux/auth-slice";
 import useHttpClient from "../../hooks/useHttpClient";
 import ErrorModal from "../../components/ui/ErrorModal";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
+
+import s from "../../styles/css/Auth.module.css";
 
 const Auth: React.FC = () => {
     const { sendRequest, isLoading, error, clearError } = useHttpClient();
@@ -84,7 +86,7 @@ const Auth: React.FC = () => {
                 dispatch(
                     AuthActions.login({
                         userId: responseData.userId,
-                        email: responseData.email,
+                        token: responseData.token,
                     })
                 );
             } catch (err: any) {
@@ -110,7 +112,7 @@ const Auth: React.FC = () => {
                 dispatch(
                     AuthActions.login({
                         userId: responseData.userId,
-                        email: responseData.email,
+                        token: responseData.token,
                     })
                 );
             } catch (err: any) {

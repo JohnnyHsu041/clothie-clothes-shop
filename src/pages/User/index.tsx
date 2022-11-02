@@ -1,3 +1,6 @@
+import { FormEvent, useEffect } from "react";
+import { useDispatch } from "react-redux";
+
 import Input from "../../components/form/Input";
 import Button from "../../components/ui/Button";
 import {
@@ -6,29 +9,24 @@ import {
     VALIDATOR_MIN_LENGTH,
     VALIDATOR_PASSWORD_CHECK,
 } from "../../utils/validator";
-
 import useFormValidity from "../../hooks/useFormValidity";
-import s from "../../styles/css/User.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
 import AuthActions from "../../redux/auth-slice";
 import { useNavigate as routerNavigate } from "react-router-dom";
 import useHttpClient from "../../hooks/useHttpClient";
-import { FormEvent } from "react";
 import ErrorModal from "../../components/ui/ErrorModal";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
+
+import s from "../../styles/css/User.module.css";
 
 const User: React.FC = () => {
     const { sendRequest, isLoading, error, clearError } = useHttpClient();
     const navigate = routerNavigate();
-
-    const auth = useSelector((state: RootState) => state.auth);
     const dispatch = useDispatch();
 
     const [inputInfoObject, formIsValid, changeHandler] = useFormValidity(
         {
             email: {
-                value: auth.email as string,
+                value: "",
                 isValid: true,
             },
             oldPassword: {
@@ -46,6 +44,29 @@ const User: React.FC = () => {
         },
         false
     );
+
+    useEffect(() => {
+        const getUserEmail = async () => {
+            const userId: string = JSON.parse(
+                localStorage.getItem("userData")!
+            ).userId;
+
+            try {
+                const responseData = await sendRequest(
+                    `${process.env.REACT_APP_BACKEND_URL}users`,
+                    "POST",
+                    JSON.stringify({ userId }),
+                    { "Content-Type": "application/json" }
+                );
+
+                changeHandler("email", responseData.email, true);
+            } catch (err: any) {
+                console.log(err.message);
+            }
+        };
+
+        getUserEmail();
+    }, [sendRequest, changeHandler]);
 
     const { value: email } = inputInfoObject.email!;
     const { value: enteredOldPassword } = inputInfoObject.oldPassword!;
@@ -113,7 +134,7 @@ const User: React.FC = () => {
                                         id="email"
                                         type="email"
                                         title="電子郵件"
-                                        initValue={auth.email as string}
+                                        initValue={email}
                                         validators={[VALIDATOR_EMAIL()]}
                                         onChange={() => {}}
                                         style={{ marginBottom: "0.8rem" }}
