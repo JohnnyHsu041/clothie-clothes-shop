@@ -10,7 +10,7 @@ import {
 } from "../../utils/validator";
 import useFormValidity from "../../hooks/useFormValidity";
 import Button from "../../components/ui/Button";
-import { useNavigate as routerNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AuthActions from "../../redux/auth-slice";
 import useHttpClient from "../../hooks/useHttpClient";
 import ErrorModal from "../../components/ui/ErrorModal";
@@ -20,7 +20,7 @@ import s from "../../styles/css/Auth.module.css";
 
 const Auth: React.FC = () => {
     const { sendRequest, isLoading, error, clearError } = useHttpClient();
-    const navigate = routerNavigate();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [isLogin, setIsLogin] = useState(true);

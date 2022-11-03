@@ -6,19 +6,6 @@ import useHttpClient from "../../hooks/useHttpClient";
 import ErrorModal from "../../components/ui/ErrorModal";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
 
-// const DUMMY_PRODUCTS = [
-//     {
-//         id: "p1",
-//         name: "channel",
-//         images: [""],
-//         price: 1690,
-//         size: "S",
-//         type: "clothing",
-//         newIn: true,
-//         featured: false,
-//     },
-// ];
-
 const Clothing: React.FC = () => {
     const [loadedProducts, setLoadedProduct] = useState<Product[]>([]);
     const { sendRequest, isLoading, error, clearError } = useHttpClient();

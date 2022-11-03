@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import s from "../../styles/css/NavBar.module.css";
 import Button from "../ui/Button";

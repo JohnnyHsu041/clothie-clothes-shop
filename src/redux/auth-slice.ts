@@ -23,17 +23,20 @@ export const authSlice = createSlice({
             state.isLoggedIn = !!action.payload.token;
             state.userId = action.payload.userId;
 
+            // Date object
             const tokenExpiration =
                 action.payload.expiration ||
-                new Date(new Date().getTime() + 1000 * 60 * 60 * 2); // 2h validity from now on
+                new Date(new Date().getTime() + 1000 * 60 * 60 * 2); // 2h validity for (UTC/GMT +08:00)
 
-            state.tokenExpirationDate = tokenExpiration;
+            // string
+            state.tokenExpirationDate = tokenExpiration.toISOString();
 
             localStorage.setItem(
                 "userData",
                 JSON.stringify({
                     userId: action.payload.userId,
-                    expiration: tokenExpiration.toISOString(),
+                    token: action.payload.token,
+                    expiration: state.tokenExpirationDate,
                 })
             );
         },

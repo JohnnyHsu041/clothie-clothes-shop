@@ -15,11 +15,15 @@ import SingleProduct from "./pages/Clothing/SingleProduct";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
 import Order from "./pages/Order";
+import useAuthCheck from "./hooks/useAuthCheck";
+import Redirect from "./components/redirect/Redirect";
 
 function App() {
-    const auth = useSelector((state: RootState) => state.auth);
+    useAuthCheck();
 
-    let routes: JSX.Element = auth.isLoggedIn ? (
+    const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+
+    let routes: JSX.Element = isLoggedIn ? (
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/clothing/" element={<Clothing />} />
@@ -27,8 +31,8 @@ function App() {
             <Route path="/clothing/new-in" element={<NewIn />} />
             <Route path="/clothing/accs" element={<Accessories />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/order/:oid" element={<Order />} />
             <Route path="/user" element={<User />} />
+            <Route path="/order/:oid" element={<Order />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/*" element={<Navigate to="/" />} />
         </Routes>
@@ -40,7 +44,8 @@ function App() {
             <Route path="/clothing/new-in" element={<NewIn />} />
             <Route path="/clothing/accs" element={<Accessories />} />
             <Route path="/auth" element={<Auth />} />
-            <Route path="/order/:oid" element={<Order />} />
+            <Route path="/user" element={<Redirect destination="user" />} />
+            <Route path="/cart" element={<Redirect destination="cart" />} />
             <Route path="/*" element={<Navigate to="/auth" />} />
         </Routes>
     );
