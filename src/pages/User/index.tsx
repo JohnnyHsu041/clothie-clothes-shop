@@ -11,7 +11,7 @@ import {
 } from "../../utils/validator";
 import useFormValidity from "../../hooks/useFormValidity";
 import AuthActions from "../../redux/auth-slice";
-import { useNavigate as routerNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useHttpClient from "../../hooks/useHttpClient";
 import ErrorModal from "../../components/ui/ErrorModal";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
@@ -19,8 +19,14 @@ import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import s from "../../styles/css/User.module.css";
 
 const User: React.FC = () => {
-    const { sendRequest, isLoading, error, clearError } = useHttpClient();
-    const navigate = routerNavigate();
+    const {
+        sendRequest,
+        isLoading,
+        error,
+        clearError,
+        clearErrorAndDirectToHomePage,
+    } = useHttpClient();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [inputInfoObject, formIsValid, changeHandler] = useFormValidity(
@@ -107,7 +113,17 @@ const User: React.FC = () => {
 
     return (
         <section className={`container ${s["user-container"]}`}>
-            {error && <ErrorModal error={error} onClear={clearError} />}
+            {error && (
+                <ErrorModal
+                    error={error}
+                    onClear={
+                        email.length > 0
+                            ? clearError
+                            : clearErrorAndDirectToHomePage
+                    }
+                    // If the length of email is larger than 0, the email address must be fetched successfully via html request. The length equaling 0 means the fetching of email address failed and client might use a illegal method to access the user page.
+                />
+            )}
             {isLoading && <LoadingSpinner />}
             {!isLoading && (
                 <>

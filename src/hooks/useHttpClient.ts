@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 type sendReqFunc = (
     url: string,
@@ -10,6 +11,8 @@ type sendReqFunc = (
 const useHttpClient = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
+
+    const navigate = useNavigate();
 
     const activeHttpReqs = useRef<AbortController[]>([]);
 
@@ -54,13 +57,25 @@ const useHttpClient = () => {
         document.body.style.overflow = "unset";
     };
 
+    const clearErrorAndDirectToHomePage = () => {
+        setError(null);
+        document.body.style.overflow = "unset";
+        navigate("/");
+    };
+
     useEffect(() => {
         return () => {
             activeHttpReqs.current.forEach((abortCtrl) => abortCtrl.abort());
         };
     }, []);
 
-    return { sendRequest, isLoading, error, clearError };
+    return {
+        sendRequest,
+        isLoading,
+        error,
+        clearError,
+        clearErrorAndDirectToHomePage,
+    };
 };
 
 export default useHttpClient;
