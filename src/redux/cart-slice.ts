@@ -203,6 +203,23 @@ export const cartSlice = createSlice({
             };
 
             localStorage.setItem("clothie-cart", JSON.stringify(data));
+
+            const updatedCart = JSON.parse(
+                localStorage.getItem("clothie-cart")!
+            );
+            if (
+                updatedCart.totalAmount <= 0 &&
+                updatedCart.amountOfProducts <= 0
+            ) {
+                localStorage.setItem(
+                    "clothie-cart",
+                    JSON.stringify({
+                        amountOfProducts: 0,
+                        products: [],
+                        totalAmount: 0,
+                    })
+                );
+            }
         },
     },
 });
