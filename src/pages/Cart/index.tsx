@@ -32,9 +32,17 @@ const Cart: React.FC = () => {
     const removeProductHandler = (id: string, size: string) => {
         dispatch(CartActions.remove({ id, size }));
 
-        const cart = JSON.parse(localStorage.getItem("clothie-cart")!);
+        if (localStorage.getItem("clothie-cart")) {
+            const cart = JSON.parse(localStorage.getItem("clothie-cart")!);
 
-        setLoadedCartData(cart);
+            setLoadedCartData(cart);
+        } else {
+            setLoadedCartData({
+                products: [],
+                amountOfProducts: 0,
+                totalAmount: 0,
+            });
+        }
     };
 
     return (
@@ -50,11 +58,13 @@ const Cart: React.FC = () => {
                         </div>
                     </div>
                     <div className={s.division} />
-                    <CartProductList
-                        products={loadedCartData.products}
-                        removeHandler={removeProductHandler}
-                        changeAmountHandler={changeAmountHandler}
-                    />
+                    {loadedCartData && (
+                        <CartProductList
+                            products={loadedCartData.products}
+                            removeHandler={removeProductHandler}
+                            changeAmountHandler={changeAmountHandler}
+                        />
+                    )}
                 </div>
                 <div className={s["amount-container"]}>
                     <div className={s.amount}>

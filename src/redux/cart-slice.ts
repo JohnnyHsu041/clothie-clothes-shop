@@ -220,14 +220,15 @@ export const cartSlice = createSlice({
                 updatedCart.totalAmount <= 0 &&
                 updatedCart.amountOfProducts <= 0
             ) {
-                localStorage.setItem(
-                    "clothie-cart",
-                    JSON.stringify({
-                        amountOfProducts: 0,
-                        products: [],
-                        totalAmount: 0,
-                    })
-                );
+                localStorage.removeItem("clothie-cart");
+                // localStorage.setItem(
+                //     "clothie-cart",
+                //     JSON.stringify({
+                //         amountOfProducts: 0,
+                //         products: [],
+                //         totalAmount: 0,
+                //     })
+                // );
             }
         },
     },
