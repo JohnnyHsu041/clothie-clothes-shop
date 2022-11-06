@@ -1,17 +1,17 @@
 import { MouseEventHandler, useRef, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+
 import Arrow from "../../../components/ui/Arrow";
 import Button from "../../../components/ui/Button";
 import useCarouselArrow from "../../../hooks/useCarouselArrow";
 import ImageCarousel from "../ImageCarousel";
-import { RootState } from "../../../redux/store";
-import CartActions from "../../../redux/cart-slice";
+import CartActions, { Product } from "../../../redux/cart-slice";
 import useProductInfo from "../../../hooks/useProductInfo";
 import useHttpClient from "../../../hooks/useHttpClient";
-
-import s from "../../../styles/css/SingleProduct.module.css";
 import ErrorModal from "../../../components/ui/ErrorModal";
 import LoadingSpinner from "../../../components/ui/LoadingSpinner";
+
+import s from "../../../styles/css/SingleProduct.module.css";
 
 const SingleProduct: React.FC = () => {
     const productId = window.location.pathname.split("/clothing/")[1];
@@ -28,7 +28,6 @@ const SingleProduct: React.FC = () => {
         setProductInfo,
     } = useProductInfo();
 
-    const cart = useSelector((state: RootState) => state.cart);
     const dispatch = useDispatch();
 
     const carouselRef = useRef<HTMLUListElement>(null);
@@ -41,31 +40,32 @@ const SingleProduct: React.FC = () => {
     );
 
     const addtoCart = () => {
-        if (
-            cart.products
-                .filter((product) => product.id === productInfo.id)
-                .reduce((accu, curr) => accu + curr.amount, 0) +
-                productInfo.amount >
-            3
-        ) {
-            alert("超過下單件數3件，請至購物車確認數量");
-            return;
+        if (localStorage.getItem("clothie-cart")) {
+            const storedProduct = JSON.parse(
+                localStorage.getItem("clothie-cart")!
+            ).products.find((product: Product) => product.id === productId);
+
+            if (storedProduct && storedProduct.amount >= 3) {
+                alert("超過下單總件數3件，總件數以3件計算");
+                return;
+            }
         }
 
         dispatch(CartActions.add({ ...productInfo, id: productInfo.id }));
     };
 
     const directToCart: MouseEventHandler<HTMLLinkElement> = (event) => {
-        if (
-            cart.products
-                .filter((product) => product.id === productInfo.id)
-                .reduce((accu, curr) => accu + curr.amount, 0) +
-                productInfo.amount >
-            3
-        ) {
-            alert("超過下單件數3件，請至購物車確認數量");
-            event.preventDefault();
-            return;
+        if (localStorage.getItem("clothie-cart")) {
+            const storedProduct = JSON.parse(
+                localStorage.getItem("clothie-cart")!
+            ).products.find((product: Product) => product.id === productId);
+
+            if (storedProduct && storedProduct.amount >= 3) {
+                alert("超過下單總件數3件，總件數以3件計算");
+                event.preventDefault();
+
+                return;
+            }
         }
 
         dispatch(CartActions.add({ ...productInfo, id: productInfo.id }));

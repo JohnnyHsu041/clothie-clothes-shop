@@ -1,10 +1,9 @@
-import { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
-import CartActions from "../../redux/cart-slice";
+import React, { useEffect, useRef, useState } from "react";
+
 import s from "../../styles/css/CartProductItem.module.css";
 import Button from "../../components/ui/Button";
 import useAmountCount from "../../hooks/useAmountCount";
+import { Product } from "../../redux/cart-slice";
 
 interface CartProductItemProps {
     id: string;
@@ -13,30 +12,50 @@ interface CartProductItemProps {
     amount: number;
     total: number;
     remove: (id: string, size: string) => void;
+    changeAmount: (id: string, size: string, amount: number) => void;
 }
 
 const CartProductItem: React.FC<CartProductItemProps> = (props) => {
     const selectRef = useRef<HTMLSelectElement>(null);
+    const [sizeInfo, setSizeInfo] = useState({
+        amountOfSpecificSize: 0,
+        amountWithAllSizes: 0,
+    });
 
-    const dispatch = useDispatch();
-    const cart = useSelector((state: RootState) => state.cart);
-    const { products } = cart;
-    const theProduct = products.find(
-        (product) => product.id === props.id && product.size === props.size
+    const [amount, options] = useAmountCount(
+        sizeInfo.amountOfSpecificSize,
+        sizeInfo.amountWithAllSizes
     );
 
-    const [amount, options] = useAmountCount(products, props.id, props.size);
+    useEffect(() => {
+        if (localStorage.getItem("clothie-cart")) {
+            const product = JSON.parse(
+                localStorage.getItem("clothie-cart")!
+            ).products.find((product: Product) => product.id === props.id);
+
+            setSizeInfo({
+                amountOfSpecificSize: product.size[props.size],
+                amountWithAllSizes: product.amount,
+            });
+        }
+    }, [props.id, props.size]);
 
     const changeAmountHandler = () => {
         const amount = +selectRef.current!.value;
 
-        dispatch(
-            CartActions.changeAmount({ id: props.id, size: props.size, amount })
-        );
+        props.changeAmount(props.id, props.size, amount);
+
+        const product = JSON.parse(
+            localStorage.getItem("clothie-cart")!
+        ).products.find((product: Product) => product.id === props.id);
+
+        setSizeInfo({
+            amountOfSpecificSize: amount,
+            amountWithAllSizes: product.amount,
+        });
     };
 
     const removeHandler = () => {
-        dispatch(CartActions.remove({ id: props.id, size: props.size }));
         props.remove(props.id, props.size);
     };
 
@@ -48,7 +67,7 @@ const CartProductItem: React.FC<CartProductItemProps> = (props) => {
                 <select
                     ref={selectRef}
                     onChange={changeAmountHandler}
-                    defaultValue={amount}
+                    value={amount}
                 >
                     {options.map((option) => {
                         return <option>{option}</option>;
@@ -58,7 +77,7 @@ const CartProductItem: React.FC<CartProductItemProps> = (props) => {
                     <span>刪除</span>
                 </Button>
             </div>
-            <div className={s["product-price"]}>{theProduct?.total}</div>
+            <div className={s["product-price"]}>{props.total}</div>
         </li>
     );
 };

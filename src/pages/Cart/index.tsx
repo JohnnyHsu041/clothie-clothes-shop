@@ -1,12 +1,41 @@
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import Button from "../../components/ui/Button";
-import { RootState } from "../../redux/store";
+import CartActions, { CartDataFormat } from "../../redux/cart-slice";
 import s from "../../styles/css/Cart.module.css";
 import CartProductList from "./CartProductList";
 
 const Cart: React.FC = () => {
-    const cart = useSelector((state: RootState) => state.cart);
-    const { totalAmount } = cart;
+    const dispatch = useDispatch();
+    const [loadedCartData, setLoadedCartData] = useState<CartDataFormat>({
+        products: [],
+        amountOfProducts: 0,
+        totalAmount: 0,
+    });
+
+    useEffect(() => {
+        if (localStorage.getItem("clothie-cart")) {
+            const cart = JSON.parse(localStorage.getItem("clothie-cart")!);
+
+            setLoadedCartData(cart);
+        }
+    }, []);
+
+    const changeAmountHandler = (id: string, size: string, amount: number) => {
+        dispatch(CartActions.changeAmount({ id, size, amount }));
+
+        const cart = JSON.parse(localStorage.getItem("clothie-cart")!);
+
+        setLoadedCartData(cart);
+    };
+
+    const removeProductHandler = (id: string, size: string) => {
+        dispatch(CartActions.remove({ id, size }));
+
+        const cart = JSON.parse(localStorage.getItem("clothie-cart")!);
+
+        setLoadedCartData(cart);
+    };
 
     return (
         <section className={s.cart}>
@@ -21,13 +50,17 @@ const Cart: React.FC = () => {
                         </div>
                     </div>
                     <div className={s.division} />
-                    <CartProductList />
+                    <CartProductList
+                        products={loadedCartData.products}
+                        removeHandler={removeProductHandler}
+                        changeAmountHandler={changeAmountHandler}
+                    />
                 </div>
                 <div className={s["amount-container"]}>
                     <div className={s.amount}>
                         <span>小結</span>
                         <div className={s["total-amount"]}>
-                            <span>{totalAmount}</span>
+                            <span>{loadedCartData.totalAmount}</span>
                         </div>
                         <Button type="link" dest="/order/o1">
                             結帳

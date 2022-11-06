@@ -1,39 +1,49 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { Product } from "../../redux/cart-slice";
+import React from "react";
+import { v4 as uuidv4 } from "uuid";
 
-import { RootState } from "../../redux/store";
+import { Product } from "../../redux/cart-slice";
 import s from "../../styles/css/CartProductList.module.css";
 import CartProductItem from "./CartProductItem";
 
-const CartProductList: React.FC = () => {
-    const cart = useSelector((state: RootState) => state.cart);
-    const { products } = cart;
+interface CartProductListProps {
+    products: Product[];
+    removeHandler: (id: string, size: string) => void;
+    changeAmountHandler: (id: string, size: string, amount: number) => void;
+}
 
-    const [loadedProducts, setLoadedProducts] = useState<Product[]>(products);
+const CartProductList: React.FC<CartProductListProps> = (props) => {
+    const cartProducts = props.products;
+    let newProductArray = [];
 
-    const removeProductHandler = (id: string, size: string) => {
-        setLoadedProducts((prev) =>
-            prev.filter(
-                (product) =>
-                    product.id !== id ||
-                    (product.id === id && product.size !== size)
-            )
-        );
-    };
+    for (let product of cartProducts) {
+        for (const size in product.size) {
+            const key = uuidv4();
+
+            let newProduct = {
+                ...product,
+                key,
+                size,
+                amount: product.size[size],
+                total: product.price * product.size[size],
+            };
+
+            newProductArray.push(newProduct);
+        }
+    }
 
     return (
         <ul className={s.products}>
-            {loadedProducts.map((product) => {
+            {newProductArray.map((product) => {
                 return (
                     <CartProductItem
-                        key={product.id}
                         id={product.id}
+                        key={product.key}
                         name={product.name}
                         amount={product.amount}
                         size={product.size}
                         total={product.total}
-                        remove={removeProductHandler}
+                        remove={props.removeHandler}
+                        changeAmount={props.changeAmountHandler}
                     />
                 );
             })}

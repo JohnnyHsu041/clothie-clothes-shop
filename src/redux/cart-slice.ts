@@ -4,19 +4,25 @@ export interface Product {
     id: string;
     name: string;
     price: number;
-    size: string;
+    size: {
+        [productSize: string]: number;
+    };
     amount: number;
     total: number;
 }
 
-interface CartProducts {
+export interface CartDataFormat {
     products: Product[];
+    amountOfProducts: number;
     totalAmount: number;
 }
 
-const initialState: CartProducts = {
-    products: [],
-    totalAmount: 0,
+interface AmountOfCartProducts {
+    amountOfCartProducts: number;
+}
+
+const initialState: AmountOfCartProducts = {
+    amountOfCartProducts: 0,
 };
 
 export const cartSlice = createSlice({
@@ -24,81 +30,179 @@ export const cartSlice = createSlice({
     initialState,
     reducers: {
         add(state, action) {
-            if (
-                state.products.find(
-                    (product) =>
-                        product.id === action.payload.id &&
-                        product.size === action.payload.size
-                )
-            ) {
-                const existedProductWithSameSize = state.products.find(
-                    (product) =>
-                        product.id === action.payload.id &&
-                        product.size === action.payload.size
-                )!;
+            const productId = action.payload.id;
+            const productName = action.payload.name;
+            const productSize = action.payload.size;
+            const productPrice = action.payload.price;
+            const productAmount = action.payload.amount;
 
-                if (
-                    existedProductWithSameSize.amount + action.payload.amount >
-                    3
-                ) {
-                    existedProductWithSameSize.amount = 3;
-                } else {
-                    existedProductWithSameSize.amount += action.payload.amount;
-                }
-
-                existedProductWithSameSize.total =
-                    existedProductWithSameSize.price *
-                    existedProductWithSameSize.amount;
-
-                state.totalAmount = state.products.reduce(
-                    (accu, curr) => accu + curr.total,
-                    0
+            if (localStorage.getItem("clothie-cart")) {
+                const storedData = JSON.parse(
+                    localStorage.getItem("clothie-cart")!
                 );
 
-                return;
+                const existingProduct = storedData.products.find(
+                    (product: Product) => product.id === productId
+                );
+                if (existingProduct) {
+                    let currentAmount: number = existingProduct.amount;
+                    let addedAmount: number;
+
+                    if (currentAmount + productAmount > 3) {
+                        addedAmount = 3 - currentAmount;
+                        state.amountOfCartProducts += addedAmount;
+                        currentAmount = 3;
+                    } else {
+                        state.amountOfCartProducts += productAmount;
+                        currentAmount += productAmount;
+                    }
+
+                    const data: CartDataFormat = {
+                        ...storedData,
+                        products: [
+                            ...storedData.products.filter(
+                                (product: Product) =>
+                                    product.id !== existingProduct.id
+                            ),
+                            {
+                                ...existingProduct,
+                                size: {
+                                    ...existingProduct.size,
+                                    [productSize]: existingProduct.size[
+                                        productSize
+                                    ]
+                                        ? existingProduct.size[productSize] +
+                                          productAmount
+                                        : productAmount,
+                                },
+                                amount: currentAmount,
+                                total: existingProduct.price * currentAmount,
+                            },
+                        ],
+
+                        amountOfProducts: state.amountOfCartProducts,
+                        totalAmount: addedAmount!
+                            ? storedData.totalAmount +
+                              productPrice * addedAmount
+                            : storedData.totalAmount +
+                              productPrice * productAmount,
+                    };
+
+                    localStorage.setItem("clothie-cart", JSON.stringify(data));
+
+                    return;
+                }
+
+                state.amountOfCartProducts += productAmount;
+
+                const data: CartDataFormat = {
+                    ...storedData,
+                    products: [
+                        ...storedData.products,
+                        {
+                            id: productId,
+                            name: productName,
+                            price: productPrice,
+                            size: {
+                                [productSize]: productAmount,
+                            },
+                            amount: productAmount,
+                            total: productPrice * productAmount,
+                        },
+                    ],
+
+                    amountOfProducts: state.amountOfCartProducts,
+                    totalAmount: (storedData.totalAmount +=
+                        productPrice * productAmount),
+                };
+
+                localStorage.setItem("clothie-cart", JSON.stringify(data));
+            } else {
+                state.amountOfCartProducts = productAmount;
+
+                const data: CartDataFormat = {
+                    products: [
+                        {
+                            id: productId,
+                            name: action.payload.name,
+                            price: productPrice,
+                            size: {
+                                [productSize]: productAmount,
+                            },
+                            amount: productAmount,
+                            total: productPrice * productAmount,
+                        },
+                    ],
+                    amountOfProducts: productAmount,
+                    totalAmount: productPrice * productAmount,
+                };
+
+                localStorage.setItem("clothie-cart", JSON.stringify(data));
             }
-
-            state.products.push({
-                id: action.payload.id,
-                name: action.payload.name,
-                price: action.payload.price,
-                size: action.payload.size,
-                amount: action.payload.amount,
-                total: action.payload.price * action.payload.amount,
-            });
-
-            state.totalAmount += action.payload.price * action.payload.amount;
         },
         changeAmount(state, action) {
-            const productWithSpecificSize = state.products.find(
-                (product) =>
-                    product.id === action.payload.id &&
-                    product.size === action.payload.size
+            const storedData = JSON.parse(
+                localStorage.getItem("clothie-cart")!
             );
+            const storedProduct = storedData.products.find(
+                (product: Product) => product.id === action.payload.id
+            );
+            const changedAmount =
+                action.payload.amount - storedProduct.size[action.payload.size];
 
-            productWithSpecificSize!.amount = action.payload.amount;
-            productWithSpecificSize!.total =
-                productWithSpecificSize!.price * action.payload.amount;
+            state.amountOfCartProducts += changedAmount;
 
-            state.totalAmount = state.products.reduce(
-                (accu, curr) => accu + curr.total,
-                0
+            storedProduct.size[action.payload.size] = action.payload.amount;
+            storedProduct.amount += changedAmount;
+            storedProduct.total = storedProduct.price * storedProduct.amount;
+
+            localStorage.setItem(
+                "clothie-cart",
+                JSON.stringify({
+                    products: [...storedData.products],
+                    amountOfProducts: state.amountOfCartProducts,
+                    totalAmount:
+                        storedData.totalAmount +
+                        storedProduct.price * changedAmount,
+                })
             );
         },
         remove(state, action) {
-            const productRemoved = state.products.find(
-                (product) =>
-                    product.id === action.payload.id &&
-                    product.size === action.payload.size
-            )!;
-            const index = state.products.findIndex(
-                (product) =>
-                    product.id === action.payload.id &&
-                    product.size === action.payload.size
+            const storedData = JSON.parse(
+                localStorage.getItem("clothie-cart")!
             );
+            const product = storedData.products.find(
+                (product: Product) => product.id === action.payload.id
+            );
+            const deletedAmount = product.size[action.payload.size];
 
-            state.totalAmount -= productRemoved.total;
-            state.products.splice(index, 1);
+            state.amountOfCartProducts -= deletedAmount;
+
+            let numOfSizes = 0;
+
+            for (let s in product.size) numOfSizes++;
+
+            if (numOfSizes === 1) {
+                storedData.products = [
+                    ...storedData.products.filter(
+                        (product: Product) => product.id !== action.payload.id
+                    ),
+                ];
+            } else {
+                product.amount -= deletedAmount;
+                product.total -= product.price * product.amount;
+
+                delete product.size[action.payload.size];
+            }
+
+            const data: CartDataFormat = {
+                products: [...storedData.products],
+                amountOfProducts: state.amountOfCartProducts,
+                totalAmount:
+                    storedData.totalAmount - product.price * deletedAmount,
+            };
+
+            localStorage.setItem("clothie-cart", JSON.stringify(data));
         },
     },
 });

@@ -1,5 +1,3 @@
-import { Product } from "../redux/cart-slice";
-
 function countTheAmountOfOptions(amount: number, left: number) {
     const amountOfOption = [];
     for (let i = 1; i <= amount + left; i++) {
@@ -9,25 +7,20 @@ function countTheAmountOfOptions(amount: number, left: number) {
 }
 
 type UseAmountCountFunc = (
-    products: Product[],
-    id: string,
-    size: string
+    amountOfSpecificSize: number,
+    amountWithAllSizess: number
 ) => [amount: number, options: number[]];
 
-const useAmountCount: UseAmountCountFunc = (products, id, size) => {
-    const amount = products.find(
-        (product) => product.id === id && product.size === size
-    )!.amount;
-    const amountWithAllSizes = products
-        .filter((product) => product.id === id)
-        .reduce((accu, curr) => accu + curr.amount, 0);
-
+const useAmountCount: UseAmountCountFunc = (
+    amountOfSpecificSize,
+    amountWithAllSizes
+) => {
     const maximumAmountForSingleProduct = 3;
     const left = maximumAmountForSingleProduct - amountWithAllSizes;
 
-    const options = countTheAmountOfOptions(amount, left);
+    const options = countTheAmountOfOptions(amountOfSpecificSize, left);
 
-    return [amount, options];
+    return [amountOfSpecificSize, options];
 };
 
 export default useAmountCount;

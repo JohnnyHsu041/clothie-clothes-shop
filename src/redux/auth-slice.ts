@@ -25,7 +25,7 @@ export const authSlice = createSlice({
 
             const tokenExpiration =
                 action.payload.expiration ||
-                new Date(new Date().getTime() + 1000 * 60 * 60 * 2); // 2h validity for (UTC/GMT +08:00)
+                new Date(new Date().getTime() + 1000 * 60 * 60 * 10); // 2h validity for UTC/GMT +08:00 (8 + 2 = 10))
 
             state.tokenExpirationDate = tokenExpiration.toISOString();
 
