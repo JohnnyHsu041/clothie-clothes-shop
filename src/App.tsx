@@ -9,7 +9,6 @@ import Cart from "./pages/Cart";
 import User from "./pages/User";
 import Auth from "./pages/Auth";
 import MainHeader from "./components/header/MainHeader";
-import WarningBar from "./components/ui/WarningBar";
 import Footer from "./components/footer/Footer";
 import SingleProduct from "./pages/Clothing/SingleProduct";
 import { useSelector } from "react-redux";
@@ -17,9 +16,12 @@ import { RootState } from "./redux/store";
 import Order from "./pages/Order";
 import useAuthCheck from "./hooks/useAuthCheck";
 import Redirect from "./components/redirect/Redirect";
+import useAmountOfCartProducts from "./hooks/useAmountOfCartProducts";
+import WarningBar from "./components/ui/WarningBar";
 
 function App() {
     useAuthCheck();
+    useAmountOfCartProducts();
 
     const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 

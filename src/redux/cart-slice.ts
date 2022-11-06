@@ -29,6 +29,15 @@ export const cartSlice = createSlice({
     name: "cart",
     initialState,
     reducers: {
+        init(state) {
+            if (localStorage.getItem("clothie-cart")) {
+                const storedData = JSON.parse(
+                    localStorage.getItem("clothie-cart")!
+                );
+
+                state.amountOfCartProducts += storedData.amountOfProducts;
+            }
+        },
         add(state, action) {
             const productId = action.payload.id;
             const productName = action.payload.name;
