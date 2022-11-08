@@ -13,7 +13,10 @@ const OverviewProductItem: React.FC<ProductItemProps> = (props) => {
     return (
         <li className={s.product}>
             <div className={s["product__img"]}>
-                <img src={props.img} alt="product in cart" />
+                <img
+                    src={process.env.REACT_APP_BACKEND + props.img}
+                    alt="product in cart"
+                />
             </div>
             <div className={s["product__detail"]}>
                 <div className={s.name}>{props.name}</div>

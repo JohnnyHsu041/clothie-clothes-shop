@@ -69,3 +69,7 @@
   font-size: 1.4rem;
   font-weight: 600;
 }
+.check.disabled button {
+  background-color: #e1e1e1;
+  color: #343a40;
+}

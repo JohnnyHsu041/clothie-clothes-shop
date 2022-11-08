@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export interface Product {
     id: string;
     name: string;
+    firstImage: string;
     price: number;
     size: {
         [productSize: string]: number;
@@ -43,58 +44,44 @@ export const cartSlice = createSlice({
             const productName = action.payload.name;
             const productSize = action.payload.size;
             const productPrice = action.payload.price;
-            const productAmount = action.payload.amount;
+            const productImages = action.payload.images;
+            let productAmount = action.payload.amount;
 
             if (localStorage.getItem("clothie-cart")) {
                 const storedData = JSON.parse(
                     localStorage.getItem("clothie-cart")!
                 );
-
                 const existingProduct = storedData.products.find(
                     (product: Product) => product.id === productId
                 );
+
                 if (existingProduct) {
                     let currentAmount: number = existingProduct.amount;
-                    let addedAmount: number;
 
                     if (currentAmount + productAmount > 3) {
-                        addedAmount = 3 - currentAmount;
-                        state.amountOfCartProducts += addedAmount;
+                        productAmount = 3 - currentAmount;
+                        state.amountOfCartProducts += productAmount;
                         currentAmount = 3;
                     } else {
                         state.amountOfCartProducts += productAmount;
                         currentAmount += productAmount;
                     }
 
+                    existingProduct.size[productSize] = existingProduct.size[
+                        productSize
+                    ]
+                        ? existingProduct.size[productSize] + productAmount
+                        : productAmount;
+                    existingProduct.amount = currentAmount;
+                    existingProduct.total =
+                        existingProduct.price * currentAmount;
+
+                    storedData.amountOfProducts = state.amountOfCartProducts;
+                    storedData.totalAmount =
+                        storedData.totalAmount + productPrice * productAmount;
+
                     const data: CartDataFormat = {
                         ...storedData,
-                        products: [
-                            ...storedData.products.filter(
-                                (product: Product) =>
-                                    product.id !== existingProduct.id
-                            ),
-                            {
-                                ...existingProduct,
-                                size: {
-                                    ...existingProduct.size,
-                                    [productSize]: existingProduct.size[
-                                        productSize
-                                    ]
-                                        ? existingProduct.size[productSize] +
-                                          productAmount
-                                        : productAmount,
-                                },
-                                amount: currentAmount,
-                                total: existingProduct.price * currentAmount,
-                            },
-                        ],
-
-                        amountOfProducts: state.amountOfCartProducts,
-                        totalAmount: addedAmount!
-                            ? storedData.totalAmount +
-                              productPrice * addedAmount
-                            : storedData.totalAmount +
-                              productPrice * productAmount,
                     };
 
                     localStorage.setItem("clothie-cart", JSON.stringify(data));
@@ -111,6 +98,7 @@ export const cartSlice = createSlice({
                         {
                             id: productId,
                             name: productName,
+                            firstImage: productImages[0],
                             price: productPrice,
                             size: {
                                 [productSize]: productAmount,
@@ -133,7 +121,8 @@ export const cartSlice = createSlice({
                     products: [
                         {
                             id: productId,
-                            name: action.payload.name,
+                            name: productName,
+                            firstImage: productImages[0],
                             price: productPrice,
                             size: {
                                 [productSize]: productAmount,

@@ -1,8 +1,9 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
+
 import Button from "../../components/ui/Button";
 import useFormValidity from "../../hooks/useFormValidity";
 import useMultiSteps from "../../hooks/useMultiSteps";
-import s from "../../styles/css/Order.module.css";
+import { CartDataFormat } from "../../redux/cart-slice";
 import AddressSection from "./AddressSection";
 import DeliverySection from "./DeliverySection";
 import OrderComplete from "./OrderComplete";
@@ -10,7 +11,14 @@ import Overview from "./Overview";
 import PaymentSection from "./PaymentSection";
 import StepsBar from "./StepsBar";
 
+import s from "../../styles/css/Order.module.css";
+
 const Order: React.FC = () => {
+    const [cart, setCart] = useState<CartDataFormat>({
+        products: [],
+        amountOfProducts: 0,
+        totalAmount: 0,
+    });
     const [orderCompleted, setOrderCompleted] = useState(false);
     const [inputInfoObject, formIsValid, changeHandler] = useFormValidity(
         {
@@ -63,6 +71,16 @@ const Order: React.FC = () => {
 
     const [currentStep, isFirstStep, isLastStep, nextStep, prevStep] =
         useMultiSteps(1, 3);
+
+    useEffect(() => {
+        if (localStorage.getItem("clothie-cart")) {
+            const storedProducts = JSON.parse(
+                localStorage.getItem("clothie-cart")!
+            );
+
+            setCart(storedProducts);
+        }
+    }, []);
 
     const submitHandler = (event: FormEvent) => {
         event.preventDefault();
@@ -125,7 +143,11 @@ const Order: React.FC = () => {
                                 </div>
                             </div>
                         ) : (
-                            <div className={s.check}>
+                            <div
+                                className={`${s.check} ${
+                                    !formIsValid ? s.disabled : ""
+                                }`}
+                            >
                                 <Button type="submit" disabled={!formIsValid}>
                                     <span>確認下單</span>
                                 </Button>
@@ -134,7 +156,11 @@ const Order: React.FC = () => {
                     </div>
                 </form>
                 <div className={s["overview-container"]}>
-                    <Overview deliveryAmount={delivery!.value} />
+                    <Overview
+                        deliveryAmount={delivery!.value}
+                        cartProducts={cart.products}
+                        totalAmount={cart.totalAmount}
+                    />
                 </div>
             </div>
         </section>

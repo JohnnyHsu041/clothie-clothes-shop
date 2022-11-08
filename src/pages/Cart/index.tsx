@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+
 import Button from "../../components/ui/Button";
 import CartActions, { CartDataFormat } from "../../redux/cart-slice";
-import s from "../../styles/css/Cart.module.css";
 import CartProductList from "./CartProductList";
+
+import s from "../../styles/css/Cart.module.css";
 
 const Cart: React.FC = () => {
     const dispatch = useDispatch();
@@ -45,6 +47,8 @@ const Cart: React.FC = () => {
         }
     };
 
+    const orderId = new Date().getTime().toString();
+
     return (
         <section className={s.cart}>
             <div className={s["cart-container"]}>
@@ -72,7 +76,7 @@ const Cart: React.FC = () => {
                         <div className={s["total-amount"]}>
                             <span>{loadedCartData.totalAmount}</span>
                         </div>
-                        <Button type="link" dest="/order/o1">
+                        <Button type="link" dest={`/order/${orderId}`}>
                             結帳
                         </Button>
                     </div>
