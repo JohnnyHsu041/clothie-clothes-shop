@@ -210,14 +210,12 @@ export const cartSlice = createSlice({
                 updatedCart.amountOfProducts <= 0
             ) {
                 localStorage.removeItem("clothie-cart");
-                // localStorage.setItem(
-                //     "clothie-cart",
-                //     JSON.stringify({
-                //         amountOfProducts: 0,
-                //         products: [],
-                //         totalAmount: 0,
-                //     })
-                // );
+            }
+        },
+        removeWholeCart(state) {
+            if (localStorage.getItem("clothie-cart")) {
+                state.amountOfCartProducts = 0;
+                localStorage.removeItem("clothie-cart");
             }
         },
     },

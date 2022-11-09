@@ -1,5 +1,19 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+.DS_*
+*.log
+logs
+**/*.backup.*
+**/*.back.*
+
+/bower_components
+
+*.sublime*
+
+/psd
+/thumb
+/sketch
+
 # public/
 images/ 
 

@@ -9,10 +9,10 @@ import s from "../../styles/css/PaymentSection.module.css";
 interface PaymentSectionProps {
     onChange: (id: string, value: string, isValid: boolean) => void;
     value: {
-        creditCardNumber: string;
-        cardHolder: string;
-        cardExpiration: string;
-        cvc: string;
+        [id: string]: string;
+    };
+    isValid: {
+        [id: string]: boolean;
     };
 }
 
@@ -26,18 +26,22 @@ const PaymentSection: React.FC<PaymentSectionProps> = (props) => {
                     type="text"
                     id="creditCardNumber"
                     initValue={props.value.creditCardNumber}
+                    initValidity={props.isValid.creditCardNumber}
                     validators={[VALIDATOR_REQUIRE(), VALIDATOR_MIN_LENGTH(16)]}
                     onChange={props.onChange}
-                    placeholder="0000 1111 2222 3333"
+                    placeholder="0000111122223333"
+                    errorText="輸入錯誤"
                 />
                 <Input
                     title="持卡人姓名"
                     type="text"
                     id="cardHolder"
                     initValue={props.value.cardHolder}
+                    initValidity={props.isValid.cardHolder}
                     validators={[VALIDATOR_REQUIRE()]}
                     onChange={props.onChange}
-                    placeholder="HAO CHE HSU"
+                    placeholder="XIAO MING WANG"
+                    errorText="輸入錯誤"
                 />
                 <div className={s["expiration-and-CVC"]}>
                     <Input
@@ -45,21 +49,25 @@ const PaymentSection: React.FC<PaymentSectionProps> = (props) => {
                         type="text"
                         id="cardExpiration"
                         initValue={props.value.cardExpiration}
+                        initValidity={props.isValid.cardExpiration}
                         validators={[VALIDATOR_REQUIRE()]}
                         onChange={props.onChange}
                         placeholder="MM / YY"
+                        errorText="輸入錯誤"
                     />
                     <Input
                         title="CVC/CCV"
                         type="text"
                         id="cvc"
                         initValue={props.value.cvc}
+                        initValidity={props.isValid.cvc}
                         validators={[
                             VALIDATOR_MIN_LENGTH(3),
                             VALIDATOR_MAX_LENGTH(3),
                         ]}
                         onChange={props.onChange}
                         placeholder="000"
+                        errorText="輸入錯誤"
                     />
                 </div>
             </div>

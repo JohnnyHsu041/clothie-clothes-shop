@@ -1,5 +1,6 @@
-import Button from "../../components/ui/Button";
-import s from "../../styles/css/OrderComplete.module.css";
+import Button from "../../../components/ui/Button";
+
+import s from "../../../styles/css/OrderComplete.module.css";
 
 const OrderComplete: React.FC = () => {
     return (

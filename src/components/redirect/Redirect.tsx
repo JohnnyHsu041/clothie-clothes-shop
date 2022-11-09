@@ -3,12 +3,9 @@ import { useNavigate } from "react-router-dom";
 
 import LoadingSpinner from "../ui/LoadingSpinner";
 
-interface RedirectProps {
-    destination: string;
-}
-
-const Redirect: React.FC<RedirectProps> = (props) => {
+const Redirect: React.FC = () => {
     const navigate = useNavigate();
+    const path = window.location.pathname;
 
     useEffect(() => {
         const storedUserData = JSON.parse(localStorage.getItem("userData")!);
@@ -18,11 +15,11 @@ const Redirect: React.FC<RedirectProps> = (props) => {
             storedUserData.token &&
             new Date(storedUserData.expiration) > new Date()
         ) {
-            navigate(`/${props.destination}`);
+            navigate(path);
         } else {
             navigate("/auth");
         }
-    }, [props.destination, navigate]);
+    }, [navigate, path]);
 
     return <LoadingSpinner />;
 };

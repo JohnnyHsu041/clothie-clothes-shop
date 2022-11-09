@@ -1,4 +1,3 @@
-import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import Home from "./pages/Home";
@@ -17,6 +16,7 @@ import Order from "./pages/Order";
 import useAuthCheck from "./hooks/useAuthCheck";
 import Redirect from "./components/redirect/Redirect";
 import useAmountOfCartProducts from "./hooks/useAmountOfCartProducts";
+import OrderComplete from "./pages/Order/OrderComplete";
 import WarningBar from "./components/ui/WarningBar";
 
 function App() {
@@ -34,7 +34,8 @@ function App() {
             <Route path="/clothing/accs" element={<Accessories />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/user" element={<User />} />
-            <Route path="/order/:oid" element={<Order />} />
+            <Route path="/order" element={<Order />} />
+            <Route path="/order/completed/:oid" element={<OrderComplete />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/*" element={<Navigate to="/" />} />
         </Routes>
@@ -46,8 +47,10 @@ function App() {
             <Route path="/clothing/new-in" element={<NewIn />} />
             <Route path="/clothing/accs" element={<Accessories />} />
             <Route path="/auth" element={<Auth />} />
-            <Route path="/user" element={<Redirect destination="user" />} />
-            <Route path="/cart" element={<Redirect destination="cart" />} />
+            <Route path="/user" element={<Redirect />} />
+            <Route path="/cart" element={<Redirect />} />
+            <Route path="/order" element={<Redirect />} />
+            <Route path="/order/completed/:oid" element={<Redirect />} />
             <Route path="/*" element={<Navigate to="/auth" />} />
         </Routes>
     );

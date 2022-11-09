@@ -47,8 +47,6 @@ const Cart: React.FC = () => {
         }
     };
 
-    const orderId = new Date().getTime().toString();
-
     return (
         <section className={s.cart}>
             <div className={s["cart-container"]}>
@@ -76,7 +74,15 @@ const Cart: React.FC = () => {
                         <div className={s["total-amount"]}>
                             <span>{loadedCartData.totalAmount}</span>
                         </div>
-                        <Button type="link" dest={`/order/${orderId}`}>
+                        <Button
+                            type="link"
+                            dest={`/order`}
+                            disabled={
+                                loadedCartData.amountOfProducts === 0 &&
+                                loadedCartData.totalAmount === 0 &&
+                                loadedCartData.products.length === 0
+                            }
+                        >
                             結帳
                         </Button>
                     </div>

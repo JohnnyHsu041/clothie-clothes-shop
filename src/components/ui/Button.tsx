@@ -1,8 +1,6 @@
 import { MouseEventHandler } from "react";
 import { Link } from "react-router-dom";
 
-import s from "../../styles/css/Button.module.css";
-
 interface ButtonProps {
     children: React.ReactNode;
     className?: string;
@@ -23,6 +21,7 @@ const Button: React.FC<ButtonProps> = (props) => {
                 onClick={props.onClick}
                 onMouseEnter={props.onMouseEnter}
                 onMouseLeave={props.onMouseLeave}
+                style={props.disabled ? { pointerEvents: "none" } : {}}
             >
                 {props.children}
             </Link>
