@@ -33,7 +33,7 @@ function App() {
             <Route path="/clothing/new-in" element={<NewIn />} />
             <Route path="/clothing/accs" element={<Accessories />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/user" element={<User />} />
+            <Route path="/user/*" element={<User />} />
             <Route path="/order" element={<Order />} />
             <Route path="/order/completed/:oid" element={<OrderComplete />} />
             <Route path="/auth" element={<Auth />} />
@@ -47,7 +47,7 @@ function App() {
             <Route path="/clothing/new-in" element={<NewIn />} />
             <Route path="/clothing/accs" element={<Accessories />} />
             <Route path="/auth" element={<Auth />} />
-            <Route path="/user" element={<Redirect />} />
+            <Route path="/user/*" element={<Redirect />} />
             <Route path="/cart" element={<Redirect />} />
             <Route path="/order" element={<Redirect />} />
             <Route path="/order/completed/:oid" element={<Redirect />} />

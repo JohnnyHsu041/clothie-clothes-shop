@@ -12,3 +12,7 @@
   font-size: 1.4rem;
   margin-right: 1.2rem;
 }
+.order-complete-container a:hover,
+.order-complete-container a:active {
+  text-decoration-line: underline;
+}

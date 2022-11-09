@@ -29,6 +29,8 @@ const useAuthCheck = () => {
                     expiration: new Date(storedUserData.expiration),
                 })
             );
+        } else {
+            dispatch(AuthActions.logout());
         }
     }, [dispatch]);
 

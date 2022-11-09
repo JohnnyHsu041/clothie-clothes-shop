@@ -1,17 +1,11 @@
 import { FormEvent, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import Input from "../../components/form/Input";
 import Button from "../../components/ui/Button";
-import {
-    VALIDATOR_EMAIL,
-    VALIDATOR_MAX_LENGTH,
-    VALIDATOR_MIN_LENGTH,
-    VALIDATOR_PASSWORD_CHECK,
-} from "../../utils/validator";
+import UserInfo from "./UserInfo";
 import useFormValidity from "../../hooks/useFormValidity";
 import AuthActions from "../../redux/auth-slice";
-import { useNavigate } from "react-router-dom";
+import { NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import useHttpClient from "../../hooks/useHttpClient";
 import ErrorModal from "../../components/ui/ErrorModal";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
@@ -129,12 +123,26 @@ const User: React.FC = () => {
                 <>
                     <div className={s.user}>
                         <nav className={s.catalog}>
-                            <div className={s["catalog__user"]}>
+                            <NavLink
+                                to="userinfo"
+                                className={(navData) =>
+                                    navData.isActive
+                                        ? `${s.active} ${s["catalog__user"]}`
+                                        : s["catalog__user"]
+                                }
+                            >
                                 <Button>會員資料</Button>
-                            </div>
-                            <div className={s["catalog__order"]}>
+                            </NavLink>
+                            <NavLink
+                                to="orderlist"
+                                className={(navData) =>
+                                    navData.isActive
+                                        ? `${s.active} ${s["catalog__order"]}`
+                                        : s["catalog__order"]
+                                }
+                            >
                                 <Button>訂單記錄</Button>
-                            </div>
+                            </NavLink>
                             <div
                                 className={s["catalog__logout"]}
                                 onClick={logoutHandler}
@@ -143,63 +151,23 @@ const User: React.FC = () => {
                             </div>
                         </nav>
                         <div className={s["info-section"]}>
-                            <div className={s["user-info"]}>
-                                <form onSubmit={modifyHandler}>
-                                    <Input
-                                        readonly
-                                        id="email"
-                                        type="email"
-                                        title="電子郵件"
-                                        initValue={email}
-                                        validators={[VALIDATOR_EMAIL()]}
-                                        onChange={() => {}}
-                                        style={{ marginBottom: "0.8rem" }}
-                                    />
-                                    <Input
-                                        id="oldPassword"
-                                        type="password"
-                                        title="舊密碼"
-                                        errorText="舊密碼長度錯誤"
-                                        validators={[
-                                            VALIDATOR_MIN_LENGTH(6),
-                                            VALIDATOR_MAX_LENGTH(10),
-                                        ]}
-                                        onChange={changeHandler}
-                                        style={{ marginBottom: "0.8rem" }}
-                                    />
-                                    <Input
-                                        id="newPassword"
-                                        type="password"
-                                        title="新密碼"
-                                        errorText="密碼至少需6碼，最多10碼"
-                                        validators={[
-                                            VALIDATOR_MIN_LENGTH(6),
-                                            VALIDATOR_MAX_LENGTH(10),
-                                        ]}
-                                        onChange={changeHandler}
-                                        style={{ marginBottom: "0.8rem" }}
-                                    />
-                                    <Input
-                                        id="newPasswordCheck"
-                                        type="password"
-                                        title="再次輸入新密碼"
-                                        validators={[
-                                            VALIDATOR_PASSWORD_CHECK(
+                            <Routes>
+                                <Route
+                                    path="userinfo"
+                                    element={
+                                        <UserInfo
+                                            modifyHandler={modifyHandler}
+                                            changeHandler={changeHandler}
+                                            email={email}
+                                            enteredNewPassword={
                                                 enteredNewPassword
-                                            ),
-                                        ]}
-                                        onChange={changeHandler}
-                                        errorText="與輸入的密碼不同，請重新輸入"
-                                    />
-
-                                    <Button
-                                        type="submit"
-                                        disabled={!formIsValid}
-                                    >
-                                        <span>修改</span>
-                                    </Button>
-                                </form>
-                            </div>
+                                            }
+                                            formIsValid={formIsValid}
+                                        />
+                                    }
+                                />
+                                <Route path="orderlist" element={<p>Hi!</p>} />
+                            </Routes>
                         </div>
                     </div>
                 </>
