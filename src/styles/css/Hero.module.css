@@ -1,6 +1,6 @@
 .hero {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 }
 .hero-intro {
@@ -9,27 +9,23 @@
   gap: 2.4rem;
   padding: 2.4rem 3.2rem 0 3.2rem;
   background: #ffe8cc;
-  width: 40%;
-  height: 40rem;
+  width: 30%;
+  height: 25rem;
 }
 .hero-intro__title {
   font-size: 8.6rem;
   line-height: 1;
   letter-spacing: -2px;
 }
+.hero-intro__title p {
+  font-size: 9.8rem;
+}
 .hero-intro__title span {
   font-size: 9.8rem;
 }
-.hero-intro__content {
-  font-size: 1.6rem;
-  line-height: 1.6;
-}
-.hero-intro__cta {
-  font-size: 1.6rem;
-}
 .hero-img {
   background: #808080;
-  width: 40%;
+  width: 45%;
   height: 65rem;
 }
 .hero-img img {
