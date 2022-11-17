@@ -36,7 +36,10 @@ const OrderList: React.FC = () => {
 
             try {
                 responseData = await sendRequest(
-                    `${process.env.REACT_APP_BACKEND_URL}orders/${auth.userId}`
+                    `${process.env.REACT_APP_BACKEND_URL}orders/`,
+                    "GET",
+                    null,
+                    { Authorization: "Bearer " + auth.token }
                 );
 
                 setLoadedOrders(responseData.orders);
@@ -46,13 +49,15 @@ const OrderList: React.FC = () => {
         };
 
         getOrders();
-    }, [sendRequest, auth.userId]);
+    }, [sendRequest, auth.userId, auth.token]);
 
     const deleteHandler = async (id: string) => {
         try {
             await sendRequest(
                 `${process.env.REACT_APP_BACKEND_URL}orders/${id}`,
-                "DELETE"
+                "DELETE",
+                null,
+                { Authorization: "Bearer " + auth.token }
             );
 
             setLoadedOrders((prev) => prev.filter((order) => order.id !== id));

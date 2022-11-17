@@ -118,7 +118,7 @@ const Order: React.FC = () => {
                     }),
                     {
                         "Content-Type": "application/json",
-                        Authorization: "Bearer" + token,
+                        Authorization: "Bearer " + token,
                     }
                 );
 
