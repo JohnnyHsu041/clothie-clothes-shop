@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { RootState } from "../../redux/store";
 import s from "../../styles/css/NavBar.module.css";
 import Button from "../ui/Button";
@@ -10,25 +11,38 @@ const NavBar: React.FC = () => {
     return (
         <div className={s["nav-bar"]}>
             <div className={s.logo}>
-                <Button type="link" dest="/">
-                    clothie
-                </Button>
+                <NavLink to="/">clothie</NavLink>
             </div>
             <nav className={s["main-nav"]}>
                 <div>
-                    <Button type="link" dest="/clothing">
+                    <NavLink
+                        to="clothing"
+                        className={(navData) =>
+                            navData.isActive ? s.active : ""
+                        }
+                    >
                         Shop All
-                    </Button>
+                    </NavLink>
                 </div>
                 <div>
-                    <Button type="link" dest="/clothing/new-in">
+                    <NavLink
+                        to="new-in"
+                        className={(navData) =>
+                            navData.isActive ? s.active : ""
+                        }
+                    >
                         New In
-                    </Button>
+                    </NavLink>
                 </div>
                 <div>
-                    <Button type="link" dest="/clothing/accs">
+                    <NavLink
+                        to="accs"
+                        className={(navData) =>
+                            navData.isActive ? s.active : ""
+                        }
+                    >
                         Accessories
-                    </Button>
+                    </NavLink>
                 </div>
             </nav>
             <nav className={s["user-nav"]}>

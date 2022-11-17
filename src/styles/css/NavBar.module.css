@@ -21,6 +21,9 @@
 .main-nav a {
   font-size: 1.6rem;
 }
+.active {
+  text-decoration-line: underline;
+}
 .user-nav {
   display: flex;
   gap: 2.4rem;
