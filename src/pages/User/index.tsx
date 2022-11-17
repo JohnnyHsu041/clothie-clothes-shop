@@ -1,5 +1,5 @@
 import { FormEvent, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Button from "../../components/ui/Button";
 import UserInfo from "./UserInfo";
@@ -12,6 +12,7 @@ import LoadingSpinner from "../../components/ui/LoadingSpinner";
 
 import s from "../../styles/css/User.module.css";
 import OrderList from "./OrderList";
+import { RootState } from "../../redux/store";
 
 const User: React.FC = () => {
     const {
@@ -21,6 +22,7 @@ const User: React.FC = () => {
         clearError,
         clearErrorAndDirectToHomePage,
     } = useHttpClient();
+    const auth = useSelector((state: RootState) => state.auth);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -54,10 +56,12 @@ const User: React.FC = () => {
 
             try {
                 const responseData = await sendRequest(
-                    `${process.env.REACT_APP_BACKEND_URL}users`,
-                    "POST",
-                    JSON.stringify({ userId }),
-                    { "Content-Type": "application/json" }
+                    `${process.env.REACT_APP_BACKEND_URL}users/${userId}`,
+                    "GET",
+                    null,
+                    {
+                        Authorization: "Bearer " + auth.token,
+                    }
                 );
 
                 changeHandler("email", responseData.email, true);
@@ -67,7 +71,7 @@ const User: React.FC = () => {
         };
 
         getUserEmail();
-    }, [sendRequest, changeHandler]);
+    }, [sendRequest, changeHandler, auth.token]);
 
     const { value: email } = inputInfoObject.email!;
     const { value: enteredOldPassword } = inputInfoObject.oldPassword!;
@@ -94,7 +98,10 @@ const User: React.FC = () => {
                     oldPassword: enteredOldPassword,
                     updatedPassword: enteredNewPassword,
                 }),
-                { "Content-Type": "application/json" }
+                {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + auth.token,
+                }
             );
 
             alert("密碼更新成功，請重新登入");
