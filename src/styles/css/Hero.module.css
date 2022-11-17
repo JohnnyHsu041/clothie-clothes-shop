@@ -12,6 +12,12 @@
   width: 30%;
   height: 25rem;
 }
+.hero-intro a {
+  text-align: center;
+  font-size: 1.6rem;
+  text-decoration-line: underline;
+  margin-top: 4.8rem;
+}
 .hero-intro__title {
   font-size: 8.6rem;
   line-height: 1;

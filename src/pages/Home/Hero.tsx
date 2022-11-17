@@ -1,3 +1,4 @@
+import Button from "../../components/ui/Button";
 import s from "../../styles/css/Hero.module.css";
 
 const Hero: React.FC = () => {
@@ -9,6 +10,9 @@ const Hero: React.FC = () => {
                         <span>2022</span> Spring/ Summer
                     </p>
                 </h1>
+                <Button type="link" dest="/new-in">
+                    立即選購
+                </Button>
             </div>
             <div className={s["hero-img"]}>
                 <img
