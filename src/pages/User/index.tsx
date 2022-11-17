@@ -11,6 +11,7 @@ import ErrorModal from "../../components/ui/ErrorModal";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
 
 import s from "../../styles/css/User.module.css";
+import OrderList from "./OrderList";
 
 const User: React.FC = () => {
     const {
@@ -166,7 +167,10 @@ const User: React.FC = () => {
                                         />
                                     }
                                 />
-                                <Route path="orderlist" element={<p>Hi!</p>} />
+                                <Route
+                                    path="orderlist"
+                                    element={<OrderList />}
+                                />
                             </Routes>
                         </div>
                     </div>

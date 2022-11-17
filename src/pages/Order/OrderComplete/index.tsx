@@ -8,7 +8,7 @@ const OrderComplete: React.FC = () => {
             <p>訂購完成！</p>
             <div>
                 <span>查看訂單詳情</span>
-                <Button type="link" dest="/user">
+                <Button type="link" dest="/user/orderlist">
                     訂單記錄
                 </Button>
             </div>

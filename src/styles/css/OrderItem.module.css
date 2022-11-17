@@ -1,0 +1,22 @@
+.order-item {
+  display: flex;
+  width: 100%;
+  min-height: 5rem;
+}
+.order-item div,
+.order-item button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15rem;
+}
+.order-item div:nth-child(2) {
+  flex-grow: 2;
+}
+.order-item button:hover,
+.order-item button:active {
+  text-decoration-line: underline;
+}
+.order-item__content {
+  list-style: none;
+}
