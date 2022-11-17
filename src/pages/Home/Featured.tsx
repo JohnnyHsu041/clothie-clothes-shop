@@ -15,7 +15,18 @@ const Featured: React.FC = () => {
     const { sendRequest, isLoading, error, clearError } = useHttpClient();
 
     const [loadedProducts, setLoadedProducts] = useState<Product[]>([]);
-    const [prev, next] = useCarouselArrow(3, 0, 5, 352.5, carouselRef);
+
+    const productsShownAtOnce = 3;
+    const positionToStart = 0;
+    const amountOfProducts = 5;
+    const transitDistance = 355;
+    const [prev, next] = useCarouselArrow(
+        productsShownAtOnce,
+        positionToStart,
+        amountOfProducts,
+        transitDistance,
+        carouselRef
+    );
 
     useEffect(() => {
         const getFeaturedProducts = async () => {
@@ -34,7 +45,7 @@ const Featured: React.FC = () => {
     }, [sendRequest]);
 
     return (
-        <section className={`container ${s.featured}`}>
+        <section className={s.featured}>
             {error && <ErrorModal error={error} onClear={clearError} />}
             {isLoading && <LoadingSpinner />}
             {!isLoading && loadedProducts && (

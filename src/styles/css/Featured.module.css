@@ -1,3 +1,7 @@
+.featured {
+  width: 130rem;
+  margin: 3.2rem auto 12.8rem auto;
+}
 .featured-title {
   font-size: 3.6rem;
   text-align: center;
@@ -6,8 +10,9 @@
   display: flex;
   font-size: 1.6rem;
   align-items: center;
+  justify-content: center;
 }
 .carousel-container {
-  width: 110rem;
+  width: 116rem;
   overflow: hidden;
 }
