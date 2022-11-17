@@ -1,5 +1,6 @@
 import { FormEvent } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 import Button from "../../components/ui/Button";
 import Input from "../../components/form/Input";
@@ -9,11 +10,17 @@ import {
     VALIDATOR_MIN_LENGTH,
     VALIDATOR_PASSWORD_CHECK,
 } from "../../utils/validator";
+import useFormValidity from "../../hooks/useFormValidity";
+import useHttpClient from "../../hooks/useHttpClient";
+import AuthActions from "../../redux/auth-slice";
 
 import s from "../../styles/css/Cta.module.css";
-import useFormValidity from "../../hooks/useFormValidity";
 
 const Cta: React.FC = () => {
+    const { sendRequest, error } = useHttpClient();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const [inputInfoObject, formIsValid, changeHandler] = useFormValidity(
         {
             email: {
@@ -32,11 +39,39 @@ const Cta: React.FC = () => {
         false
     );
 
-    const submitHandler = (event: FormEvent) => {
-        event.preventDefault();
-    };
-
+    const { value: enteredEmail } = inputInfoObject.email!;
     const { value: enteredPassword } = inputInfoObject.password!;
+
+    const submitHandler = async (event: FormEvent) => {
+        event.preventDefault();
+
+        try {
+            const responseData = await sendRequest(
+                `${process.env.REACT_APP_BACKEND_URL}users/signup`,
+                "POST",
+                JSON.stringify({
+                    email: enteredEmail,
+                    password: enteredPassword,
+                }),
+                {
+                    "Content-Type": "application/json",
+                }
+            );
+
+            dispatch(
+                AuthActions.login({
+                    userId: responseData.userId,
+                    token: responseData.token,
+                })
+            );
+        } catch (err: any) {
+            console.log(err.message);
+            return;
+        }
+
+        alert("註冊成功");
+        navigate("/user");
+    };
 
     return (
         <section className={`container ${s.cta}`}>
@@ -86,6 +121,7 @@ const Cta: React.FC = () => {
                                 註冊
                             </Button>
                         </form>
+                        {error && <p className={s["error-message"]}>{error}</p>}
                         <div className={s["cta__switch-to-login"]}>
                             <span>已有帳號？</span>
                             <Link to="/auth">登入</Link>
