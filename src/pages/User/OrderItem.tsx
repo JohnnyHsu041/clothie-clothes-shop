@@ -46,7 +46,9 @@ const OrderItem: React.FC<OrderItemProps> = (props) => {
                     ))}
                 </ul>
             </div>
-            <div>{props.order.totalAmount}</div>
+            <div className={s["order-item__amount"]}>
+                {props.order.totalAmount}
+            </div>
             <Button onClick={deleteHandler}>刪除</Button>
         </li>
     );

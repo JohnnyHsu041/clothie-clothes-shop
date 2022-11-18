@@ -1,7 +1,12 @@
+@import "../../colors"
+
 .order-item
     display flex
     width 100%
     min-height 5rem
+    margin-top 1.2rem
+    border-bottom 1px solid $ctaBorder
+    padding-bottom 1.2rem
 
     div, button
         display flex
@@ -17,4 +22,9 @@
 
 .order-item__content
     list-style none
+
+.order-item__amount
+    &::before
+        content "NT. "
+        font-size 0.4rem
     

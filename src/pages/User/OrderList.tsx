@@ -74,7 +74,7 @@ const OrderList: React.FC = () => {
                 <div>訂單編號</div>
                 <div>訂單內容</div>
                 <div>金額</div>
-                <div>修改</div>
+                <div>訂單管理</div>
             </div>
             <ul className={s.order}>
                 {loadedOrders.map((order: Order) => (

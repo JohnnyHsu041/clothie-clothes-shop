@@ -2,6 +2,9 @@
   display: flex;
   width: 100%;
   min-height: 5rem;
+  margin-top: 1.2rem;
+  border-bottom: 1px solid #e1e1e1;
+  padding-bottom: 1.2rem;
 }
 .order-item div,
 .order-item button {
@@ -19,4 +22,8 @@
 }
 .order-item__content {
   list-style: none;
+}
+.order-item__amount::before {
+  content: "NT. ";
+  font-size: 0.4rem;
 }
