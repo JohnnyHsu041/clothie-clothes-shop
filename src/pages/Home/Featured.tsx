@@ -19,7 +19,8 @@ const Featured: React.FC = () => {
     const productsShownAtOnce = 3;
     const positionToStart = 0;
     const amountOfProducts = 5;
-    const transitDistance = 355;
+    let transitDistance = 355;
+
     const [prev, next] = useCarouselArrow(
         productsShownAtOnce,
         positionToStart,
