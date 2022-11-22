@@ -73,3 +73,8 @@
   background-color: #e1e1e1;
   color: #343a40;
 }
+@media (max-width: 66em) {
+  .order {
+    width: 100rem;
+  }
+}

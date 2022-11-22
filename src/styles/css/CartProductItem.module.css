@@ -20,3 +20,8 @@
   position: absolute;
   left: calc(271px * 3 + 10px);
 }
+@media (max-width: 66em) {
+  .product button {
+    left: calc(271px * 2 + 125px);
+  }
+}

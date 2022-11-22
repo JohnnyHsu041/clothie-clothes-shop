@@ -1,4 +1,4 @@
-import { MouseEventHandler, useRef, useEffect } from "react";
+import { MouseEventHandler, useRef, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import Arrow from "../../../components/ui/Arrow";
@@ -31,11 +31,12 @@ const SingleProduct: React.FC = () => {
     const dispatch = useDispatch();
 
     const carouselRef = useRef<HTMLUListElement>(null);
+    const [productWidth, setProdcutWidth] = useState(0);
     const [prev, next] = useCarouselArrow(
         1,
         0,
         productInfo.images.length,
-        600,
+        productWidth,
         carouselRef
     );
 
@@ -70,6 +71,17 @@ const SingleProduct: React.FC = () => {
 
         dispatch(CartActions.add({ ...productInfo, id: productInfo.id }));
     };
+
+    useEffect(() => {
+        const coords = carouselRef.current?.getBoundingClientRect();
+
+        window.addEventListener("resize", () => {
+            const coords = carouselRef.current?.getBoundingClientRect();
+            setProdcutWidth(coords!.width);
+        });
+
+        setProdcutWidth(coords!.width);
+    }, []);
 
     useEffect(() => {
         const getProductById = async () => {

@@ -63,3 +63,8 @@
   padding: 0 12.8rem;
   margin: 4.8rem 12.8rem 0 12.8rem;
 }
+@media (max-width: 66em) {
+  .footer-container {
+    padding: 0;
+  }
+}
