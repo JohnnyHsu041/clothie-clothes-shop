@@ -60,3 +60,11 @@
     width: 90rem;
   }
 }
+@media (max-width: 48em) {
+  .cart-container {
+    width: 60rem;
+  }
+  .type-bar {
+    font-size: 1.4rem;
+  }
+}

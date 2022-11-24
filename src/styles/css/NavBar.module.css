@@ -79,3 +79,27 @@
   width: 2rem;
   color: #b3b3b3;
 }
+@media (max-width: 48em) {
+  .logo a {
+    font-size: 3.6rem;
+  }
+  .main-nav a {
+    font-size: 1.4rem;
+  }
+  .user-nav__cart {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+  .user-nav__cart svg {
+    width: 2rem;
+    height: 2rem;
+  }
+  .user-nav__avatar {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+  .user-nav__avatar svg {
+    width: 2rem;
+    height: 2rem;
+  }
+}

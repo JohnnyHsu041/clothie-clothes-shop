@@ -27,3 +27,13 @@
   content: "NT. ";
   font-size: 0.4rem;
 }
+@media (max-width: 48em) {
+  .order-item {
+    min-height: 2.5rem;
+    font-size: 1rem;
+  }
+  .order-item div,
+  .order-item button {
+    width: 5rem;
+  }
+}

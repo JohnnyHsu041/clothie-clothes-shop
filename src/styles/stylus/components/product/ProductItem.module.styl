@@ -2,6 +2,10 @@
     height 46rem
     width 100%
 
+.product.featured-carousel
+    a
+        width 35rem
+
 .product-container
     position relative 
 
@@ -35,3 +39,14 @@
     letter-spacing 0.8px
     & ::before
         content "NT. "
+
+@media (max-width 77em)
+    .product.featured-carousel
+        a
+            width 30rem
+
+@media (max-width 48em)
+    .product
+        height 40rem
+    .product-img
+        height 34rem

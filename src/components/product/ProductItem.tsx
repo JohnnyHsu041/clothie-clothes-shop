@@ -12,13 +12,13 @@ interface ProductItemProps {
 
 const ProductItem: React.FC<ProductItemProps> = (props) => {
     return (
-        <li className={s.product}>
+        <li
+            className={`${s.product} ${
+                props.className ? s[props.className] : ""
+            }`}
+        >
             <Link to={`/clothing/${props.id}`}>
-                <div
-                    className={`${s["product-container"]} ${
-                        props.className ? s[props.className] : ""
-                    }`}
-                >
+                <div className={s["product-container"]}>
                     <div className={s["product-img"]}>
                         <img
                             src={process.env.REACT_APP_BACKEND + props.image}

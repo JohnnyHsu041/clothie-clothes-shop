@@ -21,9 +21,9 @@
     margin-top 4.8rem
 
 .hero-intro__title
-  font-size 8.6rem
   line-height 1
   letter-spacing -2px
+  z-index 2
 
   p
     font-size 9.8rem
@@ -43,3 +43,17 @@
 
 .arrow
   width 2.4rem
+
+@media (max-width 48em)
+  .hero
+    gap 4.4rem
+  .hero-intro
+    height 20rem
+  .hero-intro__title
+    p
+      font-size 7.4rem
+    span
+      font-size 7.4rem
+  .hero-img
+    width 50%
+    height 50rem

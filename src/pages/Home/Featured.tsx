@@ -16,13 +16,13 @@ const Featured: React.FC = () => {
 
     const [loadedProducts, setLoadedProducts] = useState<Product[]>([]);
 
-    const productsShownAtOnce = 3;
+    const [showAtOnce, setShowAtOnce] = useState(3);
     const positionToStart = 0;
     const amountOfProducts = 5;
     const [transitDistance, setTransitDistance] = useState(0);
 
     const [prev, next] = useCarouselArrow(
-        productsShownAtOnce,
+        showAtOnce,
         positionToStart,
         amountOfProducts,
         transitDistance,
@@ -36,12 +36,22 @@ const Featured: React.FC = () => {
                     carouselRef.current!.children[0].getBoundingClientRect();
                 const secondProductCoords =
                     carouselRef.current!.children[1].getBoundingClientRect();
-                console.log("work");
+
                 const gap = secondProductCoords.left - firstProductCoords.right;
+
                 setTransitDistance(firstProductCoords.width + gap);
             };
 
-            window.addEventListener("resize", changeTransitDistance);
+            window.addEventListener("resize", () => {
+                if (window.innerWidth < 1056) {
+                    setShowAtOnce(2);
+                } else {
+                    setShowAtOnce(3);
+                }
+
+                changeTransitDistance();
+            });
+
             changeTransitDistance();
         }
     }, [loadedProducts]);

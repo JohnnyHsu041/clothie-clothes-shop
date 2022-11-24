@@ -8,3 +8,14 @@
   left: 50%;
   transform: translateX(-50%);
 }
+@media (max-width: 48em) {
+  .user-info {
+    width: 30rem;
+  }
+  .user-info input {
+    font-size: 1.2rem;
+  }
+  .user-info label {
+    font-size: 1.2rem;
+  }
+}

@@ -163,3 +163,15 @@
     width: 100%;
   }
 }
+@media (max-width: 48em) {
+  .single-product {
+    grid-template-columns: 1fr;
+  }
+  .img-carousel {
+    justify-content: center;
+    padding: 0;
+  }
+  .product-info__amount {
+    width: 50%;
+  }
+}

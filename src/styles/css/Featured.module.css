@@ -24,3 +24,8 @@
     max-width: 95rem;
   }
 }
+@media (max-width: 48em) {
+  .featured {
+    max-width: 74rem;
+  }
+}

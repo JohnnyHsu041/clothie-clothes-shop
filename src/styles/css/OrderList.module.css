@@ -22,3 +22,11 @@
   flex-direction: column;
   font-size: 1.4rem;
 }
+@media (max-width: 48em) {
+  .title {
+    font-size: 1.2rem;
+  }
+  .title div {
+    width: 5rem;
+  }
+}

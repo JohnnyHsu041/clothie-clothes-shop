@@ -78,3 +78,18 @@
     width: 100rem;
   }
 }
+@media (max-width: 48em) {
+  .order {
+    width: 70rem;
+  }
+  .order h2 {
+    font-size: 2.4rem;
+  }
+  .order-info {
+    grid-template-columns: 1fr;
+  }
+  .overview-container {
+    grid-row: 1;
+    border-left: none;
+  }
+}

@@ -1,5 +1,5 @@
 import { FormEvent } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 import Button from "../../components/ui/Button";
@@ -15,11 +15,14 @@ import useHttpClient from "../../hooks/useHttpClient";
 import AuthActions from "../../redux/auth-slice";
 
 import s from "../../styles/css/Cta.module.css";
+import { RootState } from "../../redux/store";
 
 const Cta: React.FC = () => {
     const { sendRequest, error } = useHttpClient();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const auth = useSelector((state: RootState) => state.auth);
 
     const [inputInfoObject, formIsValid, changeHandler] = useFormValidity(
         {
@@ -122,7 +125,7 @@ const Cta: React.FC = () => {
                         {error && <p className={s["error-message"]}>{error}</p>}
                         <div className={s["cta__switch-to-login"]}>
                             <span>已有帳號？</span>
-                            <Link to="/auth">登入</Link>
+                            <Link to="/user">登入</Link>
                         </div>
                     </div>
                 </div>

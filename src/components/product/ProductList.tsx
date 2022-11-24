@@ -31,6 +31,7 @@ const ProductList = React.forwardRef<Ref, ProductListProps>((props, ref) => {
                     name={product.name}
                     image={product.images[0]}
                     price={product.price}
+                    className={props.className}
                 />
             ))}
         </ul>

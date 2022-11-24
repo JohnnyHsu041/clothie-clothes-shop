@@ -25,3 +25,17 @@
     left: calc(271px * 2 + 125px);
   }
 }
+@media (max-width: 48em) {
+  .product {
+    font-size: 1.2rem;
+  }
+  .product button {
+    left: calc(271px + 175px);
+  }
+  .product button span {
+    font-size: 1.2rem;
+  }
+  .product-amount select {
+    font-size: 1.2rem;
+  }
+}
