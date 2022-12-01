@@ -103,3 +103,13 @@
     height: 2rem;
   }
 }
+@media (max-width: 27em) {
+  .main-nav {
+    display: none;
+    pointer-events: none;
+  }
+  .user-nav__avatar {
+    display: none;
+    pointer-events: none;
+  }
+}

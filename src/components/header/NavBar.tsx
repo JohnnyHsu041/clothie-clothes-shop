@@ -4,7 +4,11 @@ import { RootState } from "../../redux/store";
 import s from "../../styles/css/NavBar.module.css";
 import Button from "../ui/Button";
 
-const NavBar: React.FC = () => {
+interface NavBarProps {
+    showSideDrawer: () => void;
+}
+
+const NavBar: React.FC<NavBarProps> = (props) => {
     const cart = useSelector((state: RootState) => state.cart);
     const productAmountInCart = cart.amountOfCartProducts;
 
@@ -87,6 +91,9 @@ const NavBar: React.FC = () => {
                         </svg>
                     </div>
                 </Button>
+                <div className={s["menu-button"]}>
+                    <Button onClick={props.showSideDrawer}>選單</Button>
+                </div>
             </nav>
         </div>
     );
