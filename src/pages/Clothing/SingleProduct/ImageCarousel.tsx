@@ -20,7 +20,7 @@ const ImageCarousel = React.forwardRef<Ref, ImageCarouselProps>(
                             <img
                                 src={
                                     image
-                                        ? `http://localhost:8080/${image}`
+                                        ? `${process.env.REACT_APP_BACKEND_URL}${image}`
                                         : ""
                                 }
                                 alt="one of the product images"
