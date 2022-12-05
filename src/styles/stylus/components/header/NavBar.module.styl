@@ -82,6 +82,9 @@
         width 2rem
         color #b3b3b3
 
+.menu-button
+     display none
+
 @media (max-width 48em)
     .logo
         a 
@@ -103,9 +106,14 @@
             height 2rem
 
 @media (max-width 27em)
+    .menu-button
+        display block
     .main-nav
         display none
         pointer-events none
     .user-nav__avatar
         display none
         pointer-events none
+
+    .user-nav
+        gap 1.2rem

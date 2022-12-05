@@ -60,3 +60,22 @@
     height: 50rem;
   }
 }
+@media (max-width: 27em) {
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .hero-intro {
+    width: 45%;
+    justify-self: center;
+  }
+  .hero-intro__title span {
+    font-size: 6.2rem;
+  }
+  .hero-intro__title p {
+    font-size: 6.2rem;
+  }
+  .hero-img {
+    width: 100%;
+  }
+}

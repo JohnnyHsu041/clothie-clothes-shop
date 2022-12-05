@@ -31,7 +31,15 @@ const Featured: React.FC = () => {
 
     useEffect(() => {
         if (loadedProducts && loadedProducts.length > 0) {
-            const changeTransitDistance = () => {
+            const changeCarouselStyling = () => {
+                if (window.innerWidth < 433) {
+                    setShowAtOnce(1);
+                } else if (window.innerWidth < 1056) {
+                    setShowAtOnce(2);
+                } else {
+                    setShowAtOnce(3);
+                }
+
                 const firstProductCoords =
                     carouselRef.current!.children[0].getBoundingClientRect();
                 const secondProductCoords =
@@ -43,16 +51,10 @@ const Featured: React.FC = () => {
             };
 
             window.addEventListener("resize", () => {
-                if (window.innerWidth < 1056) {
-                    setShowAtOnce(2);
-                } else {
-                    setShowAtOnce(3);
-                }
-
-                changeTransitDistance();
+                changeCarouselStyling();
             });
 
-            changeTransitDistance();
+            changeCarouselStyling();
         }
     }, [loadedProducts]);
 

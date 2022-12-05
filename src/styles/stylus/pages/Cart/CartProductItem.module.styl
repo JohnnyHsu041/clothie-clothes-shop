@@ -37,3 +37,16 @@
     .product-amount
         select
             font-size 1.2rem
+
+@media (max-width 27em)
+    .product
+        font-size 1.4rem
+        margin 2.4rem 0 0 0
+
+        & div:not(:first-child)
+            text-align center
+        & div:last-child
+            text-align end
+
+        button
+            left calc(240px)

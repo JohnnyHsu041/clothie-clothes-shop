@@ -17,7 +17,7 @@ const ProductItem: React.FC<ProductItemProps> = (props) => {
                 props.className ? s[props.className] : ""
             }`}
         >
-            <Link to={`/clothing/${props.id}`}>
+            <Link to={`/clothing/products/${props.id}`}>
                 <div className={s["product-container"]}>
                     <div className={s["product-img"]}>
                         <img

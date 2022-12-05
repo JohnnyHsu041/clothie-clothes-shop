@@ -68,3 +68,21 @@
     font-size: 1.4rem;
   }
 }
+@media (max-width: 27em) {
+  .cart-container {
+    width: 35rem;
+    padding: 0 1.2rem 2.4rem 1.2rem;
+  }
+  .type-bar {
+    display: none;
+  }
+  .division {
+    display: none;
+  }
+  .amount-container {
+    justify-content: center;
+  }
+  .amount {
+    justify-items: center;
+  }
+}

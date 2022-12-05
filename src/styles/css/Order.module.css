@@ -93,3 +93,15 @@
     border-left: none;
   }
 }
+@media (max-width: 27em) {
+  .order {
+    width: 36rem;
+  }
+  .buyer-info-container {
+    margin: 6.4rem 0 2.4rem 0;
+  }
+  .infos {
+    margin-bottom: 5rem;
+    padding: 0 2.4rem 8rem 2.4rem;
+  }
+}

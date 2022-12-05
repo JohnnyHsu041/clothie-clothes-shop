@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import s from "../../styles/css/Footer.module.css";
 
 const Footer: React.FC = () => {
@@ -84,26 +84,26 @@ const Footer: React.FC = () => {
                     <nav>
                         <p>Clothing</p>
                         <ul className={s.clothing}>
-                            <li>
-                                <Link to="/new-in">最新商品</Link>
-                            </li>
-                            <li>
-                                <Link to="/clothing">所有服飾</Link>
-                            </li>
-                            <li>
-                                <Link to="/accs">鞋子飾品</Link>
-                            </li>
+                            <NavLink to="clothing/new-in">
+                                <li>最新商品</li>
+                            </NavLink>
+                            <NavLink to="clothing">
+                                <li>所有服飾</li>
+                            </NavLink>
+                            <NavLink to="clothing/accs">
+                                <li>鞋子飾品</li>
+                            </NavLink>
                         </ul>
                     </nav>
                     <nav>
                         <p>Account</p>
                         <ul className={s.account}>
-                            <li>
-                                <Link to="/user">會員首頁</Link>
-                            </li>
-                            <li>
-                                <Link to="/user/orderlist">訂單管理</Link>
-                            </li>
+                            <NavLink to="user">
+                                <li>會員首頁</li>
+                            </NavLink>
+                            <NavLink to="user/orderlist">
+                                <li>訂單管理</li>
+                            </NavLink>
                         </ul>
                     </nav>
                 </div>

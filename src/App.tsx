@@ -29,9 +29,9 @@ function App() {
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/clothing/" element={<Clothing />} />
-            <Route path="/clothing/:pid" element={<SingleProduct />} />
-            <Route path="/new-in" element={<NewIn />} />
-            <Route path="/accs" element={<Accessories />} />
+            <Route path="/clothing/products/:pid" element={<SingleProduct />} />
+            <Route path="/clothing/new-in" element={<NewIn />} />
+            <Route path="/clothing/accs" element={<Accessories />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/user/*" element={<User />} />
             <Route path="/order" element={<Order />} />
@@ -43,9 +43,9 @@ function App() {
         <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/clothing/" element={<Clothing />} />
-            <Route path="/clothing/:pid" element={<SingleProduct />} />
-            <Route path="/new-in" element={<NewIn />} />
-            <Route path="/accs" element={<Accessories />} />
+            <Route path="/clothing/products/:pid" element={<SingleProduct />} />
+            <Route path="/clothing/new-in" element={<NewIn />} />
+            <Route path="/clothing/accs" element={<Accessories />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/user/*" element={<Redirect />} />
             <Route path="/cart" element={<Redirect />} />

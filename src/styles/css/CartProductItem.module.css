@@ -39,3 +39,18 @@
     font-size: 1.2rem;
   }
 }
+@media (max-width: 27em) {
+  .product {
+    font-size: 1.4rem;
+    margin: 2.4rem 0 0 0;
+  }
+  .product div:not(:first-child) {
+    text-align: center;
+  }
+  .product div:last-child {
+    text-align: end;
+  }
+  .product button {
+    left: calc(240px);
+  }
+}

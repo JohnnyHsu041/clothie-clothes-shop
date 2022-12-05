@@ -99,7 +99,7 @@ const Cta: React.FC = () => {
                                 type="password"
                                 title="密碼"
                                 placeholder="密碼最少6碼，最多10碼"
-                                style={{ marginBottom: "0.8rem" }}
+                                style={{ marginBottom: "1.6rem" }}
                                 validators={[
                                     VALIDATOR_MIN_LENGTH(6),
                                     VALIDATOR_MAX_LENGTH(10),

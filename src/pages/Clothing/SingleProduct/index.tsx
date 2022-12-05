@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import Arrow from "../../../components/ui/Arrow";
 import Button from "../../../components/ui/Button";
 import useCarouselArrow from "../../../hooks/useCarouselArrow";
-import ImageCarousel from "../ImageCarousel";
+import ImageCarousel from "./ImageCarousel";
 import CartActions, { Product } from "../../../redux/cart-slice";
 import useProductInfo from "../../../hooks/useProductInfo";
 import useHttpClient from "../../../hooks/useHttpClient";
@@ -14,7 +14,7 @@ import LoadingSpinner from "../../../components/ui/LoadingSpinner";
 import s from "../../../styles/css/SingleProduct.module.css";
 
 const SingleProduct: React.FC = () => {
-    const productId = window.location.pathname.split("/clothing/")[1];
+    const productId = window.location.pathname.split("/clothing/products/")[1];
     const { sendRequest, isLoading, error, clearError } = useHttpClient();
 
     const {

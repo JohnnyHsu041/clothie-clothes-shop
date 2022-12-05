@@ -30,3 +30,8 @@
 .switch-to-registry span {
   font-size: 1.4rem;
 }
+@media (max-width: 27em) {
+  .auth-container {
+    width: 35rem;
+  }
+}

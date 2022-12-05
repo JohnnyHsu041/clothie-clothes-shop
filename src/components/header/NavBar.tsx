@@ -30,7 +30,7 @@ const NavBar: React.FC<NavBarProps> = (props) => {
                 </div>
                 <div>
                     <NavLink
-                        to="new-in"
+                        to="clothing/new-in"
                         className={(navData) =>
                             navData.isActive ? s.active : ""
                         }
@@ -40,7 +40,7 @@ const NavBar: React.FC<NavBarProps> = (props) => {
                 </div>
                 <div>
                     <NavLink
-                        to="accs"
+                        to="clothing/accs"
                         className={(navData) =>
                             navData.isActive ? s.active : ""
                         }

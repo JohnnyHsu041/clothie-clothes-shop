@@ -38,3 +38,15 @@
     font-size: 1.2rem;
   }
 }
+@media (max-width: 27em) {
+  .user {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .catalog {
+    border-bottom: 1px solid #000;
+  }
+  .catalog button {
+    font-size: 1.4rem;
+  }
+}
