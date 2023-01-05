@@ -1,6 +1,7 @@
 # Clothie：簡約風服飾網站
 
 [Demo](https://clothie-3717b.web.app/)
+<img width="1440" alt="clothie首頁" src="https://user-images.githubusercontent.com/87815117/210706234-335db89e-2dd7-4f9e-b50f-f8d8919efb49.png">
 
 ## 功能
 
