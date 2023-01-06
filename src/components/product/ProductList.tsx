@@ -2,6 +2,7 @@ import React from "react";
 import ProductItem from "./ProductItem";
 
 import s from "../../styles/css/ProductList.module.css";
+import useImageLazyLoading from "../../hooks/useImageLazyLoading";
 
 export interface Product {
     id: string;
@@ -22,6 +23,8 @@ interface ProductListProps {
 type Ref = HTMLUListElement;
 
 const ProductList = React.forwardRef<Ref, ProductListProps>((props, ref) => {
+    useImageLazyLoading();
+
     return (
         <ul ref={ref} className={s[props.className]}>
             {props.products.map((product) => (

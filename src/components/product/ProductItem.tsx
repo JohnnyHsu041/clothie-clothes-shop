@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+
 import s from "../../styles/css/ProductItem.module.css";
 
 interface ProductItemProps {
@@ -21,8 +22,12 @@ const ProductItem: React.FC<ProductItemProps> = (props) => {
                 <div className={s["product-container"]}>
                     <div className={s["product-img"]}>
                         <img
-                            src={process.env.REACT_APP_BACKEND + props.image}
+                            src=""
+                            data-src={
+                                process.env.REACT_APP_BACKEND + props.image
+                            }
                             alt="product"
+                            className="product-image"
                         />
                     </div>
                     <div className={s["product-info"]}>
