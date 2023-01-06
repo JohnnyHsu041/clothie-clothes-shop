@@ -17,7 +17,7 @@ const Redirect: React.FC = () => {
         ) {
             navigate(path);
         } else {
-            navigate("/auth");
+            navigate("/auth", { replace: true });
         }
     }, [navigate, path]);
 

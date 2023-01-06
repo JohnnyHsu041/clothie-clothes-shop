@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import useHttpClient from "../../../hooks/useHttpClient";
-import "../../../styles/css/global.css";
-import ClothingPage from "../ClothingPage";
-import { Product } from "../../../components/product/ProductList";
-import ErrorModal from "../../../components/ui/ErrorModal";
-import LoadingSpinner from "../../../components/ui/LoadingSpinner";
+import useHttpClient from "../../hooks/useHttpClient";
+import "../../styles/css/global.css";
+import ClothingPage from "../Clothing/ClothingPage";
+import { Product } from "../../components/product/ProductList";
+import ErrorModal from "../../components/ui/ErrorModal";
+import LoadingSpinner from "../../components/ui/LoadingSpinner";
 
 const NewIn: React.FC = () => {
     const [loadedProducts, setLoadedProducts] = useState<Product[]>([]);

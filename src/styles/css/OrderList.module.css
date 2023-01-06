@@ -16,6 +16,10 @@
 .title div:nth-child(2) {
   flex-grow: 2;
 }
+.order-container {
+  height: 35rem;
+  overflow: scroll;
+}
 .order {
   list-style: none;
   display: flex;
@@ -28,6 +32,9 @@
   }
   .title div {
     width: 5rem;
+  }
+  .order-container {
+    height: 26rem;
   }
 }
 @media (max-width: 27em) {

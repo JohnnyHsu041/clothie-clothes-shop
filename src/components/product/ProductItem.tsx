@@ -22,7 +22,7 @@ const ProductItem: React.FC<ProductItemProps> = (props) => {
                 <div className={s["product-container"]}>
                     <div className={s["product-img"]}>
                         <img
-                            src=""
+                            src="/images/grey.jpeg"
                             data-src={
                                 process.env.REACT_APP_BACKEND + props.image
                             }

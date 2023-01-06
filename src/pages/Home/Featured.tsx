@@ -76,11 +76,11 @@ const Featured: React.FC = () => {
 
     return (
         <section className={s.featured}>
-            {error && <ErrorModal error={error} onClear={clearError} />}
-            {isLoading && <LoadingSpinner />}
-            {!isLoading && loadedProducts && (
-                <>
-                    <h2 className={s["featured-title"]}>featured.</h2>
+            <h2 className={s["featured-title"]}>featured.</h2>
+            <div className={s["featured-content"]}>
+                {error && <ErrorModal error={error} onClear={clearError} />}
+                {isLoading && <LoadingSpinner />}
+                {!isLoading && loadedProducts && (
                     <div className={s["featured-carousel"]}>
                         <Button onClick={prev}>
                             <Arrow type="left" />
@@ -96,8 +96,8 @@ const Featured: React.FC = () => {
                             <Arrow type="right" />
                         </Button>
                     </div>
-                </>
-            )}
+                )}
+            </div>
         </section>
     );
 };

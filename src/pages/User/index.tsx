@@ -114,7 +114,7 @@ const User: React.FC = () => {
     };
 
     return (
-        <section className={`container ${s["user-container"]}`}>
+        <section className={`page ${s["user-container"]}`}>
             {error && (
                 <ErrorModal
                     error={error}

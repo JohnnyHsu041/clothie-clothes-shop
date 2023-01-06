@@ -100,6 +100,8 @@ const Order: React.FC = () => {
 
         const sendOrder = async () => {
             try {
+                window.scrollTo(0, 0);
+
                 const responseData = await sendRequest(
                     `${process.env.REACT_APP_BACKEND_URL}orders`,
                     "POST",
@@ -139,90 +141,101 @@ const Order: React.FC = () => {
         <section className={s.order}>
             {isLoading && <LoadingSpinner />}
             {error && <ErrorModal error={error} onClear={clearError} />}
-            <h2>訂單建立</h2>
-            <StepsBar step={currentStep} isLastStep={isLastStep} />
-            <div className={s["order-info"]}>
-                <form
-                    className={s["buyer-info-container"]}
-                    onSubmit={submitHandler}
-                >
-                    <div className={s.infos}>
-                        {isFirstStep && (
-                            <AddressSection
-                                onChange={changeHandler}
-                                value={{
-                                    name: name!.value,
-                                    email: email!.value,
-                                    cellphone: cellphone!.value,
-                                    address: address!.value,
-                                }}
-                                isValid={{
-                                    name: name!.isValid,
-                                    email: email!.isValid,
-                                    cellphone: cellphone!.isValid,
-                                    address: address!.isValid,
-                                }}
-                            />
-                        )}
-                        {currentStep === 2 && (
-                            <DeliverySection
-                                onChange={changeHandler}
-                                checked={delivery!.value}
-                            />
-                        )}
-                        {isLastStep && (
-                            <PaymentSection
-                                onChange={changeHandler}
-                                value={{
-                                    creditCardNumber: creditCardNumber!.value,
-                                    cardHolder: cardHolder!.value,
-                                    cardExpiration: cardExpiration!.value,
-                                    cvc: cvc!.value,
-                                }}
-                                isValid={{
-                                    creditCardNumber: creditCardNumber!.isValid,
-                                    cardHolder: cardHolder!.isValid,
-                                    cardExpiration: cardExpiration!.isValid,
-                                    cvc: cvc!.isValid,
-                                }}
-                            />
-                        )}
-                    </div>
-                    <div className={s["step-buttons"]}>
-                        <div className={s.prev}>
-                            {!isFirstStep && (
-                                <div onClick={prevStep}>
-                                    <span>上一步</span>
+            {!isLoading && (
+                <>
+                    <h2>訂單建立</h2>
+                    <StepsBar step={currentStep} isLastStep={isLastStep} />
+                    <div className={s["order-info"]}>
+                        <form
+                            className={s["buyer-info-container"]}
+                            onSubmit={submitHandler}
+                        >
+                            <div className={s.infos}>
+                                {isFirstStep && (
+                                    <AddressSection
+                                        onChange={changeHandler}
+                                        value={{
+                                            name: name!.value,
+                                            email: email!.value,
+                                            cellphone: cellphone!.value,
+                                            address: address!.value,
+                                        }}
+                                        isValid={{
+                                            name: name!.isValid,
+                                            email: email!.isValid,
+                                            cellphone: cellphone!.isValid,
+                                            address: address!.isValid,
+                                        }}
+                                    />
+                                )}
+                                {currentStep === 2 && (
+                                    <DeliverySection
+                                        onChange={changeHandler}
+                                        checked={delivery!.value}
+                                    />
+                                )}
+                                {isLastStep && (
+                                    <PaymentSection
+                                        onChange={changeHandler}
+                                        value={{
+                                            creditCardNumber:
+                                                creditCardNumber!.value,
+                                            cardHolder: cardHolder!.value,
+                                            cardExpiration:
+                                                cardExpiration!.value,
+                                            cvc: cvc!.value,
+                                        }}
+                                        isValid={{
+                                            creditCardNumber:
+                                                creditCardNumber!.isValid,
+                                            cardHolder: cardHolder!.isValid,
+                                            cardExpiration:
+                                                cardExpiration!.isValid,
+                                            cvc: cvc!.isValid,
+                                        }}
+                                    />
+                                )}
+                            </div>
+                            <div className={s["step-buttons"]}>
+                                <div className={s.prev}>
+                                    {!isFirstStep && (
+                                        <div onClick={prevStep}>
+                                            <span>上一步</span>
+                                        </div>
+                                    )}
                                 </div>
-                            )}
+                                {!isLastStep ? (
+                                    <div className={s.next}>
+                                        <div onClick={nextStep}>
+                                            <span>下一步 &rarr;</span>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div
+                                        className={`${s.check} ${
+                                            !formIsValid ? s.disabled : ""
+                                        }`}
+                                    >
+                                        <Button
+                                            type="submit"
+                                            disabled={!formIsValid}
+                                        >
+                                            <span>確認下單</span>
+                                        </Button>
+                                    </div>
+                                )}
+                            </div>
+                        </form>
+                        <div className={s["overview-container"]}>
+                            <Overview
+                                deliveryAmount={delivery!.value}
+                                cartProducts={cart.products}
+                                totalAmount={cart.totalAmount}
+                            />
                         </div>
-                        {!isLastStep ? (
-                            <div className={s.next}>
-                                <div onClick={nextStep}>
-                                    <span>下一步 &rarr;</span>
-                                </div>
-                            </div>
-                        ) : (
-                            <div
-                                className={`${s.check} ${
-                                    !formIsValid ? s.disabled : ""
-                                }`}
-                            >
-                                <Button type="submit" disabled={!formIsValid}>
-                                    <span>確認下單</span>
-                                </Button>
-                            </div>
-                        )}
                     </div>
-                </form>
-                <div className={s["overview-container"]}>
-                    <Overview
-                        deliveryAmount={delivery!.value}
-                        cartProducts={cart.products}
-                        totalAmount={cart.totalAmount}
-                    />
-                </div>
-            </div>
+                </>
+            )}
         </section>
     );
 };

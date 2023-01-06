@@ -84,13 +84,13 @@ const Footer: React.FC = () => {
                     <nav>
                         <p>Clothing</p>
                         <ul className={s.clothing}>
-                            <NavLink to="clothing/new-in">
+                            <NavLink to="new-in">
                                 <li>最新商品</li>
                             </NavLink>
                             <NavLink to="clothing">
                                 <li>所有服飾</li>
                             </NavLink>
-                            <NavLink to="clothing/accs">
+                            <NavLink to="accs">
                                 <li>鞋子飾品</li>
                             </NavLink>
                         </ul>

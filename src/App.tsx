@@ -1,9 +1,9 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import Home from "./pages/Home";
-import NewIn from "./pages/Clothing/NewIn";
+import NewIn from "./pages/NewIn";
 import Clothing from "./pages/Clothing";
-import Accessories from "./pages/Clothing/Accessories";
+import Accessories from "./pages/Accessories";
 import Cart from "./pages/Cart";
 import User from "./pages/User";
 import Auth from "./pages/Auth";
@@ -30,13 +30,12 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/clothing/" element={<Clothing />} />
             <Route path="/clothing/products/:pid" element={<SingleProduct />} />
-            <Route path="/clothing/new-in" element={<NewIn />} />
-            <Route path="/clothing/accs" element={<Accessories />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route path="/new-in" element={<NewIn />} />
+            <Route path="/accs" element={<Accessories />} />
             <Route path="/user/*" element={<User />} />
+            <Route path="/cart" element={<Cart />} />
             <Route path="/order" element={<Order />} />
             <Route path="/order/completed/:oid" element={<OrderComplete />} />
-            <Route path="/auth" element={<Auth />} />
             <Route path="/*" element={<Navigate to="/" />} />
         </Routes>
     ) : (
@@ -44,14 +43,13 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/clothing/" element={<Clothing />} />
             <Route path="/clothing/products/:pid" element={<SingleProduct />} />
-            <Route path="/clothing/new-in" element={<NewIn />} />
-            <Route path="/clothing/accs" element={<Accessories />} />
+            <Route path="/new-in" element={<NewIn />} />
+            <Route path="/accs" element={<Accessories />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/user/*" element={<Redirect />} />
             <Route path="/cart" element={<Redirect />} />
             <Route path="/order" element={<Redirect />} />
-            <Route path="/order/completed/:oid" element={<Redirect />} />
-            <Route path="/*" element={<Navigate to="/auth" />} />
+            <Route path="/*" element={<Navigate to="/" />} />
         </Routes>
     );
 

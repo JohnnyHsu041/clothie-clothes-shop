@@ -76,11 +76,16 @@ const OrderList: React.FC = () => {
                 <div>金額</div>
                 <div>訂單管理</div>
             </div>
-            <ul className={s.order}>
-                {loadedOrders.map((order: Order) => (
-                    <OrderItem order={order} deleteHandler={deleteHandler} />
-                ))}
-            </ul>
+            <div className={s["order-container"]}>
+                <ul className={s.order}>
+                    {loadedOrders.map((order: Order) => (
+                        <OrderItem
+                            order={order}
+                            deleteHandler={deleteHandler}
+                        />
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 };

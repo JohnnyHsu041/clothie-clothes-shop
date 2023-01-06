@@ -42,6 +42,7 @@
     font-size: 1.4rem;
     flex-direction: column;
     gap: 2rem;
+    border-bottom: 1px solid #000;
   }
   .order-item div {
     width: 100%;
