@@ -51,16 +51,10 @@ const MainHeader: React.FC = () => {
                             <li>Shop All</li>
                         </NavLink>
 
-                        <NavLink
-                            to="clothing/new-in"
-                            onClick={closeSideDrawerHandler}
-                        >
+                        <NavLink to="new-in" onClick={closeSideDrawerHandler}>
                             <li>New In</li>
                         </NavLink>
-                        <NavLink
-                            to="clothing/accs"
-                            onClick={closeSideDrawerHandler}
-                        >
+                        <NavLink to="accs" onClick={closeSideDrawerHandler}>
                             <li>Accessories</li>
                         </NavLink>
                         <NavLink to="user" onClick={closeSideDrawerHandler}>
