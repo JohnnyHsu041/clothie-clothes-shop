@@ -1,4 +1,4 @@
-import { FormEvent, useEffect } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Button from "../../components/ui/Button";
@@ -13,6 +13,7 @@ import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import s from "../../styles/css/User.module.css";
 import OrderList from "./OrderList";
 import { RootState } from "../../redux/store";
+import Modal from "../../components/ui/Modal";
 
 const User: React.FC = () => {
     const {
@@ -22,6 +23,8 @@ const User: React.FC = () => {
         clearError,
         clearErrorAndDirectToHomePage,
     } = useHttpClient();
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
+
     const auth = useSelector((state: RootState) => state.auth);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -77,13 +80,19 @@ const User: React.FC = () => {
     const { value: enteredOldPassword } = inputInfoObject.oldPassword!;
     const { value: enteredNewPassword } = inputInfoObject.newPassword!;
 
-    const logoutHandler = () => {
-        const logoutConfirm = window.confirm("確定登出?");
+    const showLogoutModalHandler = () => {
+        setShowLogoutModal(true);
+    };
 
-        if (logoutConfirm) {
-            dispatch(AuthActions.logout());
-            navigate("/");
-        }
+    const closeLogoutModalHandler = () => {
+        document.body.style.overflow = "auto";
+        setShowLogoutModal(false);
+    };
+
+    const logoutHandler = () => {
+        document.body.style.overflow = "auto";
+        dispatch(AuthActions.logout());
+        navigate("/");
     };
 
     const modifyHandler = async (event: FormEvent) => {
@@ -115,6 +124,18 @@ const User: React.FC = () => {
 
     return (
         <section className={`page ${s["user-container"]}`}>
+            {showLogoutModal && (
+                <Modal
+                    show={showLogoutModal}
+                    onCancel={closeLogoutModalHandler}
+                    header={"是否登出？"}
+                    footer={
+                        <Button onClick={closeLogoutModalHandler}>取消</Button>
+                    }
+                >
+                    <Button onClick={logoutHandler}>登出</Button>
+                </Modal>
+            )}
             {error && (
                 <ErrorModal
                     error={error}
@@ -153,7 +174,7 @@ const User: React.FC = () => {
                             </NavLink>
                             <div
                                 className={s["catalog__logout"]}
-                                onClick={logoutHandler}
+                                onClick={showLogoutModalHandler}
                             >
                                 <Button>登出</Button>
                             </div>
