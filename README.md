@@ -307,7 +307,7 @@ const useMultiSteps: MultiStepsFunc = (initStep, totalSteps) => {
 ### 會員中心（密碼修改/訂單管理)
 
 <br>
-<img width="720" alt="會員密碼修改" src="https://user-images.githubusercontent.com/87815117/212447100-cd12f3a9-f812-4150-a64d-af0b446a1636.gif">
+<img width="640" alt="會員密碼修改" src="https://user-images.githubusercontent.com/87815117/212447100-cd12f3a9-f812-4150-a64d-af0b446a1636.gif">
 
 ## 使用方法
 
